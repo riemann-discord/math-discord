@@ -202,3 +202,62 @@ However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
   \node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
   \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
 \end{tikzpicture}}
+
+
+    
+\DeclareFactoid{power laws}{{\textbf{\color{pink}Rules for Powers/Exponents}}\\[3pt]
+%v1_050822_764959481070616617
+\colorbox{gray}{\begin{tabular}{l|l}
+\hline
+\\[-10pt]Product Rule&$a^xa^y=a^{x+y}$\\[5pt]\hline
+\\[-10pt]Negative Exponent&$a^{-x}=\frac{1}{a^x}$\\[10pt]\hline
+\\[-10pt]Quotient Rule&$\frac{a^x}{a^y}=a^{x-y}$\\[8pt]\hline
+\\[-10pt]Power of Power&$\left(a^x\right)^y=a^{xy}$\\[5pt]\hline
+\\[-10pt]Distributivity&$(ab)^x=a^xb^x$\\[5pt]\hline
+\\[-10pt]Zero Exponent&$a^0=1$\\[5pt]\hline
+\\[-10pt]Fractional Exponent&$a^{\frac{x}{y}}=\sqrt[y]{a^x}$\\[5pt]\hline
+\end{tabular}}}
+
+\DeclareFactoid{log laws}{{\textbf{\color{pink}Rules for Logarithms}}\\[3pt]
+%v1_050822_764959481070616617
+\colorbox{gray}{\begin{tabular}{l|l}
+\hline
+\\[-10pt]Product Rule&$\log_a(xy)=\log_a x+\log_a y$\\[5pt]\hline
+\\[-10pt]Quotient Rule&$\log_a\left(\frac{x}{y}\right)=\log_a x-\log_a y$\\[10pt]\hline
+\\[-10pt]Power Rule&$\log_a\left(x^y\right)=y\log_a x$\\[5pt]\hline
+\\[-10pt]Change of Base&$\log_a x=\frac{\log_bx}{\log_ba}$\\[10pt]\hline
+\\[-10pt]Inverse&$a^{\log_a(x)}=\log_a\left(a^x\right)=x$\\[5pt]\hline
+\\[-10pt]Log of One&$\log_a(1)=0$\\[5pt]\hline
+\\[-10pt]Log of Base&$\log_a(a)=1$\\[5pt]\hline
+\end{tabular}}}
+
+\DeclareFactoid{trig id}{{\textbf{\color{pink}Trig Identities}}\\[3pt]
+%v1_120822_764959481070616617
+\colorbox{gray}{\begin{tabular}{c}
+\hline
+\\[-10pt]$\sin(\theta+\gamma) = \sin(\theta)\cos(\gamma) + \cos(\theta)\sin(\gamma)$\\[5pt]\hline
+\\[-10pt]$\cos(\theta+\gamma) = \cos(\theta)\cos(\gamma) - \sin(\theta)\sin(\gamma)$\\[5pt]\hline
+\\[-10pt]$\sin(2\theta)=2\sin(\theta)\cos(\theta)$\\[10pt]\hline
+\\[-10pt]$\cos(2\theta)=\cos^2(\theta)\sin^2(\theta)$\\[5pt]\hline
+\\[-10pt]$\cos^2(\theta)+\sin^2(\theta)=1$\\[10pt]\hline
+\\[-10pt]$sin(-\theta)=-\sin(\theta)$\\[5pt]\hline
+\\[-10pt]$\cos(-\theta)=\cos(\theta)$\\[5pt]\hline
+\\[-10pt]$\tan(\theta)=\frac{\sin(\theta)}{\cos{\theta}}$
+\end{tabular}}}
+
+\DeclareFactoid{sohcahtoa}{{\textbf{\color{pink}Definitions of sin/cos/tan}}\\[3pt]
+%v1_050822_764959481070616617
+\colorbox{gray}{\begin{minipage}{.05\linewidth}{\phantom{.}}\end{minipage}\begin{minipage}{.45\linewidth}\phantom{.}\\
+$\sin\theta=\frac{\text{\color{yellow}Opposite}}{\text{\color{orange}Hypotenuse}}$\\
+$\cos\theta=\frac{\text{\color{lime}Adjacent}}{\text{\color{orange}Hypotenuse}}$\\
+$\tan\theta=\frac{\text{\color{yellow}Opposite}}{\text{\color{lime}Adjacent}}$
+\end{minipage}\hfill\begin{minipage}{.45\linewidth}
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+\draw   (33.7,6.14) -- (220,112.6) -- (33.7,112.6) -- cycle ;
+\draw   (33.7,102.51) -- (43.79,102.51) -- (43.79,112.6) -- (33.7,112.6) -- cycle ;
+\draw    (164.88,113.13) .. controls (155.37,102.56) and (159.07,87.77) .. (176.51,88.3) ;
+\draw (142.87,84.84) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \theta $};
+\draw (81.33,10.23) node [anchor=north west][inner sep=0.75pt]  [rotate=-29.88] [align=left] {\color{orange}Hypotenuse};
+\draw (10.99,98.99) node [anchor=north west][inner sep=0.75pt]  [rotate=-269.68] [align=left] {\color{yellow}Opposite};
+\draw (80,114) node [anchor=north west][inner sep=0.75pt]   [align=left] {\color{lime}Adjacent};
+\end{tikzpicture}\end{minipage}}}
