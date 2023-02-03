@@ -5,7 +5,7 @@ Do you like talking about math? Do you enjoying communicating with math symbols 
 
 `,tex \f cts`,
 
-[complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/cts.png)
+![complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/cts.png)
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
