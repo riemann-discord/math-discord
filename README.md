@@ -1,5 +1,12 @@
 # math-discord
 
+## Make LaTeX'ing easier
+Do you like talking about math? Do you enjoying communicating with math symbols using the typsetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons using a simple command of 
+
+`,tex \f cts`,
+
+[complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/cts.png)
+
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
 2. Create your own server and invite [TeXit bot](https://top.gg/bot/510789298321096704) and go to any channel in your server
@@ -21,5 +28,5 @@
 6. profit
 
 Credit to
-@snow (夢雪#2250), Mehdi_Moulati#1210, Toby#2275
+@snow (夢雪#2250), Mehdi_Moulati#1210, Toby#2275, 
 for your contributions.
