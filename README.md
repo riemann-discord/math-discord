@@ -2,11 +2,11 @@
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download `preamble.tex` to your local machine
-2.a. Create your own server and invite [TeXit bot](https://top.gg/bot/510789298321096704) and go to any channel in your server
-2.b. Go to [`#latex-testing`](https://discord.com/channels/268882317391429632/844681108473118750) or [`#latex-help`](https://discord.com/channels/268882317391429632/840667252793802752) channel in the Math Discord server
-3. Upload `preamble.tex` and type `,preamble --replace` in the same message.
-4. Hit enter and wait
-5. profit
+2. Create your own server and invite [TeXit bot](https://top.gg/bot/510789298321096704) and go to any channel in your server
+3. OR Go to [`#latex-testing`](https://discord.com/channels/268882317391429632/844681108473118750) or [`#latex-help`](https://discord.com/channels/268882317391429632/840667252793802752) channel in the Math Discord server
+4. Upload `preamble.tex` and type `,preamble --replace` in the same message.
+5. Hit enter and wait
+6. profit
 
 ### Preamble Contributions:
 1. Fork the repo
