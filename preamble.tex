@@ -161,3 +161,44 @@ However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
   x^2 + bx + c
   & = \left(x + \frac b2\right)^2 + c - \left(\frac b2\right)^2
 \end{align*}}
+\DeclareFactoid{unit circle}{\begin{tikzpicture}[scale=4.5, font=\small]
+  \mathcode`\-="2439
+  \definecolor{r}{HTML}{ff3030}
+  \definecolor{b}{HTML}{00bfff}
+  \definecolor{o}{HTML}{ff7e00}
+  \definecolor{bg}{HTML}{23272a}
+  \definecolor{fg}{HTML}{000000}
+  \def\angles{
+      0/2\pi/1/0,
+     30/\frac\pi6/\frac{\sqrt3}2/\frac12,
+     45/\frac\pi4/\frac{\sqrt2}2/\frac{\sqrt2}2,
+     60/\frac\pi3/\frac12/\frac{\sqrt3}2,
+     90/\frac\pi2/0/1,
+    120/\frac{2\pi}3/-\frac12/\frac{\sqrt3}2,
+    135/\frac{3\pi}4/-\frac{\sqrt2}2/\frac{\sqrt2}2,
+    150/\frac{5\pi}6/-\frac{\sqrt3}2/\frac12,
+    180/\pi/-1/0,
+    210/\frac{7\pi}6/-\frac{\sqrt3}2/-\frac12,
+    225/\frac{5\pi}4/-\frac{\sqrt2}2/-\frac{\sqrt2}2,
+    240/\frac{4\pi}3/-\frac12/-\frac{\sqrt3}2,
+    270/\frac{3\pi}2/0/-1,
+    300/\frac{5\pi}3/\frac12/-\frac{\sqrt3}2,
+    315/\frac{7\pi}4/\frac{\sqrt2}2/-\frac{\sqrt2}2,
+    330/\frac{11\pi}6/\frac{\sqrt3}2/-\frac12
+  }
+  \draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right] {$\textstyle\color b x$}
+                   (0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above] {$\textstyle\color o y$};
+  \draw [very thick] (0, 0) circle [radius=1];
+  \scoped [every node/.style={inner sep=1pt, outer sep=0pt}] {
+    \foreach \a/\at/\x/\y in \angles {
+      \draw [bg!50] (0, 0) -- (\a : 1);
+      \node at (\a : 1.15) [fill=bg, anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
+      \node at (\a : 0.85) [fill=bg, anchor=\a, rounded corners] {$\textstyle\at$};
+      \node at (\a : 0.65) [fill=bg, anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
+      \node at (\a : 1) [thick, draw, fill=bg, circle, minimum size=4pt, inner sep=0pt] {};
+    }
+  }
+
+  \node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
+  \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
+\end{tikzpicture}}
