@@ -1,0 +1,163 @@
+% Required to support mathematical unicode
+\usepackage[warnunknown, fasterrors, mathletters]{ucs}
+\usepackage[utf8x]{inputenc}
+\usepackage[cm]{fullpage}
+\usepackage[english]{babel}
+% Always typeset math in display style
+\everymath{\displaystyle}
+
+% Standard mathematical typesetting packages
+\usepackage{amsfonts, amsthm, amsmath, amssymb}
+\usepackage{mathtools}  % Extension to amsmath
+\usepackage[fontsize=13pt]{scrextend}
+
+% Symbol and utility packages
+\usepackage{cancel, textcomp}
+\usepackage[mathscr]{euscript}
+\usepackage[nointegrals]{wasysym}
+
+% Extras
+\usepackage{physics}  % Lots of useful shortcuts and macros
+\usepackage{tikz-cd}  % For drawing commutative diagrams easily
+\usepackage{color}  % Add some colour to life
+\usepackage{microtype}  % Minature font tweaks
+\usepackage{mathrsfs}  % For curly sets
+
+% Common shortcuts
+\def\mbb#1{\mathbb{#1}}
+\def\mfk#1{\mathfrak{#1}}
+
+\def\N{\mbb{N}}
+\def\C{\mbb{C}}
+\def\R{\mbb{R}}
+\def\pr{\mbb{P}}
+\def\Q{\mbb{Q}}
+\def\Z{\mbb{Z}}
+
+\def\la{\leftarrow}
+\def\La{\Leftarrow}
+\def\ra{\rightarrow}
+\def\Ra{\Rightarrow}
+
+\def\del{\nabla}
+\def\eps{\varepsilon}
+\def\inv{{-1}}
+\def\pa{\partial}
+\def\vp{\varphi}
+\def\y{\infty}
+\def\th{\theta}
+\def\f{\factoid}
+
+% Sometimes helpful macros
+\newcommand{\func}[3]{#1\colon#2\to#3}
+\newcommand{\vfunc}[5]{\func{#1}{#2}{#3},\quad#4\longmapsto#5}
+\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
+\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
+
+\newcommand{\pdif}[3]{\frac{\partial^{#3}#1}{\partial#2^{#3}}}
+\usepackage{polynom}
+\def\demoivre{(\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)}
+
+\makeatletter
+\bgroup
+\lccode`\~=`\ %
+\lccode`\}=`\ %
+\catcode`\ =11\relax%
+\lowercase{%
+\egroup%
+\protected\long\def\@errmessage#1{%
+\begingroup%
+\edef
+\@err@                                                                 %
+{{}}%
+\errhelp
+\@err@                                                                 %
+\let
+\@err@                                                                 %
+\@empty
+\def~{\errmessage{#1%
+\@err@                                                                 %
+}}%
+~%
+\endgroup%
+}}%
+
+\ExplSyntaxOn
+\cs_new_protected:Npn \message_error:nn #1#2 {
+  \@errmessage {
+    #1^^J
+    List~of~known~factoids:^^J
+    \space\space\space\space
+    #2
+  }
+}
+\cs_generate_variant:Nn \message_error:nn { xx }
+\prop_gput:Nnn \g_msg_module_type_prop { factoids } {}
+\seq_new:N \g_factoids_seq
+\keys_define:nn { factoids } {
+  unknown .code:n = {
+    \message_error:xx { `\l_keys_key_str`~is~not~a~known~factoid! } {
+      \seq_if_empty:NF \g_factoids_seq{ ` }
+      \seq_use:Nnnn \g_factoids_seq{ `~and~` } { `,~` } { `,~and~` }
+      \seq_if_empty:NF \g_factoids_seq{ ` }
+    }
+  }
+}
+
+\cs_new_protected:Npn \DeclareFactoid #1#2 {
+  \keys_define:nn { factoids } {
+    #1 .code:n = {#2}
+  }
+  \seq_gput_right:Nn \g_factoids_seq {#1}
+}
+
+\cs_new_protected:Npn \factoid_invoke:n #1 {
+  \tl_if_empty:nTF { #1 }
+    {
+      \message_error:xx { Usage:~\string\factoid\space<factoid~name> } {
+        \seq_if_empty:NF \g_factoids_seq{ ` }
+        \seq_use:Nnnn \g_factoids_seq{ `~and~` } { `,~` } { `,~and~` }
+        \seq_if_empty:NF \g_factoids_seq{ ` }
+      }
+    }
+    { \keys_set:nn { factoids } { #1 } }
+}
+\cs_new_nopar:Npn \factoid { \getline \factoid_invoke:n }
+\ExplSyntaxOff
+
+\begingroup
+\catcode`\^^M=12%
+\gdef\getline#1{\begingroup\catcode`\^^M=12\relax\@getline{#1}}%
+\long\gdef\@getline#1#2^^M{\endgroup#1{#2}}%
+\endgroup%
+\makeatother
+
+\DeclareFactoid{FTC1}{Let $F(x)$ be the antiderivative of $f(x)$: \[ \int_a^b f(x) \, dx = F(b) - F(a) \]}
+\DeclareFactoid{FTC2}{\[\frac{d}{dx}\int_{a(x)}^{b(x)}f(t)dt = f(b(x))\cdot b'(x) - f(a(x)) \cdot a'(x)\]}
+\DeclareFactoid{point slope}{For linear equation $f(x)$ with slope $m$ that passes through $(a,b)$: \[ f(x) = m(x-a) + b \]}
+\DeclareFactoid{integral area}{The area between two curves can be described:
+    \[\int_a^b\int_{\text{Bottom}(x)}^{\text{Top}(x)}1dydx = \int_a^b[\text{Top}(x) - \text{Bottom}(x)]dx\]
+  Or
+    \[\int_c^d\int_{\text{Right}(y)}^{\text{Left}(y)}1dxdy = \int_c^d[\text{Left}(x) - \text{Right}(x)]dy\]}
+\DeclareFactoid{log xp rule}{\[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\]}
+\DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
+\DeclareFactoid{double cos}{\begin{align*}\cos (2 \theta) &= \cos^2 (\theta) - \sin^2 (\theta) \\ &= 2\cos^2 (\theta) - 1 \\ &= 1 - 2\sin^2 (\theta)\end{align*}}
+\DeclareFactoid{cts}{\text{\bf{Completing the square}} \\
+
+\medskip
+Consider:
+\[
+  \left(x + \frac b2\right)^2 = x^2 + bx + \left(\frac b2\right)^2.
+\]
+
+Adding $\left(\frac b2\right)^2$ to $x^2 + bx$ will make it a perfect square.
+
+Doing so will change the value of the expression.
+
+However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
+\begin{align*}
+  x^2 + bx + c
+  & = x^2 + bx + \left(\frac b2\right)^2 + c - \left(\frac b2\right)^2 \\
+  x^2 + bx + c
+  & = \left(x + \frac b2\right)^2 + c - \left(\frac b2\right)^2
+\end{align*}}
