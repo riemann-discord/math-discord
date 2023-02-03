@@ -19,3 +19,7 @@
     [https://github.com/riemann-discord/math-discord/edit/main/preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex)
 5. Click button that says "Make a Pull Request"
 6. profit
+
+Credit to
+@snow (夢雪#2250), Mehdi_Moulati#1210, Toby#2275
+for your contributions.
