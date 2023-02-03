@@ -2,7 +2,7 @@
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download `preamble.tex` to your local machine
-2. Go to [`#latex-testing`](https://discord.com/channels/268882317391429632/844681108473118750) or [`#latex-help`](https://discord.com/channels/268882317391429632/840667252793802752)
+2. Go to [`#latex-testing`](https://discord.com/channels/268882317391429632/844681108473118750) or [`#latex-help`](https://discord.com/channels/268882317391429632/840667252793802752) channel in the Math Discord server
 3. Upload `preamble.tex` and type `,preamble --replace` in the same message.
 4. Hit enter and wait
 5. profit
