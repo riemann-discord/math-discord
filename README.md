@@ -8,6 +8,6 @@
 
 3. Add your code to `preamble.tex` file from the github user-interface.
 4. Go back to 
-    [[https://github.com/riemann-discord/math-discord/edit/main/preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex)
+    [https://github.com/riemann-discord/math-discord/edit/main/preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex)
 5. Click button that says "Make a Pull Request"
 6. profit
