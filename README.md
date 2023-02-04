@@ -7,7 +7,15 @@ Do you like talking about math? Do you enjoying communicating with math symbols 
 
 you get
 
-![complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/cts.png)
+![complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/cts.png)
+
+Or with 
+
+`,tex \f double cos`
+
+you get
+
+![cosine double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png)
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
