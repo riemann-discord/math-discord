@@ -159,109 +159,162 @@
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
 
 % American High school Algebra and Geometry
-\DeclareFactoid{cts}{\text{\bf{Completing the square}} \\
+\DeclareFactoid{cts}{
+  \text{\bf{Completing the square}} \\
 
-\medskip
-Consider:
-\[
-  \left(x + \frac b2\right)^2 = x^2 + bx + \left(\frac b2\right)^2.
-\]
+  \medskip
+  Consider:
+  \[
+    \left(x + \frac b2\right)^2 = x^2 + bx + \left(\frac b2\right)^2.
+  \]
 
-Adding $\left(\frac b2\right)^2$ to $x^2 + bx$ will make it a perfect square.
+  Adding $\left(\frac b2\right)^2$ to $x^2 + bx$ will make it a perfect square.
 
-Doing so will change the value of the expression.
+  Doing so will change the value of the expression.
 
-However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
-\begin{align*}
-  x^2 + bx + c
-  & = x^2 + bx + \left(\frac b2\right)^2 + c - \left(\frac b2\right)^2 \\
-  x^2 + bx + c
-  & = \left(x + \frac b2\right)^2 + c - \left(\frac b2\right)^2
-\end{align*}}
-\DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
-\DeclareFactoid{power rules}{
-\begingroup\def\arraystretch{1.3}
-{\textbf{Rules for Powers/Exponents}} \\
-{\begin{tabular}{|l|l|} \hline
-Product Rule & $a^xa^y=a^{x+y}$\\ \hline
-Negative Exponent & $a^{-x}=\tfrac{1}{a^x}$\\ \hline
-Quotient Rule & $\tfrac{a^x}{a^y}=a^{x-y}$\\ \hline
-Power of Power & $\left(a^x\right)^y=a^{xy}$\\ \hline
-Distributivity & $(ab)^x=a^xb^x$\\ \hline
-Zero Exponent & $a^0=1$\\ \hline
-Fractional Exponent & $a^{\frac{x}{y}}=\sqrt[y]{a^x}$\\ \hline
-\end{tabular}}
-\endgroup
+  However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
+  \begin{align*}
+    x^2 + bx + c & = x^2 + bx + \left(\frac b2\right)^2 + c - \left(\frac b2\right)^2 \\
+    x^2 + bx + c & = \left(x + \frac b2\right)^2 + c - \left(\frac b2\right)^2
+  \end{align*}
 }
-\DeclareFactoid{log xp rule}{\[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\]}
-\DeclareFactoid{point slope}{For linear equation $f(x)$ with slope $m$ that passes through $(a,b)$: \[ f(x) = m(x-a) + b \]}
+
+\DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
+
+\DeclareFactoid{power rules}{
+  \begingroup\def\arraystretch{1.3}
+  {\textbf{Rules for Powers/Exponents}} \\
+  {
+    \begin{tabular}{|l|l|}
+      \hline
+      Product Rule        & $a^xa^y=a^{x+y}$                \\ \hline
+      Negative Exponent   & $a^{-x}=\tfrac{1}{a^x}$         \\ \hline
+      Quotient Rule       & $\tfrac{a^x}{a^y}=a^{x-y}$      \\ \hline
+      Power of Power      & $\left(a^x\right)^y=a^{xy}$     \\ \hline
+      Distributivity      & $(ab)^x=a^xb^x$                 \\ \hline
+      Zero Exponent       & $a^0=1$                         \\ \hline
+      Fractional Exponent & $a^{\frac{x}{y}}=\sqrt[y]{a^x}$ \\ \hline
+    \end{tabular}
+  }
+  \endgroup
+}
+
+\DeclareFactoid{log xp rule}{ \[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\] }
+
+\DeclareFactoid{point slope}{
+  For linear equation $f(x)$ with slope $m$ that passes through $(a,b)$:
+  \[
+    f(x) = m(x-a) + b
+  \]
+}
 
 % American High school Algebra 2 and Trigonometry
 
-\DeclareFactoid{sohcahtoa}{{\textbf{Definitions of sin/cos/tan}}\\
-{\begin{minipage}{.05\linewidth}{\phantom{.}}\end{minipage}\begin{minipage}{.25\linewidth}\phantom{.}\\
-$\sin\theta=\frac{\text{Opposite}}{\text{Hypotenuse}}$\\
-$\cos\theta=\frac{\text{Adjacent}}{\text{Hypotenuse}}$\\
-$\tan\theta=\frac{\text{Opposite}}{\text{Adjacent}}$
-\end{minipage}\begin{minipage}{.25\linewidth}
-\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-\draw   (33.7,6.14) -- (220,112.6) -- (33.7,112.6) -- cycle ;
-\draw   (33.7,102.51) -- (43.79,102.51) -- (43.79,112.6) -- (33.7,112.6) -- cycle ;
-\draw    (164.88,113.13) .. controls (155.37,102.56) and (159.07,87.77) .. (176.51,88.3) ;
-\draw (142.87,84.84) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \theta $};
-\draw (81.33,10.23) node [anchor=north west][inner sep=0.75pt]  [rotate=-29.88] [align=left] {Hypotenuse};
-\draw (10.99,98.99) node [anchor=north west][inner sep=0.75pt]  [rotate=-269.68] [align=left] {Opposite};
-\draw (80,114) node [anchor=north west][inner sep=0.75pt]   [align=left] {Adjacent};
-\end{tikzpicture}\end{minipage}}}
+\DeclareFactoid{sohcahtoa}{
+    {\textbf{Definitions of sin/cos/tan}}\\
+  {
+    \begin{minipage}{.05\linewidth}
+    {\phantom{.}}
+    \end{minipage}
 
-\DeclareFactoid{double cos}{\begin{align*}\cos (2 \theta) &= \cos^2 (\theta) - \sin^2 (\theta) \\ &= 2\cos^2 (\theta) - 1 \\ &= 1 - 2\sin^2 (\theta)\end{align*}}
+    \begin{minipage}{.25\linewidth}
+      \phantom{.}\\
+      $\sin\theta=\frac{\text{Opposite}}{\text{Hypotenuse}}$\\
+      $\cos\theta=\frac{\text{Adjacent}}{\text{Hypotenuse}}$\\
+      $\tan\theta=\frac{\text{Opposite}}{\text{Adjacent}}$
+    \end{minipage}
 
-\DeclareFactoid{unit circle}{\begin{tikzpicture}[scale=4.5, font=\small]
-  \definecolor{r}{HTML}{ff3030}
-  \definecolor{b}{HTML}{00bfff}
-  \definecolor{o}{HTML}{ff7e00}
-  \definecolor{bg}{HTML}{23272a}
-  \definecolor{fg}{HTML}{000000}
-  \def\angles{
+    \begin{minipage}{.25\linewidth}
+      \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+        \draw   (33.7,6.14) -- (220,112.6) -- (33.7,112.6) -- cycle ;
+        \draw   (33.7,102.51) -- (43.79,102.51) -- (43.79,112.6) -- (33.7,112.6) -- cycle ;
+        \draw    (164.88,113.13) .. controls (155.37,102.56) and (159.07,87.77) .. (176.51,88.3) ;
+        \draw (142.87,84.84) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \theta $};
+        \draw (81.33,10.23) node [anchor=north west][inner sep=0.75pt]  [rotate=-29.88] [align=left] {Hypotenuse};
+        \draw (10.99,98.99) node [anchor=north west][inner sep=0.75pt]  [rotate=-269.68] [align=left] {Opposite};
+        \draw (80,114) node [anchor=north west][inner sep=0.75pt]   [align=left] {Adjacent};
+      \end{tikzpicture}
+    \end{minipage}
+  }
+}
+
+\DeclareFactoid{double cos}{
+  \begin{align*}
+    \cos (2 \theta) &= \cos^2 (\theta) - \sin^2 (\theta) \\
+    &= 2\cos^2 (\theta) - 1 \\
+    &= 1 - 2\sin^2 (\theta)
+  \end{align*}
+}
+
+\DeclareFactoid{unit circle}{
+  \begin{tikzpicture}[scale=4.5, font=\small]
+
+    \definecolor{r}{HTML}{ff3030}
+    \definecolor{b}{HTML}{00bfff}
+    \definecolor{o}{HTML}{ff7e00}
+    \definecolor{bg}{HTML}{23272a}
+    \definecolor{fg}{HTML}{000000}
+
+    \def\angles{
       0/2\pi/1/0,
-     30/\frac\pi6/\frac{\sqrt3}2/\frac12,
-     45/\frac\pi4/\frac{\sqrt2}2/\frac{\sqrt2}2,
-     60/\frac\pi3/\frac12/\frac{\sqrt3}2,
-     90/\frac\pi2/0/1,
-    120/\frac{2\pi}3/\shortminus\frac12/\frac{\sqrt3}2,
-    135/\frac{3\pi}4/\shortminus\frac{\sqrt2}2/\frac{\sqrt2}2,
-    150/\frac{5\pi}6/\shortminus\frac{\sqrt3}2/\frac12,
-    180/\pi/\shortminus1/0,
-    210/\frac{7\pi}6/\shortminus\frac{\sqrt3}2/\shortminus\frac12,
-    225/\frac{5\pi}4/\shortminus\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
-    240/\frac{4\pi}3/\shortminus\frac12/\shortminus\frac{\sqrt3}2,
-    270/\frac{3\pi}2/0/\shortminus1,
-    300/\frac{5\pi}3/\frac12/\shortminus\frac{\sqrt3}2,
-    315/\frac{7\pi}4/\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
-    330/\frac{11\pi}6/\frac{\sqrt3}2/\shortminus\frac12
-  }
-  \draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right] {$\textstyle\color b x$}
-                   (0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above] {$\textstyle\color o y$};
-  \draw [very thick] (0, 0) circle [radius=1];
-  \scoped [every node/.style={inner sep=1pt, outer sep=0pt}] {
-    \foreach \a/\at/\x/\y in \angles {
-      \draw [bg!50] (0, 0) -- (\a : 1);
-      \node at (\a : 1.15) [fill=bg, anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
-      \node at (\a : 0.85) [fill=bg, anchor=\a, rounded corners] {$\textstyle\at$};
-      \node at (\a : 0.65) [fill=bg, anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
-      \node at (\a : 1) [thick, draw, fill=bg, circle, minimum size=4pt, inner sep=0pt] {};
+      30/\frac\pi6/\frac{\sqrt3}2/\frac12,
+      45/\frac\pi4/\frac{\sqrt2}2/\frac{\sqrt2}2,
+      60/\frac\pi3/\frac12/\frac{\sqrt3}2,
+      90/\frac\pi2/0/1,
+      120/\frac{2\pi}3/\shortminus\frac12/\frac{\sqrt3}2,
+      135/\frac{3\pi}4/\shortminus\frac{\sqrt2}2/\frac{\sqrt2}2,
+      150/\frac{5\pi}6/\shortminus\frac{\sqrt3}2/\frac12,
+      180/\pi/\shortminus1/0,
+      210/\frac{7\pi}6/\shortminus\frac{\sqrt3}2/\shortminus\frac12,
+      225/\frac{5\pi}4/\shortminus\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
+      240/\frac{4\pi}3/\shortminus\frac12/\shortminus\frac{\sqrt3}2,
+      270/\frac{3\pi}2/0/\shortminus1,
+      300/\frac{5\pi}3/\frac12/\shortminus\frac{\sqrt3}2,
+      315/\frac{7\pi}4/\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
+      330/\frac{11\pi}6/\frac{\sqrt3}2/\shortminus\frac12
     }
-  }
+    \draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right] {$\textstyle\color b x$}
+    (0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above] {$\textstyle\color o y$};
 
-  \node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
-  \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
-\end{tikzpicture}}
+    \draw [very thick] (0, 0) circle [radius=1];
+    \scoped [every node/.style={inner sep=1pt, outer sep=0pt}] {
+      \foreach \a/\at/\x/\y in \angles {
+        \draw [bg!50] (0, 0) -- (\a : 1);
+        \node at (\a : 1.15) [fill=bg, anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
+        \node at (\a : 0.85) [fill=bg, anchor=\a, rounded corners] {$\textstyle\at$};
+        \node at (\a : 0.65) [fill=bg, anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
+        \node at (\a : 1) [thick, draw, fill=bg, circle, minimum size=4pt, inner sep=0pt] {};
+      }
+    }
+
+    \node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
+    \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
+  \end{tikzpicture}
+}
+
 \DeclareFactoid{demoivre}{$(e^{ix})^n = (\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)$}
 
 % First year university/college Calculus
-\DeclareFactoid{FTC1}{Let $F(x)$ be the antiderivative of $f(x)$: \[ \int_a^b f(x) \, dx = F(b) - F(a) \]}
-\DeclareFactoid{FTC2}{\[\frac{d}{dx}\int_{a(x)}^{b(x)}f(t)dt = f(b(x))\cdot b'(x) - f(a(x)) \cdot a'(x)\]}
-\DeclareFactoid{integral area}{The area between two curves can be described:
-    \[\int_a^b\int_{\text{Bottom}(x)}^{\text{Top}(x)}1dydx = \int_a^b[\text{Top}(x) - \text{Bottom}(x)]dx\]
+\DeclareFactoid{FTC1}{
+  Let $F(x)$ be the antiderivative of $f(x)$:
+  \[
+    \int_a^b f(x) \, dx = F(b) - F(a)
+  \]
+}
+
+\DeclareFactoid{FTC2}{
+  \[
+    \frac{d}{dx}\int_{a(x)}^{b(x)}f(t)dt = f(b(x))\cdot b'(x) - f(a(x)) \cdot a'(x)
+  \]
+}
+
+\DeclareFactoid{integral area}{
+  The area between two curves can be described:
+  \[
+    \int_a^b\int_{\text{Bottom}(x)}^{\text{Top}(x)}1dydx = \int_a^b[\text{Top}(x) - \text{Bottom}(x)]dx
+  \]
   Or
-    \[\int_c^d\int_{\text{Right}(y)}^{\text{Left}(y)}1dxdy = \int_c^d[\text{Left}(x) - \text{Right}(x)]dy\]}
+  \[
+    \int_c^d\int_{\text{Right}(y)}^{\text{Left}(y)}1dxdy = \int_c^d[\text{Left}(x) - \text{Right}(x)]dy
+  \]
+}
