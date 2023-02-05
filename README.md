@@ -3,7 +3,7 @@
 ## Make LaTeX'ing easier
 Do you like talking about math? Do you enjoying communicating with math symbols using the typsetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons ("factoids", denoted by its shortcut command `\f`) using a simple command of 
 
-`,tex \f cts`
+`,tex \.cts`
 
 you get
 
@@ -11,7 +11,7 @@ you get
 
 Or with 
 
-`,tex \f double cos`
+`,tex \.double cos`
 
 you get
 
