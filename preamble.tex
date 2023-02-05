@@ -123,13 +123,39 @@
     { \keys_set:nn { factoids } { #1 } }
 }
 \cs_new_nopar:Npn \factoid { \getline \factoid_invoke:n }
+\cs_gset_nopar:Npn \. { \xgetline \factoid_invoke:n }
 \ExplSyntaxOff
 
 \begingroup
-\catcode`\^^M=12%
-\gdef\getline#1{\begingroup\catcode`\^^M=12\relax\@getline{#1}}%
-\long\gdef\@getline#1#2^^M{\endgroup#1{#2}}%
-\endgroup%
+\catcode`\^^M=12\relax%
+\def\@@{%
+  \def\getline##1{%
+    \begingroup%
+    \endlinechar=`\^^M%
+    \catcode`\^^M=12\relax%
+    \@getline{##1}%
+  }%
+  \long\def\@getline##1##2^^M{%
+    \endgroup%
+    ##1{##2}%
+  }%
+}%
+\expandafter\endgroup%
+\@@%
+
+\def\xgetline#1{%
+  \def\@@{\getline{#1}}%
+  \futurelet\@next\@xgetline%
+}%
+\def\@xgetline{%
+  \ifx\@next\@sptoken
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+  {\afterassignment\@@ \let\@next= }%
+  {\@@}%
+}%
 \makeatother
 
 \DeclareFactoid{FTC1}{Let $F(x)$ be the antiderivative of $f(x)$: \[ \int_a^b f(x) \, dx = F(b) - F(a) \]}
