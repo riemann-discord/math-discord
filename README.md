@@ -1,7 +1,7 @@
 # math-discord
 
 ## Make LaTeX'ing easier
-Do you like talking about math? Do you enjoying communicating with math symbols using the typsetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons ("factoids", denoted by its shortcut command `\.` before the factoid name) using a simple command of 
+Do you like talking about math? Do you enjoying communicating with math symbols using the typesetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons ("factoids", denoted by its shortcut command `\.` before the factoid name) using a simple command of 
 
 `,tex \.cts`
 
@@ -31,7 +31,7 @@ you get
 
     `https://github.com/<your_username>/math-discord/blob/main/preamble.tex`
 
-3. Add your code to `preamble.tex` file from the github user-interface.
+3. Add your code to `preamble.tex` file from the GitHub user-interface.
 4. Go back to 
     [https://github.com/riemann-discord/math-discord/edit/main/preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex)
 5. Click button that says "Make a Pull Request"
