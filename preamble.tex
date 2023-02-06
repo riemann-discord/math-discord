@@ -320,3 +320,41 @@
     \int_c^d\int_{\text{Right}(y)}^{\text{Left}(y)}1dxdy = \int_c^d[\text{Left}(x) - \text{Right}(x)]dy
   \]%
 }
+
+\DeclareFactoid{maclaurin}{%
+  \setbox0=\hbox{$\displaystyle\sum_{k = 0}^\infty$}%
+  \setbox2=\hbox{\vrule height\dimexpr\ht0+.5ex depth\dimexpr\dp0+.5ex width0pt}%
+  \def\bigmathstrut{\unhcopy2}%
+  \setbox4=\hbox{\vrule height2.5ex depth1ex width0pt}%
+  \def\bigstrut{\unhcopy4}%
+  \def\tablerule{\noalign{\hrule}}%
+  \def\tablerow##1##2##3{%
+    \bigmathstrut&&$\displaystyle ##1$&&$\displaystyle ##2$&$\displaystyle ##3$%
+  }%
+  \vbox{\tabskip=0pt \offinterlineskip
+  \halign{%
+    \strut##&\vrule##\tabskip=1em&\hfil##\hfil&\vrule##&##\hfil&##\hfil&\tabskip=0pt\vrule##\cr
+    \omit&\omit&\bfseries\underline{Maclaurin series}\span\omit\span\omit\span\omit\span\omit\cr \noalign{\bigskip}\tablerule
+    \bigstrut&&Function&&Maclaurin series&Sigma notation&\cr \tablerule
+    \tablerow
+      {e^x}
+      {1 + \frac x {1!} + \frac {x^2} {2!} + \frac {x^3} {3!} + \dotsb}
+      {{} = \sum_{k = 0}^\infty \frac {x^k} {k!}}&\cr \tablerule
+    \tablerow
+      {\sin(x)}
+      {\frac x {1!} - \frac {x^3} {3!} + \frac {x^5} {5!} - \frac {x^7} {7!} \dotsb}
+      {{} = \sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}&\cr \tablerule
+    \tablerow
+      {\cos(x)}
+      {1 - \frac {x^2} {2!} + \frac {x^4} {4!} - \frac {x^6} {6!} + \dotsb}
+      {{} = \sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}&\cr \tablerule
+    \tablerow
+      {\frac 1 {1 - x}}
+      {1 + x + x^2 + x^3 + \dotsb}
+      {{} = \sum_{k = 0}^\infty x^k}\hfill for $-1 < x < 1$&\cr \tablerule
+    \tablerow
+      {\ln(1 - x)}
+      {-\frac x 1 - \frac {x^2} 2 - \frac {x^3} 3 - \frac {x^4} 4 - \dotsb}
+      {{} = \sum_{k = 1}^\infty -\frac {x^k} k}\hfill for $-1 \le x < 1$&\cr \tablerule
+  }}%
+}
