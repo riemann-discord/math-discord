@@ -211,29 +211,26 @@
 % American High school Algebra 2 and Trigonometry
 
 \DeclareFactoid{sohcahtoa}{
-    {\textbf{Definitions of sin/cos/tan}}\\
-  {
-    \begin{minipage}{.05\linewidth}
-    {\phantom{.}}
-    \end{minipage}
-    \begin{minipage}{.25\linewidth}
-      \phantom{.}\\
-      $\sin\theta=\frac{\text{Opposite}}{\text{Hypotenuse}}$\\
-      $\cos\theta=\frac{\text{Adjacent}}{\text{Hypotenuse}}$\\
-      $\tan\theta=\frac{\text{Opposite}}{\text{Adjacent}}$
-    \end{minipage}
-    \begin{minipage}{.25\linewidth}
-      \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
-        \draw   (33.7,6.14) -- (220,112.6) -- (33.7,112.6) -- cycle ;
-        \draw   (33.7,102.51) -- (43.79,102.51) -- (43.79,112.6) -- (33.7,112.6) -- cycle ;
-        \draw    (164.88,113.13) .. controls (155.37,102.56) and (159.07,87.77) .. (176.51,88.3) ;
-        \draw (142.87,84.84) node [anchor=north west][inner sep=0.75pt]   [align=left] {$\displaystyle \theta $};
-        \draw (81.33,10.23) node [anchor=north west][inner sep=0.75pt]  [rotate=-29.88] [align=left] {Hypotenuse};
-        \draw (10.99,98.99) node [anchor=north west][inner sep=0.75pt]  [rotate=-269.68] [align=left] {Opposite};
-        \draw (80,114) node [anchor=north west][inner sep=0.75pt]   [align=left] {Adjacent};
-      \end{tikzpicture}
-    \end{minipage}
-  }
+\usetikzlibrary{angles}
+\textbf{Definitions of sin/cos/tan}
+
+\begin{minipage}[b]{.4\linewidth}
+  \begin{align*}
+    \sin\theta & = \frac{\text{Opposite}}{\text{Hypotenuse}} \\
+    \cos\theta & = \frac{\text{Adjacent}}{\text{Hypotenuse}} \\
+    \tan\theta & = \frac{\text{Opposite}}{\text{Adjacent}}
+  \end{align*}
+\end{minipage}
+\begin{tikzpicture}
+  \path coordinate (A) at (0, 0)
+        coordinate (B) at (0, 3)
+        coordinate (C) at (6.3, 0);
+  \draw [very thick] (A) -- node [above, sloped] {Opposite} (B)
+                         -- node [above, sloped] {Hypotenuse} (C)
+                         -- node [below, sloped] {Adjacent} cycle;
+  \draw pic [draw, thick, angle radius=.5cm] {right angle=C--A--B}
+        pic [draw, thick, angle radius=1.8cm, angle eccentricity=1.3, pic text=$\theta$] {angle=B--C--A};
+\end{tikzpicture}
 }
 
 \DeclareFactoid{double cos}{
