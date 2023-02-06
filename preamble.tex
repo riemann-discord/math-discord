@@ -248,13 +248,9 @@
 
 \DeclareFactoid{unit circle}{
   \begin{tikzpicture}[scale=4.5, font=\small]
-
     \definecolor{r}{HTML}{ff3030}
     \definecolor{b}{HTML}{00bfff}
     \definecolor{o}{HTML}{ff7e00}
-    \definecolor{bg}{HTML}{23272a}
-    \definecolor{fg}{HTML}{000000}
-
     \def\angles{
       0/2\pi/1/0,
       30/\frac\pi6/\frac{\sqrt3}2/\frac12,
@@ -273,17 +269,32 @@
       315/\frac{7\pi}4/\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
       330/\frac{11\pi}6/\frac{\sqrt3}2/\shortminus\frac12
     }
-    \draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right] {$\textstyle\color b x$}
-    (0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above] {$\textstyle\color o y$};
+    \begin{scope}[every node/.style={inner sep=1pt, outer sep=0pt}]
+      \foreach \a/\at/\x/\y in \angles {
+        \begin{pgfinterruptboundingbox}
+          \node (x) at (\a : 1.15) [anchor=\a-180] {\phantom{$\textstyle\left({\color b \x}, {\color o \y}\right)$}};
+          \clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
+          \node (x) at (\a : 0.85) [anchor=\a] {\phantom{$\textstyle\at$}};
+          \clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
+          \node (x) at (\a : 0.65) [anchor=\a, font=\footnotesize] {\phantom{$\textstyle\a^\circ$}};
+          \clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
+          \clip (\a : 1) circle [radius=.5pt] (-1.6, -1.6) -- (-1.6, 1.6) -- (1.6, 1.6) -- (1.6, -1.6) -- cycle;
+        \end{pgfinterruptboundingbox}
+      }
 
-    \draw [very thick] (0, 0) circle [radius=1];
+      \draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right=5pt] {$\textstyle\color b x$}
+      (0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above=5pt] {$\textstyle\color o y$};
+      \draw [very thick] (0, 0) circle [radius=1];
+
+      \foreach \a/\at/\x/\y in \angles { \draw [opacity=.4] (0, 0) -- (\a : 1); }
+    \end{scope}
+
     \scoped [every node/.style={inner sep=1pt, outer sep=0pt}] {
       \foreach \a/\at/\x/\y in \angles {
-        \draw [bg!50] (0, 0) -- (\a : 1);
-        \node at (\a : 1.15) [fill=bg, anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
-        \node at (\a : 0.85) [fill=bg, anchor=\a, rounded corners] {$\textstyle\at$};
-        \node at (\a : 0.65) [fill=bg, anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
-        \node at (\a : 1) [thick, draw, fill=bg, circle, minimum size=4pt, inner sep=0pt] {};
+        \node at (\a : 1.15) [anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
+        \node at (\a : 0.85) [anchor=\a, rounded corners] {$\textstyle\at$};
+        \node at (\a : 0.65) [anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
+        \draw [thick] (\a : 1) circle [radius=.5pt];
       }
     }
 
