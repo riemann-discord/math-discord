@@ -140,8 +140,8 @@
 
 % factoid creation
 \cs_new_protected:Npn \factoids_new:nn #1#2 {
-  \tl_new:c { g__factoids_factoid / #1 }
-  \tl_gset:cn { g__factoids_factoid / #1 } {#2}
+  \tl_new:c { g__factoids_factoid / #1 / _tl }
+  \tl_gset:cn { g__factoids_factoid / #1 / _tl } {#2}
   \seq_gput_right:Nn \g_factoids_seq {#1}
 }
 
@@ -150,8 +150,8 @@
   \tl_if_empty:nTF { #1 }
     { \factoids_error:x { Usage:~\string\.<factoid~name> } }
     {
-      \tl_if_exist:cTF { g__factoids_factoid / #1 }
-        { \tl_use:c {g__factoids_factoid / #1 } }
+      \tl_if_exist:cTF { g__factoids_factoid / #1 / _tl }
+        { \tl_use:c { g__factoids_factoid / #1 / _tl } }
         { \factoids_error:x { `#1`~is~not~a~known~factoid! } }
     }
 }
