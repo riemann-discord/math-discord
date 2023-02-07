@@ -58,6 +58,7 @@
 \newcommand{\pdif}[3]{\frac{\partial^{#3}#1}{\partial#2^{#3}}}
 
 \makeatletter
+% stolen from source2e
 \bgroup
 \lccode`\~=`\ %
 \lccode`\}=`\ %
@@ -81,50 +82,7 @@
 \endgroup%
 }}%
 
-\ExplSyntaxOn
-\cs_new_protected:Npn \message_error:nn #1#2 {
-  \@errmessage {
-    #1^^J
-    List~of~known~factoids:^^J
-    \space\space\space\space
-    #2
-  }
-}
-\cs_generate_variant:Nn \message_error:nn { xx }
-\prop_gput:Nnn \g_msg_module_type_prop { factoids } {}
-\seq_new:N \g_factoids_seq
-\keys_define:nn { factoids } {
-  unknown .code:n = {
-    \message_error:xx { `\l_keys_key_str`~is~not~a~known~factoid! } {
-      \seq_if_empty:NF \g_factoids_seq{ ` }
-      \seq_use:Nnnn \g_factoids_seq{ `~and~` } { `,~` } { `,~and~` }
-      \seq_if_empty:NF \g_factoids_seq{ ` }
-    }
-  }
-}
-
-\cs_new_protected:Npn \DeclareFactoid #1#2 {
-  \keys_define:nn { factoids } {
-    #1 .code:n = {#2}
-  }
-  \seq_gput_right:Nn \g_factoids_seq {#1}
-}
-
-\cs_new_protected:Npn \factoid_invoke:n #1 {
-  \tl_if_empty:nTF { #1 }
-    {
-      \message_error:xx { Usage:~\string\factoid\space<factoid~name> } {
-        \seq_if_empty:NF \g_factoids_seq{ ` }
-        \seq_use:Nnnn \g_factoids_seq{ `~and~` } { `,~` } { `,~and~` }
-        \seq_if_empty:NF \g_factoids_seq{ ` }
-      }
-    }
-    { \keys_set:nn { factoids } { #1 } }
-}
-\cs_new_nopar:Npn \factoid { \getline \factoid_invoke:n }
-\cs_gset_nopar:Npn \. { \xgetline \factoid_invoke:n }
-\ExplSyntaxOff
-
+% getline
 \begingroup
 \catcode`\^^M=12\relax%
 \def\@@{%
@@ -155,7 +113,54 @@
   {\afterassignment\@@ \let\@next= }%
   {\@@}%
 }%
+
+\ExplSyntaxOn
+% list of known factoids
+\seq_new:N \g_factoids_seq
+
+% error handling
+\cs_new_protected:Npn \factoids_error_aux:nn #1#2 {
+  \@errmessage {
+    #1^^J
+    List~of~known~factoids:^^J
+    \space\space
+    #2
+  }
+}
 \makeatother
+\cs_generate_variant:Nn \factoids_error_aux:nn { nx }
+\cs_new_protected:Npn \factoids_error:n #1 {
+  \factoids_error_aux:nx { #1 } {
+    \seq_if_empty:NF \g_factoids_seq { ` }
+    \seq_use:Nnnn \g_factoids_seq { `~and~` } { `,~` } { `,~and~` }
+    \seq_if_empty:NF \g_factoids_seq { ` }
+  }
+}
+\cs_generate_variant:Nn \factoids_error:n { x }
+
+% factoid creation
+\cs_new_protected:Npn \factoids_new:nn #1#2 {
+  \tl_new:c { g__factoids_factoid / #1 / _tl }
+  \tl_gset:cn { g__factoids_factoid / #1 / _tl } {#2}
+  \seq_gput_right:Nn \g_factoids_seq {#1}
+}
+
+% factoid usage
+\cs_new_protected:Npn \factoids_invoke:n #1 {
+  \tl_if_empty:nTF { #1 }
+    { \factoids_error:x { Usage:~\string\.<factoid~name> } }
+    {
+      \tl_if_exist:cTF { g__factoids_factoid / #1 / _tl }
+        { \tl_use:c { g__factoids_factoid / #1 / _tl } }
+        { \factoids_error:x { `#1`~is~not~a~known~factoid! } }
+    }
+}
+
+% user interface
+\cs_new_protected_nopar:Npn \DeclareFactoid { \factoids_new:nn }
+\cs_new_protected_nopar:Npn \factoid { \getline \factoids_invoke:n }
+\cs_gset_protected_nopar:Npn \. { \xgetline \factoids_invoke:n }
+\ExplSyntaxOff
 
 % Common instructional requests
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
@@ -328,11 +333,11 @@
   \def\bigmathstrut{\unhcopy2}
   \def\bigstrut{\unhcopy4}
   \def\tablerule{\noalign{\hrule}}
-  \def\tablerow##1##2##3{%
-    \bigmathstrut&&$\displaystyle ##1$&&$\displaystyle ##2$&$\displaystyle ##3$%
+  \def\tablerow#1#2#3{%
+    \bigmathstrut&&$\displaystyle #1$&&$\displaystyle #2$&$\displaystyle #3$%
   }
   \vbox{\tabskip=0pt \offinterlineskip\halign{%
-    \strut##&\vrule##\tabskip=1em&\hfil##\hfil&\vrule##&##\hfil&##\hfil&\tabskip=0pt\vrule##\cr \tablerule
+    \strut#&\vrule#\tabskip=1em&\hfil#\hfil&\vrule#&#\hfil&#\hfil&\tabskip=0pt\vrule#\cr \tablerule
     \bigstrut&&Function&&Maclaurin series&Sigma notation&\cr \tablerule
     \tablerow
       {e^x}
