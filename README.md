@@ -24,6 +24,9 @@ you get
 4. Hit enter and wait
 5. profit
 
+![image](https://user-images.githubusercontent.com/124417811/216801804-ed90717f-9325-4595-a80c-e6334b00853b.png)
+![image](https://user-images.githubusercontent.com/124417811/216801814-5ac65769-5c68-4571-a4b1-79149da54866.png)
+
 ### Preamble Contributions:
 1. Fork the repo
 2. Open the repo from your account. The URL will be something like
