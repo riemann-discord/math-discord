@@ -380,3 +380,22 @@
     %   {{} = \sum_{k = 0}^\infty \frac {(-1)^k x^{2k + 1}} {2k + 1}},\quad\hfill $-1 < x < 1$&\cr \tablerule
   }}
 }
+%
+\DeclareFactoid{cofunc iden}{
+  \tabskip=0pt
+  \setbox2=\hbox{\vrule height3.5ex depth3ex width0pt}
+  \halign{
+    \unhcopy2\strut##&\vrule##\tabskip=1em&\hfil$##$\hfil&\vrule##&\hfil$##$\hfil&\vrule##&\hfil$##$\hfil&\vrule##&\hfil$##$\hfil&\vrule##&\hfil$##$\hfil&##\vrule\tabskip=0pt\cr
+    \noalign{\hrule}
+    &&\multispan9\hfil \bfseries Cofunction identites\hfil&\cr
+    \noalign{\hrule}
+    &&\theta&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
+    \noalign{\hrule}
+    &&\sin(\theta)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr
+    \noalign{\hrule}
+    &&\cos(\theta)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr
+    \noalign{\hrule}
+    &&\tan(\theta)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr
+    \noalign{\hrule}
+  }
+}
