@@ -380,8 +380,52 @@
     %   {{} = \sum_{k = 0}^\infty \frac {(-1)^k x^{2k + 1}} {2k + 1}},\quad\hfill $-1 < x < 1$&\cr \tablerule
   }}
 }
-%
-\DeclareFactoid{cofunc iden}{
+
+% trig reflect identities
+\DeclareFactoid{reflect ident}{
+  \def\a{-x}
+  \def\b{\frac{\pi}{2} - x}
+  \def\d{\pi - x}
+
+  \tabskip=0pt
+  \setbox2=\hbox{\vrule height4ex depth4ex width0pt}
+  \halign{
+    \unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
+    \noalign{\hrule}
+    &&\multispan5\hfil \bfseries Reflection Identities\hfil&\cr
+    \noalign{\hrule}
+    &&\sin(\a) = -\sin(x)&&\sin(\b) =\cos(x)&&\sin(\d)=\sin(x)&\cr
+    \noalign{\hrule}
+    &&\cos(\a)=\cos(x)&&\cos(\b) =\sin(x)&&\cos(\d)=-\cos(x)&\cr
+    \noalign{\hrule}
+    &&\tan(\a) = -\tan(x)&&\tan(\b)=\frac{1}{\tan(x)}&&\tan(\d)=-\tan(x)&\cr
+    \noalign{\hrule}
+  }
+}
+
+% trig shift identities
+\DeclareFactoid{shift ident}{
+  \def\b{\frac{\pi}{2} + x}
+  \def\d{\pi + x}
+
+  \tabskip=0pt
+  \setbox2=\hbox{\vrule height4ex depth4ex width0pt}
+  \halign{
+    \unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
+    \noalign{\hrule}
+    &&\multispan3\hfil \bfseries Shift Identities\hfil&\cr
+    \noalign{\hrule}
+    &&\sin(\b) = \cos(x)&&\sin(\d)=-\sin(x)&\cr
+    \noalign{\hrule}
+    &&\cos(\b) =-\sin(x)&&\cos(\d)=-\cos(x)&\cr
+    \noalign{\hrule}
+    &&\tan(\b)=\frac{-1}{\tan(x)}&&\tan(\d)=\tan(x)&\cr
+    \noalign{\hrule}
+  }
+}
+
+% all trig identities (shift and reflect) minimize in one table
+\DeclareFactoid{trig ident advance}{
   \tabskip=0pt
   \setbox2=\hbox{\vrule height3.5ex depth3ex width0pt}
   \halign{
