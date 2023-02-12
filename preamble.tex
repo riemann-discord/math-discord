@@ -251,18 +251,13 @@
 
 % trig reflect identities
 \DeclareFactoid{reflect trig}{
-  \tabskip=0pt
-  \setbox2=\hbox{\vrule height4ex depth4ex width0pt}
-  \halign{
-    \unhcopy2\strut#&\vrule\tabskip=.7em#&\hfil\tabskip=0pt$#$ & = #&$#$\hfil\tabskip=.7em&\vrule#&\hfil\tabskip=0pt$#$ & = #&$#$\hfil\tabskip=.7em&\vrule#&\hfil\tabskip=0pt$#$ & = #&$#$\hfil\tabskip=.7em&#\vrule\tabskip=0pt\cr
-    \noalign{\hrule}
-    &&\sin(-x)&& -\sin(x)&&\sin(\frac{\pi}{2} - x)&&\cos(x)&&\sin(\pi - x)&&\sin(x)&\cr
-    \noalign{\hrule}
-    &&\cos(-x)&&\cos(x)&&\cos(\frac{\pi}{2} - x)&&\sin(x)&&\cos(\pi - x)&&-\cos(x)&\cr
-    \noalign{\hrule}
-    &&\tan(-x) && -\tan(x)&&\tan(\frac{\pi}{2} - x)&&\frac{1}{\tan(x)}&&\tan(\pi - x)&&-\tan(x)&\cr
-    \noalign{\hrule}
-  }
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{3}
+      \sin(-x) &= -\sin(x), \quad & \sin(\tfrac\pi2 - x) &= \cos(x), \quad & \sin(\pi - x) &= \hphantom-\sin(x) \\
+      \cos(-x) &= \hphantom-\cos(x), \quad & \cos(\tfrac\pi2 - x) &= \sin(x), \quad & \cos(\pi - x) &= -\cos(x) \\
+      \tan(-x) &= -\tan(x), \quad & \tan(\tfrac\pi2 - x) &= \tfrac1{\tan(x)}, \quad & \tan(\pi - x) &= -\tan(x)
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 % trig shift identities
