@@ -383,50 +383,58 @@
   \]%
 }
 
+\makeatletter
 \DeclareFactoid{maclaurin}{%
-  \setbox0=\hbox{$\displaystyle\sum_{k = 0}^\infty$}
-  \setbox2=\hbox{\vrule height\dimexpr\ht0+.5ex depth\dimexpr\dp0+.5ex width0pt}
-  \setbox4=\hbox{\vrule height2.5ex depth1ex width0pt}
-  \def\bigmathstrut{\unhcopy2}
-  \def\bigstrut{\unhcopy4}
-  \def\tablerule{\noalign{\hrule}}
-  \def\tablerow#1#2#3{%
-    \bigmathstrut&&$\displaystyle #1$&&$\displaystyle #2$&$\displaystyle #3$%
+  \setbox0=\hbox{$\displaystyle\sum_{k = 0}^{k = 0}$}
+  \setbox0=\hbox{\vrule height\dimexpr\ht0+.5ex\relax depth\dimexpr\dp0+.5ex\relax width0pt}
+  \setbox2=\hbox{\vrule height2.5ex depth1ex width0pt}
+  \def\bigmathstrut{\unhcopy0}
+  \def\bigstrut{\unhcopy2}
+  \def\thickrule{\noalign{\hrule height.8pt}}
+  \def\thinrule{\noalign{\hrule}}
+  \def\verythinrule{\noalign{\hrule height.2pt}}
+  \def\tablerow#1#2#3#4#5#6#7#8#9{%
+    \@tablerow{%
+      \bigmathstrut&%
+      $\m@th\displaystyle #1$&%
+      $\m@th\displaystyle #2$&${}#3{}\m@th$&%
+      $\m@th\displaystyle #4$&${}#5{}\m@th$&%
+      $\m@th\displaystyle #6$&${}#7{}\m@th$&%
+      $\m@th\displaystyle #8$&${}#9\dotsb\m@th$&%
+    }%
+  }
+  \def\@tablerow#1#2{%
+    #1%
+    $\m@th\displaystyle #2$
   }
   \vbox{\tabskip=0pt \offinterlineskip\halign{%
-    \strut#&\vrule#\tabskip=1em&\hfil#\hfil&\vrule#&#\hfil&#\hfil&\tabskip=0pt\vrule#\cr \tablerule
-    \bigstrut&&Function&&Maclaurin series&Sigma notation&\cr \tablerule
+    #\tabskip=1em&\hfil#\hfil&\tabskip=0pt%
+      \hfil#\hfil&\hfil#\hfil&%
+      \hfil#\hfil&\hfil#\hfil&%
+      \hfil#\hfil&\hfil#\hfil&%
+      \hfil#\hfil&\hfil#\hfil\tabskip=2em&%
+      #\hfil\cr \thickrule
+    \bigstrut&Function&\omit Maclaurin series\hfil\hidewidth&&&&&&&&Sigma notation\cr \thinrule
     \tablerow
       {e^x}
-      {\hphantom- 1 + \frac x {1!} + \frac {x^2} {2!} + \frac {x^3} {3!} + \dotsb}
-      {{} = \sum_{k = 0}^\infty \frac {x^k} {k!}}&\cr \tablerule
+      1 + {\frac x {1!}} + {\frac {x^2} {2!}} + {\frac {x^3} {3!}} +
+      {\sum_{k = 0}^\infty \frac {x^k} {k!}}\cr \verythinrule
     \tablerow
       {\sin(x)}
-      {\hphantom- \frac x {1!} - \frac {x^3} {3!} + \frac {x^5} {5!} - \frac {x^7} {7!} + \dotsb}
-      {{} = \sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}&\cr \tablerule
+      {\frac x {1!}} - {\frac {x^3} {3!}} + {\frac {x^5} {5!}} - {\frac {x^7} {7!}} +
+      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}\cr \verythinrule
     \tablerow
       {\cos(x)}
-      {\hphantom- 1 - \frac {x^2} {2!} + \frac {x^4} {4!} - \frac {x^6} {6!} + \dotsb}
-      {{} = \sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}&\cr \tablerule
+      1 - {\frac {x^2} {2!}} + {\frac {x^4} {4!}} - {\frac {x^6} {6!}} +
+      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}\cr \verythinrule
     \tablerow
       {\frac 1 {1 - x}}
-      {\hphantom- 1 + x + x^2 + x^3 + \dotsb}
-      {{} = \sum_{k = 0}^\infty x^k},\quad\hfill $-1 < x < 1$&\cr \tablerule
+      1 + x + {x^2} + {x^3} +
+      {\sum_{k = 0}^\infty x^k},\quad\hfill $-1 < x < 1$\cr \verythinrule
     \tablerow
       {\ln(1 + x)}
-      {\hphantom- \frac x 1 - \frac {x^2} 2 + \frac {x^3} 3 - \frac {x^4} 4 + \dotsb}
-      {{} = \sum_{k = 1}^\infty \frac {(-1)^{k + 1} x^k} k},\quad\hfill $-1 < x \le 1$&\cr \tablerule
-    % \tablerow
-    %   {\ln(1 - x)}
-    %   {-\frac x 1 - \frac {x^2} 2 - \frac {x^3} 3 - \frac {x^4} 4 - \dotsb}
-    %   {{} = \sum_{k = 1}^\infty -\frac {x^k} k},\quad\hfill $-1 \le x < 1$&\cr \tablerule
-    % \tablerow
-    %   {\frac 1 {1 + x^2}}
-    %   {\hphantom- 1 - x^2 + x^4 - x^6 + \dotsb}
-    %   {{} = \sum_{k = 0}^\infty (-1)^k x^{2k}},\quad\hfill $-1 < x < 1$&\cr \tablerule
-    % \tablerow
-    %   {\tan^{-1}(x)}
-    %   {\hphantom- x - \frac {x^3} 3 + \frac {x^5} 5 - \frac {x^7} 7 + \dotsb}
-    %   {{} = \sum_{k = 0}^\infty \frac {(-1)^k x^{2k + 1}} {2k + 1}},\quad\hfill $-1 < x < 1$&\cr \tablerule
-  }}
-}
+      {\frac x 1} - {\frac {x^2} 2} + {\frac {x^3} 3} - {\frac {x^4} 4} +
+      {\sum_{k = 1}^\infty \frac {(-1)^{k + 1} x^k} k},\quad\hfill $-1 < x \le 1$\cr \thickrule
+    }}
+  }
+\makeatother
