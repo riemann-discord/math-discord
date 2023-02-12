@@ -38,5 +38,5 @@ you get
 6. profit
 
 Credit to
-@snow (夢雪#2250), Mehdi_Moulati#1210, Toby#2275, 
+@snow (夢雪#2250), Mehdi_Moulati#1210, Toby#2275, RokettoJanpu#6002
 for your contributions.
