@@ -419,6 +419,19 @@
 \DeclareFactoid{demoivre}{$(e^{ix})^n = (\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)$}
 
 % First year university/college Calculus
+\DeclareFactoid{diff rules}{%
+  \begin{tabular}{lcc}
+    \textbf{Rule Name} & \textbf{Function} & \textbf{Derivative} \\ \hline
+    \rule{0pt}{4ex}Constant multiple & $ cf(x)$ & $cf'(x) $\\
+    \rule{0pt}{4ex}Power Rule & $ x^n$ & $n x^{n-1} $\\
+    \rule{0pt}{4ex}Sum Rule & $ f(x) + g(x)$ & $ f'(x) + g'(x) $\\
+    \rule{0pt}{4ex}Product Rule & $ f(x)\cdot g(x)$ & $ f'(x)\cdot g(x) + f(x) \cdot g'(x) $\\
+    \rule{0pt}{4ex}Quotient Rule & $ \frac{f(x)}{g(x)}$ & $\frac{f'(x)\cdot g(x) - f(x)\cdot g(x)}{[g(x)]^2} $\\
+    \rule{0pt}{4ex}Chain Rule notation 1 & $f(g(x))$ & $ f'(g(x)) \cdot g'(x) $\\
+    \rule{0pt}{4ex}Chain Rule notation 2 & $(f\circ g)(x)$ & $(f'\circ g)(x) \cdot g'(x)$
+  \end{tabular}
+}
+
 \DeclareFactoid{FTC1}{%
   Let $F(x)$ be the antiderivative of $f(x)$:
   \[
