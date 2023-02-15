@@ -17,6 +17,26 @@ you get
 
 ![cosine double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png)
 
+Here is a list of factoids:
+
+`\.sohcahtoa`
+`\.unit circle`
+`\.original`
+`\.cts`
+`\.power rules`
+`\.log xp rule`
+`\.point slope`
+`\.double cos`
+`\.demoivre`
+`\.sum diff trig`
+`\.shift trig`
+`\.reflect trig`
+`\.rocket trig`
+`\.FTC1`
+`\.FTC2`
+`\.integral area`
+`\.maclaurin`
+
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
 2. Create your own server and invite [TeXit bot](https://top.gg/bot/510789298321096704) and go to any channel in your server
