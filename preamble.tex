@@ -223,9 +223,9 @@
 
   \begin{minipage}[b]{.4\linewidth}
     \begin{align*}
-      \sin\theta & = \frac{\text{Opposite}}{\text{Hypotenuse}} \\
-      \cos\theta & = \frac{\text{Adjacent}}{\text{Hypotenuse}} \\
-      \tan\theta & = \frac{\text{Opposite}}{\text{Adjacent}}
+      \sin\th & = \frac{\text{Opposite}}{\text{Hypotenuse}} \\
+      \cos\th & = \frac{\text{Adjacent}}{\text{Hypotenuse}} \\
+      \tan\th & = \frac{\text{Opposite}}{\text{Adjacent}}
     \end{align*}
   \end{minipage}
   \begin{tikzpicture}
@@ -242,21 +242,33 @@
 
 \DeclareFactoid{double cos}{%
   \begin{align*}
-    \cos (2 \theta) &= \cos^2 (\theta) - \sin^2 (\theta) \\
-    & = 2\cos^2 (\theta) - 1 \\
-    & = 1 - 2\sin^2 (\theta)
+    \cos (2\th) &= \cos^2(\th) - \sin^2(\th) \\
+      &= 2\cos^2(\th) - 1 \\
+      &= 1 - 2\sin^2(\th)
   \end{align*}%
 }
 
+\DeclareFactoid{sum diff trig}{%
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{2}
+      \sin (\th \pm \vp) &= \sin(\th)\cos(\vp) \pm \cos(\th)\sin(\vp) \\
+      \cos (\th \pm \vp) &= \cos(\th)\cos(\vp) \mp \sin(\th)\sin(\vp) \\
+      \tan (\th \pm \vp) &= \frac{\tan(\th) \pm \tan(\vp)}{1 \mp \tan(\th)\tan(\vp)}
+    \end{alignat*}
+  \end{spreadlines}
+}
+
 \DeclareFactoid{recip trig}{%
-  \begin{alignat*}{2}
-    \csc(x) & = \tfrac 1 {\sin(x)}, \quad & \tan(x) & = \tfrac {\sin(x)} {\cos(x)} \\
-    \sec(x) & = \tfrac 1 {\cos(x)}, \quad & \cot(x) & = \tfrac {\cos(x)} {\sin(x)}
-  \end{alignat*}
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{2}
+      \csc(x) & = \tfrac 1 {\sin(x)}, \quad & \tan(x) & = \tfrac {\sin(x)} {\cos(x)} \\
+      \sec(x) & = \tfrac 1 {\cos(x)}, \quad & \cot(x) & = \tfrac {\cos(x)} {\sin(x)}
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 % trig reflect identities
-\DeclareFactoid{reflect trig}{
+\DeclareFactoid{reflect trig}{%
   \begin{spreadlines}{1.5ex}
     \begin{alignat*}{3}
       \sin(-x) &= -\sin(x), \quad & \sin(\tfrac\pi2 - x) &= \cos(x), \quad & \sin(\pi - x) &= \hphantom-\sin(x) \\
@@ -284,13 +296,13 @@
   \halign{
     \unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
     \noalign{\hrule}
-    &&\theta&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
+    &&\th&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
     \noalign{\hrule}
-    &&\sin(\theta)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr
+    &&\sin(\th)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr
     \noalign{\hrule}
-    &&\cos(\theta)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr
+    &&\cos(\th)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr
     \noalign{\hrule}
-    &&\tan(\theta)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr
+    &&\tan(\th)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr
     \noalign{\hrule}
   }
 }
@@ -400,7 +412,7 @@
     }
 
     \node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
-    \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
+    % \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
   \end{tikzpicture}%
 }
 
