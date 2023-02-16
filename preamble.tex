@@ -63,6 +63,11 @@
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 \newcommand{\pdif}[3]{\frac{\partial^{#3}#1}{\partial#2^{#3}}}
 
+% Colors in figures
+\definecolor{r}{HTML}{ff3030}
+\definecolor{b}{HTML}{00bfff}
+\definecolor{o}{HTML}{ff7e00}
+
 \makeatletter
 % stolen from source2e
 \bgroup
@@ -241,16 +246,13 @@
 }
 
 \DeclareFactoid{geom trig def}{%
-  % change the angle as you want
   \def\angle{55}
 
   \pgfmathsetmacro{\r}{1}
   \pgfmathsetmacro{\s}{sin(\angle)}
   \pgfmathsetmacro{\c}{cos(\angle)}
-  %colors
-  \definecolor{r}{HTML}{ff3030}
-  \definecolor{b}{HTML}{00bfff}
-  \definecolor{o}{HTML}{ff7e00}
+
+  %color
   \definecolor{g}{HTML}{50C878}
 
   \begin{tikzpicture}[scale=5,very thick]
@@ -260,21 +262,21 @@
     \draw[gray!30] (0,0) -- (1/\c+.1,0);
 
     % arc of the angle
-    \draw   (1/5,0) node[sloped,anchor=south east] {$\boldsymbol{\theta}$} arc (0:\angle:1/5) ;
+    \draw (1/5,0) node[sloped,anchor=south east] {$\boldsymbol{\theta}$} arc (0:\angle:1/5);
 
     % cos and sin
-    \draw (0,0) --node [sloped,above]{1} (\angle:1); % radius = 1
-    \draw (0,\s) -- node [below]{$\boldsymbol{\cos(\theta)}$} (\c,\s); % cos(x)
-    \draw (\c,\s)-- node [right]{$\boldsymbol{\sin(\theta)}$}(\c,0); % sin(x)
+    \draw (0,0) --node [sloped,above]{1} (\angle:1);
+    \draw (0,\s) -- node [below]{$\boldsymbol{\cos(\theta)}$} (\c,\s);
+    \draw (\c,\s)-- node [right]{$\boldsymbol{\sin(\theta)}$}(\c,0);
 
-    % quater circle :
+    % quarter circle :
     \draw (1,0) arc(0:90:1);
 
-    % big triangle (shochatao):
-    \draw [r] (0   ,0 ) -- node [below] {$\boldsymbol{\sec(\theta)}$} (1/\c,0); % sec(x)
-    \draw [b] (1/\c,0) -- node [sloped,above] {$\boldsymbol{\tan(\theta)}$} (\c,\s); % tan(x)
-    \draw [o] (0  ,  0) -- node [left=1mm] {$\boldsymbol{\csc(\theta)}$} (0,1/\s); % csc(x)
-    \draw [g] (0,1/\s) -- node [sloped,above] {$\boldsymbol{\cot(\theta)}$} (\c,\s); % cot(x)
+    % big triangle (sec, tan, csc, cot):
+    \draw [r] (0   ,0 ) -- node [below] {$\boldsymbol{\sec(\theta)}$} (1/\c,0);
+    \draw [b] (1/\c,0) -- node [sloped,above] {$\boldsymbol{\tan(\theta)}$} (\c,\s);
+    \draw [o] (0  ,  0) -- node [left=1mm] {$\boldsymbol{\csc(\theta)}$} (0,1/\s);
+    \draw [g] (0,1/\s) -- node [sloped,above] {$\boldsymbol{\cot(\theta)}$} (\c,\s);
   \end{tikzpicture}
 }
 
@@ -399,9 +401,6 @@
 
 \DeclareFactoid{unit circle}{%
   \begin{tikzpicture}[scale=4.5, font=\small]
-    \definecolor{r}{HTML}{ff3030}
-    \definecolor{b}{HTML}{00bfff}
-    \definecolor{o}{HTML}{ff7e00}
     \def\angles{
       0/2\pi/1/0,
       30/\frac\pi6/\frac{\sqrt3}2/\frac12,
