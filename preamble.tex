@@ -240,6 +240,44 @@
   \end{tikzpicture}%
 }
 
+\DeclareFactoid{geom trig def}{%
+  % change the angle as you want
+  \def\angle{55}
+
+  \pgfmathsetmacro{\r}{1}
+  \pgfmathsetmacro{\s}{sin(\angle)}
+  \pgfmathsetmacro{\c}{cos(\angle)}
+  %colors
+  \definecolor{r}{HTML}{ff3030}
+  \definecolor{b}{HTML}{00bfff}
+  \definecolor{o}{HTML}{ff7e00}
+  \definecolor{g}{HTML}{50C878}
+
+  \begin{tikzpicture}[scale=5,very thick]
+
+    % grey axis
+    \draw[gray!30] (0,0) -- (0,1/\s+.1);
+    \draw[gray!30] (0,0) -- (1/\c+.1,0);
+
+    % arc of the angle
+    \draw   (1/5,0) node[sloped,anchor=south east] {$\boldsymbol{\theta}$} arc (0:\angle:1/5) ;
+
+    % cos and sin
+    \draw (0,0) --node [sloped,above]{1} (\angle:1); % radius = 1
+    \draw (0,\s) -- node [below]{$\boldsymbol{\cos(\theta)}$} (\c,\s); % cos(x)
+    \draw (\c,\s)-- node [right]{$\boldsymbol{\sin(\theta)}$}(\c,0); % sin(x)
+
+    % quater circle :
+    \draw (1,0) arc(0:90:1);
+
+    % big triangle (shochatao):
+    \draw [r] (0   ,0 ) -- node [below] {$\boldsymbol{\sec(\theta)}$} (1/\c,0); % sec(x)
+    \draw [b] (1/\c,0) -- node [sloped,above] {$\boldsymbol{\tan(\theta)}$} (\c,\s); % tan(x)
+    \draw [o] (0  ,  0) -- node [left=1mm] {$\boldsymbol{\csc(\theta)}$} (0,1/\s); % csc(x)
+    \draw [g] (0,1/\s) -- node [sloped,above] {$\boldsymbol{\cot(\theta)}$} (\c,\s); % cot(x)
+  \end{tikzpicture}
+}
+
 \DeclareFactoid{double cos}{%
   \begin{align*}
     \cos (2\th) &= \cos^2(\th) - \sin^2(\th) \\
@@ -512,41 +550,3 @@
   }
 \makeatother
 
-%
-\DeclareFactoid{geom trig def}{
-  % change the angle as you want
-  \def\angle{55}
-
-  \pgfmathsetmacro{\r}{1}
-  \pgfmathsetmacro{\s}{sin(\angle)}
-  \pgfmathsetmacro{\c}{cos(\angle)}
-  %colors
-  \definecolor{r}{HTML}{ff3030}
-  \definecolor{b}{HTML}{00bfff}
-  \definecolor{o}{HTML}{ff7e00}
-  \definecolor{g}{HTML}{50C878}
-
-  \begin{tikzpicture}[scale=5,very thick]
-
-    % grey axis
-    \draw[gray!30] (0,0) -- (0,1/\s+.1);
-    \draw[gray!30] (0,0) -- (1/\c+.1,0);
-
-    % arc of the angle
-    \draw   (1/5,0) node[sloped,anchor=south east] {$\boldsymbol{\theta}$} arc (0:\angle:1/5) ;
-
-    % cos and sin
-    \draw (0,0) --node [sloped,above]{1} (\angle:1);                             % radius = 1
-    \draw (0,\s) -- node [below]{$\boldsymbol{\cos(\theta)}$} (\c,\s);     % cos(x)
-    \draw (\c,\s)-- node [right]{$\boldsymbol{\sin(\theta)}$}(\c,0); % sin(x)
-
-    % quater circle :
-    \draw (1,0) arc(0:90:1);
-
-    % big triangle (shochatao):
-    \draw [r] (0   ,0 ) -- node [below] {$\boldsymbol{\sec(\theta)}$} (1/\c,0);           % sec(x)
-    \draw [b] (1/\c,0) -- node [sloped,above] {$\boldsymbol{\tan(\theta)}$} (\c,\s);  % tan(x)
-    \draw [o] (0  ,  0) -- node [left=1mm] {$\boldsymbol{\csc(\theta)}$} (0,1/\s);        % csc(x)
-    \draw [g] (0,1/\s) -- node [sloped,above] {$\boldsymbol{\cot(\theta)}$} (\c,\s);  % cot(x)
-  \end{tikzpicture}
-}
