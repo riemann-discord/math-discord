@@ -20,6 +20,7 @@ you get
 Here is a list of factoids:
 
 `\.sohcahtoa`
+`\.geom trig def`
 `\.unit circle`
 `\.original`
 `\.cts`
@@ -42,8 +43,9 @@ Here is a list of factoids:
 2. Create your own server and invite [TeXit bot](https://top.gg/bot/510789298321096704) and go to any channel in your server
 3. OR Go to [`#latex-testing`](https://discord.com/channels/268882317391429632/844681108473118750) or [`#latex-help`](https://discord.com/channels/268882317391429632/840667252793802752) channel in the Math Discord server
 4. Upload `preamble.tex` that you downloaded in step 1. and type `,preamble --replace` in the same message.
-5. Hit enter and wait
-6. profit
+5. Hit enter
+6. Reply `y` to the message to confirm and wait
+7. profit
 
 ### Preamble Contributions:
 1. Fork the repo
