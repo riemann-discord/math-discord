@@ -5,17 +5,23 @@ Do you like talking about math? Do you enjoying communicating with math symbols 
 
 `,tex \.cts`
 
-you get
+you get : 
+<div align="center">
+<img src="https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/cts.png" alt="complete the square" height="400px"/>
+</div>
 
-![complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/cts.png)
+<!-- ![complete the square](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/cts.png) -->
 
 Or with 
 
 `,tex \.double cos`
 
-you get
+you get : 
+<div align="center">
+<img src="https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png" alt="cosine double angle identities" height="200px"/>
+</div>
 
-![cosine double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png)
+<!-- ![cosine double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png) -->
 
 Here is a list of factoids:
 
