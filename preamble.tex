@@ -343,6 +343,7 @@
   }
 }
 
+% sum-to-product formulas
 \DeclareFactoid{sum2prod}{%
   \begin{spreadlines}{1.3ex}
     \begin{alignat*}{3}
@@ -353,6 +354,17 @@
     \end{alignat*}
   \end{spreadlines}
 }%
+
+% product-to-sum formulas
+\DeclareFactoid{prod2sum}{%
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &2\sin(x)\sin(y)\ &=\ & \cos(x-y)-\cos(x + y) \\
+      &2\sin(x)\cos(y)\ &=\ & \sin(x + y) + \sin(x - y) \\
+      &2\cos(x)\cos(y)\ &=\ & \cos(x + y) + \cos(x - y)
+    \end{alignat*}
+  \end{spreadlines}
+}
 
 % long list of trig identities
 \DeclareFactoid{rocket trig}{
