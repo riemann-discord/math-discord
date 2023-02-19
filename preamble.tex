@@ -216,6 +216,26 @@
 }
 
 % American High school Algebra 2 and Trigonometry
+
+\DeclareFactoid{transformation rules}{%
+  \definecolor{o}{HTML}{ff7e00}
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{5}
+      &\textbf{Notation} \quad && \textbf{Transformation Type} && \textbf{Coordinate Change} \\
+      & f(x) {\color o {} +d} \quad && \textrm{Vertical translation up } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} +d}) \\
+      & f(x) {\color o {} -d} \quad && \textrm{Vertical translation down } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} -d}) \\
+      & f(x {\color o {} +c}) \quad && \textrm{Horizontal translation left } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} - c }, y) \\
+      & f(x {\color o {} -c}) \quad && \textrm{Horizontal translation right } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} + c }, y) \\
+      &  {\color o -}f(x) \quad && \textrm{Reflection over } {\color o {} x-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto (x, {\color o {} -}y) \\
+      & f({\color o -}x) \quad && \textrm{Reflection over } {\color o {} y-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto ({\color o {} -}x, y) \\
+      & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |a| > 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
+      & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |a| < 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
+      & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |b| > 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right) \\
+      & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |b| < 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right)
+    \end{alignat*}
+  \end{spreadlines}
+}
+
 \DeclareFactoid{log rules}{%
   \begin{spreadlines}{1ex}
     \begin{alignat*}{3}
