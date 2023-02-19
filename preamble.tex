@@ -192,20 +192,18 @@
   \end{align*}%
 }
 
-\DeclareFactoid{power rules}{%
-  \begingroup\def\arraystretch{1.3}
-  \textbf{Rules for Powers/Exponents} \\
-  \begin{tabular}{|l|l|}
-    \hline
-    Product Rule        & $a^xa^y=a^{x+y}$                \\ \hline
-    Negative Exponent   & $a^{-x}=\tfrac{1}{a^x}$         \\ \hline
-    Quotient Rule       & $\tfrac{a^x}{a^y}=a^{x-y}$      \\ \hline
-    Power of Power      & $\left(a^x\right)^y=a^{xy}$     \\ \hline
-    Distributivity      & $(ab)^x=a^xb^x$                 \\ \hline
-    Zero Exponent       & $a^0=1$                         \\ \hline
-    Fractional Exponent & $a^{\frac{x}{y}}=\sqrt[y]{a^x}$ \\ \hline
-  \end{tabular}
-  \endgroup
+\DeclareFactoid{exp rules}{%
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Exponent Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Product Rule} \quad && a^xa^y = a^{x+y} \\
+      &\textrm{Negative Exponent} \quad && a^{-x}=\tfrac{1}{a^x} \\
+      &\textrm{Quotient Rule} \quad && \frac{a^x}{a^y}=a^{x-y} \\
+      &\textrm{Power of Power} \quad && \left(a^x\right)^y=a^{xy} \\
+      &\textrm{Distributivity} \quad && (ab)^x=a^xb^x \\
+      &\textrm{Fractional Exponent} \quad && a^{\frac{x}{y}}=\sqrt[y]{a^x} \\
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 \DeclareFactoid{log xp rule}{\[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\]}
@@ -218,6 +216,18 @@
 }
 
 % American High school Algebra 2 and Trigonometry
+\DeclareFactoid{log rules}{%
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Log Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Product Rule} \quad && \log(x\cdot y) = \log(x) + \log(y) \\
+      &\textrm{Quotient Rule} \quad && \log(\frac{x}{y}) = \log(x) - \log(y) \\
+      &\textrm{Power Rule} \quad && \log(x^y) = y \log(x) \\
+      &\textrm{Base Change} \quad && \log_{b}(x) = \frac{\log_c(x)}{\log_c(b)}
+    \end{alignat*}
+  \end{spreadlines}
+}
+
 \DeclareFactoid{sohcahtoa}{%
   \textbf{Definitions of sin/cos/tan}
 
