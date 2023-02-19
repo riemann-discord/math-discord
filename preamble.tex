@@ -164,7 +164,7 @@
 
 % user interface
 \cs_new_protected_nopar:Npn \DeclareFactoid { \factoids_new:nn }
-\cs_new_protected_nopar:Npn \factoid { \getline \factoids_invoke:n }
+\cs_new_protected_nopar:Npn \factoid { \factoids_invoke:n }
 \cs_gset_protected_nopar:Npn \. { \xgetline \factoids_invoke:n }
 \ExplSyntaxOff
 
