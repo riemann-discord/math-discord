@@ -1,6 +1,6 @@
 # math-discord
 
-## Make LaTeX'ing easier
+## Make LaTeX'ing easier in [Math Discord](https://discord.gg/math)
 Do you like talking about math? Do you enjoying communicating with math symbols using the typesetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons ("factoids", denoted by its shortcut command `\.` before the factoid name) using a simple command of 
 
 `,tex \.cts`
@@ -55,7 +55,7 @@ Here is a list of factoids:
 3. OR Go to [`#latex-testing`](https://discord.com/channels/268882317391429632/844681108473118750) or [`#latex-help`](https://discord.com/channels/268882317391429632/840667252793802752) channel in the Math Discord server
 4. Upload `preamble.tex` that you downloaded in step 1. and type `,preamble --replace` in the same message.
 5. Hit enter
-6. Reply `y` to the message to confirm and wait
+6. Reply `y` to the message the bot sends to you to confirm your choice and wait
 7. profit
 
 ### Preamble Contributions:
