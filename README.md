@@ -1,9 +1,9 @@
 # math-discord
 
 ## Make LaTeX'ing easier
-Do you like talking about math? Do you enjoying communicating with math symbols using the typesetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons ("factoids", denoted by its shortcut command `\.` before the factoid name) using a simple command of 
+Do you like talking about math? Do you enjoying communicating with math symbols using the typesetting language LaTeX? Do you want Latex shortcuts in the math server? If you answered yes to all these questions, this repo is designed for you. You can produce compiled latex'd lessons ("factoids", denoted by its shortcut command `\` before the factoid name) using a simple command of 
 
-`,tex \.cts`
+`,tex \cts`
 
 you get : 
 <div align="center">
@@ -14,7 +14,7 @@ you get :
 
 Or with 
 
-`,tex \.double cos`
+`,tex \double cos`
 
 you get : 
 <div align="center">
@@ -25,29 +25,29 @@ you get :
 
 Here is a list of factoids:
 
-`\.original`,
-`\.cts`,
-`\.exp rules`,
-`\.log xp rule`,
-`\.point slope`,
-`\.log rules`,
-`\.geom trig def`,
-`\.sohcahtoa`,
-`\.unit circle`,
-`\.double cos`,
-`\.demoivre`,
-`\.sum diff trig`,
-`\.shift trig`,
-`\.reflect trig`,
-`\.sum2prod`,
-`\.prod2sum`,
-`\.rocket trig`,
-`\.diff rules`,
-`\.int rules `,
-`\.FTC1`,
-`\.FTC2`,
-`\.integral area`,
-`\.maclaurin`,
+`\original`,
+`\cts`,
+`\exp rules`,
+`\log xp rule`,
+`\point slope`,
+`\log rules`,
+`\geom trig def`,
+`\sohcahtoa`,
+`\unit circle`,
+`\double cos`,
+`\demoivre`,
+`\sum diff trig`,
+`\shift trig`,
+`\reflect trig`,
+`\sum2prod`,
+`\prod2sum`,
+`\rocket trig`,
+`\diff rules`,
+`\int rules `,
+`\FTC1`,
+`\FTC2`,
+`\integral area`,
+`\maclaurin`,
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
