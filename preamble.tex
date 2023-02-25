@@ -172,9 +172,13 @@
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
 
 % American High school Algebra and Geometry
-
-\DeclareFactoid{x fraction cancel}{%
+\DeclareFactoid{wrong fraction cancel}{%
   $\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
+}
+\DeclareFactoid{freshman}{\factoid{wrong fraction cancel}}
+
+\DeclareFactoid{wrong square}{%
+  $(x + y)^2$ does not equal $x^2 + y^2$
 }
 
 \DeclareFactoid{cts}{%
@@ -523,6 +527,21 @@
 \DeclareFactoid{demoivre}{$(e^{ix})^n = (\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)$}
 
 % First year university/college Calculus
+\DeclareFactoid{limit rules}{%
+  Suppose $\lim_{x \to a} f(x) = L$,\ $\lim_{x \to a} g(x) = M$, and $n>0$
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Sum/Difference} \quad && \lim_{x \to a}  f(x) \pm g(x) = L \pm M \\
+      &\textrm{Constant Multiple} \quad && \lim_{x \to a} c f(x) = cL \\
+      &\textrm{Product} \quad &&  \lim_{x \to a} f(x) g(x) = L M \\
+      &\textrm{Quotient} \quad &&  \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M} \\
+      &\textrm{Power} \quad &&  \lim_{x \to a} \left(f(x)\right)^n= L^n\\
+      &\textrm{Root} \quad && \lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}, \ L \ge 0
+    \end{alignat*}
+  \end{spreadlines}
+}
+
 \DeclareFactoid{diff rules}{%
   \begin{tabular}{lcc}
     \textbf{Rule Name} & \textbf{Function} & \textbf{Derivative} \\ \hline
