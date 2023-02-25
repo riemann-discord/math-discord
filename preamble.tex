@@ -172,6 +172,11 @@
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
 
 % American High school Algebra and Geometry
+
+\DeclareFactoid{x fraction cancel}{%
+  $\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
+}
+
 \DeclareFactoid{cts}{%
   {\bfseries Completing the square}
 
@@ -306,11 +311,21 @@
     \draw [g] (0, 1/\s) -- node [sloped,above] {$\cot(\th)$} (\c,\s);
   \end{tikzpicture}}
 
-\DeclareFactoid{double cos}{%
+\DeclareFactoid{double angle}{%
   \begin{align*}
     \cos (2\th) &= \cos^2(\th) - \sin^2(\th) \\
       &= 2\cos^2(\th) - 1 \\
-      &= 1 - 2\sin^2(\th)
+      &= 1 - 2\sin^2(\th) \\
+    \sin(2\th) &= 2\sin(\th)\cos(\th) \\
+    \tan(2\th) &= \frac{2\tan(\th)}{1-\tan^2(\th)}
+  \end{align*}%
+}
+
+\DeclareFactoid{half angle}{%
+  \begin{align*}
+    \sin(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{2}} \\
+    \cos(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1+\cos(\th)}{2}} \\
+    \tan(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{1+\cos(\th)}}
   \end{align*}%
 }
 
