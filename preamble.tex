@@ -172,14 +172,20 @@
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
 
 % American High school Algebra and Geometry
+\DeclareFactoid{wrong reciprocal}{%
+  $\frac{1}{x+y} = (x + y)^{-1} $ does not equal $\frac{1}{x} + \frac{1}{y}$
+}
+\DeclareFactoid{wrong recip}{\factoid{wrong reciprocal}}
+
 \DeclareFactoid{wrong fraction cancel}{%
   $\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
 }
-\DeclareFactoid{freshman}{\factoid{wrong fraction cancel}}
+\DeclareFactoid{wrong cancel}{\factoid{wrong fraction cancel}}
 
 \DeclareFactoid{wrong square}{%
   $(x + y)^2$ does not equal $x^2 + y^2$
 }
+\DeclareFactoid{freshman}{\factoid{wrong square}}
 
 \DeclareFactoid{cts}{%
   {\bfseries Completing the square}
