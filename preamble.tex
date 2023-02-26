@@ -101,199 +101,199 @@
 \cs_generate_variant:Nn \tl_concat:NNN { NNc }
 
 \cs_new:Npn \__factoids_path_format:N #1
-	{ \seq_use:NV #1 \c__factoids_path_separator_tl }
+  { \seq_use:NV #1 \c__factoids_path_separator_tl }
 
 \cs_new:Npn \__factoids_path_cs:N #1
-	{ ~>~ / \__factoids_path_format:N #1 / ~>~ }
+  { ~>~ / \__factoids_path_format:N #1 / ~>~ }
 
 \cs_new_protected:Npn \__factoids_path_set_split:Nn #1#2
-	{
-		\seq_set_split:NVn #1 \c__factoids_path_separator_tl {#2}
-	}
+  {
+    \seq_set_split:NVn #1 \c__factoids_path_separator_tl {#2}
+  }
 \cs_generate_variant:Nn \__factoids_path_set_split:Nn { NV }
 
 \cs_new_protected:Npn \__factoids_path_prepend_default:N #1
-	{
-		\seq_get_left:NN #1 \l__factoids_path_head_tl
-		\tl_if_eq:NNT \l__factoids_path_head_tl \c__factoids_path_default_tl
-			{
-				\seq_pop_left:NN #1 \l__factoids_tmpa_tl
-				\seq_concat:NNN #1 \l__factoids_path_default_seq #1
-			}
-	}
+  {
+    \seq_get_left:NN #1 \l__factoids_path_head_tl
+    \tl_if_eq:NNT \l__factoids_path_head_tl \c__factoids_path_default_tl
+      {
+        \seq_pop_left:NN #1 \l__factoids_tmpa_tl
+        \seq_concat:NNN #1 \l__factoids_path_default_seq #1
+      }
+  }
 
 %-------------------------------------------------------------------------------
 % default path
 %-------------------------------------------------------------------------------
 
 \cs_new_protected:Npn \__factoids_path_default_push:n #1
-	{
-		\group_begin:
-			\__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
-			\__factoids_path_prepend_default:N \l__factoids_path_seq
-			\seq_set_eq:NN \l__factoids_path_default_seq \l__factoids_path_seq
-	}
+  {
+    \group_begin:
+      \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+      \__factoids_path_prepend_default:N \l__factoids_path_seq
+      \seq_set_eq:NN \l__factoids_path_default_seq \l__factoids_path_seq
+  }
 
 \cs_new_protected:Npn \__factoids_path_default_pop:
-	{
-		\group_end:
-	}
+  {
+    \group_end:
+  }
 
 %-------------------------------------------------------------------------------
 % factoid creation
 %-------------------------------------------------------------------------------
 
 \cs_new_protected:Npn \__factoids_dir_new:
-	{
-		% quick path
-		\seq_if_exist:cT
-			{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _dirs_seq }
-			{ \prg_break: }
+  {
+    % quick path
+    \seq_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _dirs_seq }
+      { \prg_break: }
 
-		\seq_clear:N \l__factoids_path_builder_seq
+    \seq_clear:N \l__factoids_path_builder_seq
 
-		% create dir if doesn't exist
-		\seq_if_exist:cF
-			{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
-			{
-				\seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
-				\seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _entries_seq }
-				\seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundles_seq }
-			}
+    % create dir if doesn't exist
+    \seq_if_exist:cF
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+      {
+        \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+        \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _entries_seq }
+        \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundles_seq }
+      }
 
-		\bool_while_do:nn { !\seq_if_empty_p:N \l__factoids_path_seq }
-			{
-				\seq_pop_left:NN \l__factoids_path_seq \l__factoids_path_head_tl
-				\seq_put_right:NV \l__factoids_path_builder_seq \l__factoids_path_head_tl
-				\seq_if_exist:cF
-					{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
-					{
-						% insert
-						\group_begin:
-							\seq_pop_right:NN \l__factoids_path_builder_seq \l__factoids_tmpa_tl
-							\seq_gput_right:cV
-								{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
-								\l__factoids_path_head_tl
-						\group_end:
+    \bool_while_do:nn { !\seq_if_empty_p:N \l__factoids_path_seq }
+      {
+        \seq_pop_left:NN \l__factoids_path_seq \l__factoids_path_head_tl
+        \seq_put_right:NV \l__factoids_path_builder_seq \l__factoids_path_head_tl
+        \seq_if_exist:cF
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+          {
+            % insert
+            \group_begin:
+              \seq_pop_right:NN \l__factoids_path_builder_seq \l__factoids_tmpa_tl
+              \seq_gput_right:cV
+                { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+                \l__factoids_path_head_tl
+            \group_end:
 
-						\seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
-						\seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _entries_seq }
-						\seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundles_seq }
-					}
-			}
+            \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+            \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _entries_seq }
+            \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundles_seq }
+          }
+      }
 
-		% restore \l__factoids_path_seq
-		\seq_set_eq:NN \l__factoids_path_seq \l__factoids_path_builder_seq
+    % restore \l__factoids_path_seq
+    \seq_set_eq:NN \l__factoids_path_seq \l__factoids_path_builder_seq
 
-		\prg_break_point:
-	}
+    \prg_break_point:
+  }
 
 \cs_new_protected:Npn \__factoids_dir_new:n #1
-	{
-		\__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
-		\__factoids_path_prepend_default:N \l__factoids_path_seq
-		\__factoids_dir_new:
-	}
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
+    \__factoids_dir_new:
+  }
 
 % TODO: error handling if seq is empty
 % TODO: checking existence of entry
 % dir cs, entry cs, err msg 1, err msg 2, path, definition
 \cs_new_protected:Npn \__factoids_entry_new:nnnnnn #1#2#3#4#5#6
-	{
-		\__factoids_path_set_split:Nn \l__factoids_path_seq {#5}
-		\__factoids_path_prepend_default:N \l__factoids_path_seq
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#5}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
 
-		\tl_if_exist:cT
-			{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
-			{
-				\msg_error:nnxxxx { __factoids } { already-defined }
-					{ #3 } { #4 }
-					{ \__factoids_path_format:N \l__factoids_path_seq }
-					{
-						\token_to_meaning:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
-					}
-				\cs_undefine:c
-					{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
-			}
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+      {
+        \msg_error:nnxxxx { __factoids } { already-defined }
+          { #3 } { #4 }
+          { \__factoids_path_format:N \l__factoids_path_seq }
+          {
+            \token_to_meaning:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+          }
+        \cs_undefine:c
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+      }
 
-		\seq_pop_right:NN \l__factoids_path_seq \l__factoids_path_last_tl
-		\__factoids_dir_new:
+    \seq_pop_right:NN \l__factoids_path_seq \l__factoids_path_last_tl
+    \__factoids_dir_new:
 
-		\seq_gput_right:cV
-			{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_seq }
-			\l__factoids_path_last_tl
-		\seq_put_right:NV \l__factoids_path_seq \l__factoids_path_last_tl
+    \seq_gput_right:cV
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_seq }
+      \l__factoids_path_last_tl
+    \seq_put_right:NV \l__factoids_path_seq \l__factoids_path_last_tl
 
-		\tl_new:c   { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
-		\tl_gset:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl } {#6}
-	}
+    \tl_new:c   { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+    \tl_gset:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl } {#6}
+  }
 
 \cs_new_protected:Npn \__factoids_entry_new:nn #1#2
-	{
-		\__factoids_entry_new:nnnnnn
-			{ entries } { entry }
-			{ Factoid } { factoid }
-			{#1} {#2}
-	}
+  {
+    \__factoids_entry_new:nnnnnn
+      { entries } { entry }
+      { Factoid } { factoid }
+      {#1} {#2}
+  }
 
 \cs_new_protected:Npn \__factoids_bundle_new:nn #1#2
-	{
-		\__factoids_entry_new:nnnnnn
-			{ bundles } { bundle }
-			{ Factoid~ bundle~ entry } { factoid~ bundle~ entry }
-			{#1} {#2}
-	}
+  {
+    \__factoids_entry_new:nnnnnn
+      { bundles } { bundle }
+      { Factoid~ bundle~ entry } { factoid~ bundle~ entry }
+      {#1} {#2}
+  }
 
 % TODO: error handling if seq is empty
 % TODO: checking existence of entry
 % entry cs, err msg 1, err msg 2, path, definition
 \cs_new_protected:Npn \__factoids_bundle_xamble_new:nnnnn #1#2#3#4#5
-	{
-		\__factoids_path_set_split:Nn \l__factoids_path_seq {#4}
-		\__factoids_path_prepend_default:N \l__factoids_path_seq
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#4}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
 
-		\tl_if_exist:cT
-			{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
-			{
-				\msg_error:nnxxxx { __factoids } { already-defined }
-					{ #2 } { #3 }
-					{ \__factoids_path_format:N \l__factoids_path_seq }
-					{
-						\token_to_meaning:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
-					}
-				\cs_undefine:c
-					{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
-			}
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+      {
+        \msg_error:nnxxxx { __factoids } { already-defined }
+          { #2 } { #3 }
+          { \__factoids_path_format:N \l__factoids_path_seq }
+          {
+            \token_to_meaning:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+          }
+        \cs_undefine:c
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+      }
 
-		\__factoids_dir_new:
+    \__factoids_dir_new:
 
-		\tl_new:c   { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
-		\tl_gset:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl } {#5}
-	}
+    \tl_new:c   { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+    \tl_gset:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl } {#5}
+  }
 
 \cs_new_protected:Npn \__factoids_bundle_preamble_new:nn #1#2
-	{
-		\__factoids_bundle_xamble_new:nnnnn
-			{ bundle_preamble }
-			{ Factoid~ bundle~ preamble } { factoid~ bundle~ preamble }
-			{#1} {#2}
-	}
+  {
+    \__factoids_bundle_xamble_new:nnnnn
+      { bundle_preamble }
+      { Factoid~ bundle~ preamble } { factoid~ bundle~ preamble }
+      {#1} {#2}
+  }
 
 \cs_new_protected:Npn \__factoids_bundle_interamble_new:nn #1#2
-	{
-		\__factoids_bundle_xamble_new:nnnnn
-			{ bundle_interamble }
-			{ Factoid~ bundle~ interamble } { factoid~ bundle~ interamble }
-			{#1} {#2}
-	}
+  {
+    \__factoids_bundle_xamble_new:nnnnn
+      { bundle_interamble }
+      { Factoid~ bundle~ interamble } { factoid~ bundle~ interamble }
+      {#1} {#2}
+  }
 
 \cs_new_protected:Npn \__factoids_bundle_postamble_new:nn #1#2
-	{
-		\__factoids_bundle_xamble_new:nnnnn
-			{ bundle_postamble }
-			{ Factoid~ bundle~ postamble } { factoid~ bundle~ postamble }
-			{#1} {#2}
-	}
+  {
+    \__factoids_bundle_xamble_new:nnnnn
+      { bundle_postamble }
+      { Factoid~ bundle~ postamble } { factoid~ bundle~ postamble }
+      {#1} {#2}
+  }
 
 %-------------------------------------------------------------------------------
 % factoid invocation
@@ -301,206 +301,206 @@
 
 % path, entry, bundle, dir/bundles, otherwise
 \cs_new_protected:Npn \__factoids_invoke_check_alternatives:nnnnn #1#2#3#4#5
-	{
-		% valid entry name
-		\tl_if_exist:cT
-			{ g__factoids_ \__factoids_path_cs:N #1 _entry_tl }
-			{ \prg_break:n {#2} }
+  {
+    % valid entry name
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N #1 _entry_tl }
+      { \prg_break:n {#2} }
 
-		% valid bundle name
-		\tl_if_exist:cT
-			{ g__factoids_ \__factoids_path_cs:N #1 _bundle_tl }
-			{ \prg_break:n {#3} }
+    % valid bundle name
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N #1 _bundle_tl }
+      { \prg_break:n {#3} }
 
-		% valid dir with bundles
-		\bool_lazy_and:nnT
-			{  \seq_if_exist_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq } }
-			{ !\seq_if_empty_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq } }
-			{ \prg_break:n {#4} }
+    % valid dir with bundles
+    \bool_lazy_and:nnT
+      {  \seq_if_exist_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq } }
+      { !\seq_if_empty_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq } }
+      { \prg_break:n {#4} }
 
-		% otherwise
-		#5
+    % otherwise
+    #5
 
-		\prg_break_point:
-	}
+    \prg_break_point:
+  }
 
 % path, entry, bundle, dir/bundles
 \cs_new_protected:Npn \__factoids_invoke_check_alternatives:nnnn #1#2#3#4
-	{
-		\__factoids_invoke_check_alternatives:nnnnn {#1} {#2} {#3} {#4} {}
-	}
+  {
+    \__factoids_invoke_check_alternatives:nnnnn {#1} {#2} {#3} {#4} {}
+  }
 
 \cs_new_protected:Npn \__factoids_invoke:n #1
-	{
-		\__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
-		\__factoids_path_prepend_default:N \l__factoids_path_seq
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
 
-		\__factoids_invoke_aux:Nn \l__factoids_path_seq
-			{
-				\msg_error:nnx { __factoids } { not-defined }
-					{ \__factoids_path_format:N \l__factoids_path_seq }
-				% TODO: error reporting
-			}
-	}
+    \__factoids_invoke_aux:Nn \l__factoids_path_seq
+      {
+        \msg_error:nnx { __factoids } { not-defined }
+          { \__factoids_path_format:N \l__factoids_path_seq }
+        % TODO: error reporting
+      }
+  }
 
 \cs_new_protected:Npn \__factoids_invoke_aux:Nn #1#2
-	{
-		\__factoids_invoke_check_alternatives:nnnnn { #1 }
-			{
-				\tl_use:c { g__factoids_ \__factoids_path_cs:N #1 _entry_tl }
-			}
-			{
-				% build bundle
-				\tl_clear:N \l__factoids_bundle_tl
-				\seq_set_eq:NN \l__factoids_path_builder_seq #1
-				\seq_pop_right:NN \l__factoids_path_builder_seq \l__factoids_tmpa_tl
+  {
+    \__factoids_invoke_check_alternatives:nnnnn { #1 }
+      {
+        \tl_use:c { g__factoids_ \__factoids_path_cs:N #1 _entry_tl }
+      }
+      {
+        % build bundle
+        \tl_clear:N \l__factoids_bundle_tl
+        \seq_set_eq:NN \l__factoids_path_builder_seq #1
+        \seq_pop_right:NN \l__factoids_path_builder_seq \l__factoids_tmpa_tl
 
-				% preamble
-				\tl_if_exist:cT
-					{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_preamble_tl }
-					{
-						\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-							{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_preamble_tl }
-					}
-				% body
-				\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-					{ g__factoids_ \__factoids_path_cs:N #1 _bundle_tl }
-				% postamble
-				\tl_if_exist:cT
-					{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_postamble_tl }
-					{
-						\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-							{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_postamble_tl }
-					}
+        % preamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_preamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_preamble_tl }
+          }
+        % body
+        \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+          { g__factoids_ \__factoids_path_cs:N #1 _bundle_tl }
+        % postamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_postamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_postamble_tl }
+          }
 
-				\tl_use:N \l__factoids_bundle_tl
-			}
-			{
-				% build bundle
-				\tl_clear:N \l__factoids_bundle_tl
-				\bool_set_false:N \l__factoids_bundle_interamble_bool
+        \tl_use:N \l__factoids_bundle_tl
+      }
+      {
+        % build bundle
+        \tl_clear:N \l__factoids_bundle_tl
+        \bool_set_false:N \l__factoids_bundle_interamble_bool
 
-				% preamble
-				\tl_if_exist:cT
-					{ g__factoids_ \__factoids_path_cs:N #1 _bundle_preamble_tl }
-					{
-						\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-							{ g__factoids_ \__factoids_path_cs:N #1 _bundle_preamble_tl }
-					}
+        % preamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N #1 _bundle_preamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N #1 _bundle_preamble_tl }
+          }
 
-				% main body
-				\seq_map_inline:cn { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq }
-					{
-						% interamble
-						\bool_if:nT
-							{
-								\l__factoids_bundle_interamble_bool
-								&& \tl_if_exist_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundle_interamble_tl }
-							}
-							{
-								\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-									{ g__factoids_ \__factoids_path_cs:N #1 _bundle_interamble_tl }
-							}
-						\bool_set_true:N \l__factoids_bundle_interamble_bool
+        % main body
+        \seq_map_inline:cn { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq }
+          {
+            % interamble
+            \bool_if:nT
+              {
+                \l__factoids_bundle_interamble_bool
+                && \tl_if_exist_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundle_interamble_tl }
+              }
+              {
+                \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+                  { g__factoids_ \__factoids_path_cs:N #1 _bundle_interamble_tl }
+              }
+            \bool_set_true:N \l__factoids_bundle_interamble_bool
 
-						\seq_set_eq:NN \l__factoids_path_builder_seq #1
-						\seq_put_right:Nn \l__factoids_path_builder_seq {##1}
-						\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-							{ g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_tl }
-					}
+            \seq_set_eq:NN \l__factoids_path_builder_seq #1
+            \seq_put_right:Nn \l__factoids_path_builder_seq {##1}
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_tl }
+          }
 
-				% postamble
-				\tl_if_exist:cT
-					{ g__factoids_ \__factoids_path_cs:N #1 _bundle_postamble_tl }
-					{
-						\tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
-							{ g__factoids_ \__factoids_path_cs:N #1 _bundle_postamble_tl }
-					}
+        % postamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N #1 _bundle_postamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N #1 _bundle_postamble_tl }
+          }
 
-				\tl_use:N \l__factoids_bundle_tl
-			}
-			{#2}
+        \tl_use:N \l__factoids_bundle_tl
+      }
+      {#2}
 
-		\tex_ignorespaces:D
-	}
+    \tex_ignorespaces:D
+  }
 
 \cs_new_protected:Npn \__factoids_invoke_aux:N #1
-	{
-		\__factoids_invoke_aux:Nn #1 {}
-	}
+  {
+    \__factoids_invoke_aux:Nn #1 {}
+  }
 
 % does not prepend default path
 \cs_new_protected:Npn \__factoids_invoke_fuzzy:n #1
-	{
-		\__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
-		\__factoids_invoke_aux:Nn \l__factoids_path_seq
-			{ \__factoids_invoke_fuzzy_search: }
-	}
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+    \__factoids_invoke_aux:Nn \l__factoids_path_seq
+      { \__factoids_invoke_fuzzy_search: }
+  }
 
 \cs_new_protected:Npn \__factoids_invoke_fuzzy_search:
-	{
-		\seq_set_eq:NN \l__factoids_path_suffix_seq \l__factoids_path_seq
-		\seq_clear:N \l__factoids_path_seq
-		\seq_clear:N \l__factoids_paths_search_seq
+  {
+    \seq_set_eq:NN \l__factoids_path_suffix_seq \l__factoids_path_seq
+    \seq_clear:N \l__factoids_path_seq
+    \seq_clear:N \l__factoids_paths_search_seq
 
-		\__factoids_invoke_fuzzy_search_rec:
+    \__factoids_invoke_fuzzy_search_rec:
 
-		\int_case:nnF { \seq_count:N \l__factoids_paths_search_seq }
-			{
-				{ 0 }
-					{
-						% TODO: error reporting
-						% undefined
-						\msg_error:nnx { __factoids } { not-defined }
-							{ \__factoids_path_format:N \l__factoids_path_suffix_seq }
-					}
-				{ 1 }
-					{
-						\seq_pop_left:NN \l__factoids_paths_search_seq \l__factoids_path_tl
-						\__factoids_path_set_split:NV \l__factoids_path_seq \l__factoids_path_tl
-						\__factoids_invoke_aux:N \l__factoids_path_seq
-					}
-			}
-			{
-				% TODO: error reporting
-				% too many matches
-				\msg_error:nnxx { __factoids } { too-many-matches }
-					{ \__factoids_path_format:N \l__factoids_path_suffix_seq }
-					{
-						'
-						\seq_use:Nnnn \l__factoids_paths_search_seq
-							{ '~ and~ ' } { ',~ ' } { ',~ and~ ' }
-						'
-					}
-			}
-	}
+    \int_case:nnF { \seq_count:N \l__factoids_paths_search_seq }
+      {
+        { 0 }
+          {
+            % TODO: error reporting
+            % undefined
+            \msg_error:nnx { __factoids } { not-defined }
+              { \__factoids_path_format:N \l__factoids_path_suffix_seq }
+          }
+        { 1 }
+          {
+            \seq_pop_left:NN \l__factoids_paths_search_seq \l__factoids_path_tl
+            \__factoids_path_set_split:NV \l__factoids_path_seq \l__factoids_path_tl
+            \__factoids_invoke_aux:N \l__factoids_path_seq
+          }
+      }
+      {
+        % TODO: error reporting
+        % too many matches
+        \msg_error:nnxx { __factoids } { too-many-matches }
+          { \__factoids_path_format:N \l__factoids_path_suffix_seq }
+          {
+            '
+            \seq_use:Nnnn \l__factoids_paths_search_seq
+              { '~ and~ ' } { ',~ ' } { ',~ and~ ' }
+            '
+          }
+      }
+  }
 
 \cs_new_protected:Npn \__factoids_invoke_fuzzy_search_rec:
-	{
-		\seq_set_eq:NN \l__factoids_path_builder_seq \l__factoids_path_seq
-		\seq_concat:NNN \l__factoids_path_builder_seq \l__factoids_path_builder_seq \l__factoids_path_suffix_seq
+  {
+    \seq_set_eq:NN \l__factoids_path_builder_seq \l__factoids_path_seq
+    \seq_concat:NNN \l__factoids_path_builder_seq \l__factoids_path_builder_seq \l__factoids_path_suffix_seq
 
-		\__factoids_invoke_check_alternatives:nnnn { \l__factoids_path_builder_seq }
-			{
-				\seq_put_right:Nx \l__factoids_paths_search_seq
-					{ \__factoids_path_format:N \l__factoids_path_builder_seq }
-			}
-			{
-				\seq_put_right:Nx \l__factoids_paths_search_seq
-					{ \__factoids_path_format:N \l__factoids_path_builder_seq }
-			}
-			{
-				\seq_put_right:Nx \l__factoids_paths_search_seq
-					{ \__factoids_path_format:N \l__factoids_path_builder_seq }
-			}
+    \__factoids_invoke_check_alternatives:nnnn { \l__factoids_path_builder_seq }
+      {
+        \seq_put_right:Nx \l__factoids_paths_search_seq
+          { \__factoids_path_format:N \l__factoids_path_builder_seq }
+      }
+      {
+        \seq_put_right:Nx \l__factoids_paths_search_seq
+          { \__factoids_path_format:N \l__factoids_path_builder_seq }
+      }
+      {
+        \seq_put_right:Nx \l__factoids_paths_search_seq
+          { \__factoids_path_format:N \l__factoids_path_builder_seq }
+      }
 
-		\seq_map_inline:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _dirs_seq }
-			{
-				\seq_put_right:Nn \l__factoids_path_seq {##1}
-				\__factoids_invoke_fuzzy_search_rec:
-				\seq_pop_right:NN \l__factoids_path_seq \l__factoids_tmpa_tl
-			}
-	}
+    \seq_map_inline:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _dirs_seq }
+      {
+        \seq_put_right:Nn \l__factoids_path_seq {##1}
+        \__factoids_invoke_fuzzy_search_rec:
+        \seq_pop_right:NN \l__factoids_path_seq \l__factoids_tmpa_tl
+      }
+  }
 
 %-------------------------------------------------------------------------------
 % error messages
@@ -513,68 +513,68 @@
 % 	{ Cannot~ define~ #1~ with~ an~ empty~ name. }
 
 \msg_new:nnnn { __factoids } { already-defined }
-	{ #1~ '#3'~ already~ defined. }
-	{
-		I~ have~ been~ asked~ to~ create~ a~ new~ #2~ '#3'~
-		but~ this~ name~ has~ already~ been~ used~ elsewhere. \\
-		\\
-		The~ current~ meaning~ is: \\
-		\ \ #4 \\
-		\\
-		I~ am~ overwriting~ this~ definition.
-	}
+  { #1~ '#3'~ already~ defined. }
+  {
+    I~ have~ been~ asked~ to~ create~ a~ new~ #2~ '#3'~
+    but~ this~ name~ has~ already~ been~ used~ elsewhere. \\
+    \\
+    The~ current~ meaning~ is: \\
+    \ \ #4 \\
+    \\
+    I~ am~ overwriting~ this~ definition.
+  }
 
 \msg_new:nnnn { __factoids } { not-defined }
-	{ Factoid~ '#1'~ not~ defined. }
-	{
-		I~ have~ been~ asked~ to~ use~ a~ factoid~ '#1': \\
-		this~ has~ not~ been~ defined~ yet.
-	}
+  { Factoid~ '#1'~ not~ defined. }
+  {
+    I~ have~ been~ asked~ to~ use~ a~ factoid~ '#1': \\
+    this~ has~ not~ been~ defined~ yet.
+  }
 
 \msg_new:nnnn { __factoids } { too-many-matches }
-	{ Found~ multiple~ factoids~ named~ '#1'. }
-	{
-		I~ have~ been~ asked~ to~ use~ a~ factoid~ '#1'~
-		but~ I~ found~ more~ than~ one~ match. \\
-		The~ matches~ are: \\
-		\ \ #2.
-	}
+  { Found~ multiple~ factoids~ named~ '#1'. }
+  {
+    I~ have~ been~ asked~ to~ use~ a~ factoid~ '#1'~
+    but~ I~ found~ more~ than~ one~ match. \\
+    The~ matches~ are: \\
+    \ \ #2.
+  }
 
 %-------------------------------------------------------------------------------
 % L2e interface
 %-------------------------------------------------------------------------------
 
 \cs_new_protected:Npn \NewFactoid
-	{ \__factoids_entry_new:nn }
+  { \__factoids_entry_new:nn }
 \cs_new_protected:Npn \NewFactoidBundle #1#2
-	{
-		\__factoids_path_default_push:n {#1}
-			\cs_set_protected:Npn \NewPreamble
-				{ \__factoids_bundle_preamble_new:nn }
-			\cs_set_protected:Npn \NewInteramble
-				{ \__factoids_bundle_interamble_new:nn }
-			\cs_set_protected:Npn \NewPostamble
-				{ \__factoids_bundle_postamble_new:nn }
-			\cs_set_protected:Npn \NewEntry
-				{ \__factoids_bundle_new:nn }
+  {
+    \__factoids_path_default_push:n {#1}
+      \cs_set_protected:Npn \NewPreamble
+        { \__factoids_bundle_preamble_new:nn }
+      \cs_set_protected:Npn \NewInteramble
+        { \__factoids_bundle_interamble_new:nn }
+      \cs_set_protected:Npn \NewPostamble
+        { \__factoids_bundle_postamble_new:nn }
+      \cs_set_protected:Npn \NewEntry
+        { \__factoids_bundle_new:nn }
 
-			#2
-		\__factoids_path_default_pop:
-	}
+      #2
+    \__factoids_path_default_pop:
+  }
 \cs_new_protected:Npn \Factoid
-	{ \__factoids_invoke:n }
+  { \__factoids_invoke:n }
 \cs_new_protected:Npn \FactoidFuzzy
-	{ \__factoids_invoke_fuzzy:n }
+  { \__factoids_invoke_fuzzy:n }
 \cs_new_protected:Npn \PushDefaultFactoidPath
-	{ \__factoids_path_default_push:n }
+  { \__factoids_path_default_push:n }
 \cs_new_protected:Npn \PopDefaultFactoidPath
-	{ \__factoids_path_default_pop: }
+  { \__factoids_path_default_pop: }
 
 % legacy
 \cs_new_protected:Npn \factoid
-	{ \__factoids_invoke:n }
+  { \__factoids_invoke:n }
 \cs_new_protected:Npn \DeclareFactoid
-	{ \__factoids_entry_new:nn }
+  { \__factoids_entry_new:nn }
 
 \ExplSyntaxOff
 
@@ -586,32 +586,32 @@
 \begingroup
 \catcode`\^^M=12\relax%
 \def\@@{%
-	\def\getline##1{%
-		\begingroup%
-		\endlinechar=`\^^M%
-		\catcode`\^^M=12\relax%
-		\@getline{##1}%
-	}%
-	\long\def\@getline##1##2^^M{%
-		\endgroup%
-		##1{##2}%
-	}%
+  \def\getline##1{%
+    \begingroup%
+    \endlinechar=`\^^M%
+    \catcode`\^^M=12\relax%
+    \@getline{##1}%
+  }%
+  \long\def\@getline##1##2^^M{%
+    \endgroup%
+    ##1{##2}%
+  }%
 }%
 \expandafter\endgroup%
 \@@%
 
 \def\xgetline#1{%
-	\def\@@{\getline{#1}}%
-	\futurelet\@next\@xgetline%
+  \def\@@{\getline{#1}}%
+  \futurelet\@next\@xgetline%
 }%
 \def\@xgetline{%
-	\ifx\@next\@sptoken
-		\expandafter\@firstoftwo
-	\else
-		\expandafter\@secondoftwo
-	\fi
-	{\afterassignment\@@ \let\@next= }%
-	{\@@}%
+  \ifx\@next\@sptoken
+    \expandafter\@firstoftwo
+  \else
+    \expandafter\@secondoftwo
+  \fi
+  {\afterassignment\@@ \let\@next= }%
+  {\@@}%
 }%
 
 \protected\def\.{\xgetline\FactoidFuzzy}
@@ -627,501 +627,501 @@
 
 % American High school Algebra and Geometry
 \DeclareFactoid{wrong reciprocal}{%
-	$\frac{1}{x+y} = (x + y)^{-1} $ does not equal $\frac{1}{x} + \frac{1}{y}$
+  $\frac{1}{x+y} = (x + y)^{-1} $ does not equal $\frac{1}{x} + \frac{1}{y}$
 }
 \DeclareFactoid{wrong recip}{\factoid{wrong reciprocal}}
 
 \DeclareFactoid{wrong fraction cancel}{%
-	$\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
+  $\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
 }
 \DeclareFactoid{wrong cancel}{\factoid{wrong fraction cancel}}
 
 \DeclareFactoid{wrong square}{%
-	$(x + y)^2$ does not equal $x^2 + y^2$
+  $(x + y)^2$ does not equal $x^2 + y^2$
 }
 \DeclareFactoid{freshman}{\factoid{wrong square}}
 
 \DeclareFactoid{cts}{%
-	{\bfseries Completing the square}
+  {\bfseries Completing the square}
 
-	\medskip
-	Consider:
-	\[
-		\left(x + \frac b2\right)^2 = x^2 + bx + \left(\frac b2\right)^2.
-	\]
+  \medskip
+  Consider:
+  \[
+    \left(x + \frac b2\right)^2 = x^2 + bx + \left(\frac b2\right)^2.
+  \]
 
-	Adding $\left(\frac b2\right)^2$ to $x^2 + bx$ will make it a perfect square.
+  Adding $\left(\frac b2\right)^2$ to $x^2 + bx$ will make it a perfect square.
 
-	Doing so will change the value of the expression.
+  Doing so will change the value of the expression.
 
-	However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
-	\begin{align*}
-		x^2 + bx + c & = x^2 + bx + \left(\frac b2\right)^2 + c - \left(\frac b2\right)^2 \\
-		x^2 + bx + c & = \left(x + \frac b2\right)^2 + c - \left(\frac b2\right)^2
-	\end{align*}%
+  However we can add and subtract $\left(\frac b2\right)^2$, which is adding $0$.
+  \begin{align*}
+    x^2 + bx + c & = x^2 + bx + \left(\frac b2\right)^2 + c - \left(\frac b2\right)^2 \\
+    x^2 + bx + c & = \left(x + \frac b2\right)^2 + c - \left(\frac b2\right)^2
+  \end{align*}%
 }
 
 \DeclareFactoid{exp rules}{%
-	\begin{spreadlines}{1ex}
-		\begin{alignat*}{3}
-			&\textbf{Exponent Rule Name} \quad && \textbf{Property} \\
-			&\textrm{Product Rule} \quad && a^xa^y = a^{x+y} \\
-			&\textrm{Negative Exponent} \quad && a^{-x}=\tfrac{1}{a^x} \\
-			&\textrm{Quotient Rule} \quad && \frac{a^x}{a^y}=a^{x-y} \\
-			&\textrm{Power of Power} \quad && \left(a^x\right)^y=a^{xy} \\
-			&\textrm{Distributivity} \quad && (ab)^x=a^xb^x \\
-			&\textrm{Fractional Exponent} \quad && a^{\frac{x}{y}}=\sqrt[y]{a^x} \\
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Exponent Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Product Rule} \quad && a^xa^y = a^{x+y} \\
+      &\textrm{Negative Exponent} \quad && a^{-x}=\tfrac{1}{a^x} \\
+      &\textrm{Quotient Rule} \quad && \frac{a^x}{a^y}=a^{x-y} \\
+      &\textrm{Power of Power} \quad && \left(a^x\right)^y=a^{xy} \\
+      &\textrm{Distributivity} \quad && (ab)^x=a^xb^x \\
+      &\textrm{Fractional Exponent} \quad && a^{\frac{x}{y}}=\sqrt[y]{a^x} \\
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 \DeclareFactoid{log xp rule}{\[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\]}
 
 \DeclareFactoid{point slope}{%
-	For linear equation $f(x)$ with slope $m$ that passes through $(a,b)$:
-	\[
-		f(x) = m(x-a) + b
-	\]%
+  For linear equation $f(x)$ with slope $m$ that passes through $(a,b)$:
+  \[
+    f(x) = m(x-a) + b
+  \]%
 }
 
 % American High school Algebra 2 and Trigonometry
 
 \NewFactoidBundle{transformation rules}{%
-	\NewPreamble{.}{%
-		\definecolor{o}{HTML}{ff7e00}%
-		\begin{spreadlines}{1ex}%
-			\begin{alignat*}{5}%
-				&\textbf{Notation} \quad && \textbf{Transformation Type} && \textbf{Coordinate Change} \\
-	}
-	\NewInteramble{.}{\\}
+  \NewPreamble{.}{%
+    \definecolor{o}{HTML}{ff7e00}%
+    \begin{spreadlines}{1ex}%
+      \begin{alignat*}{5}%
+        &\textbf{Notation} \quad && \textbf{Transformation Type} && \textbf{Coordinate Change} \\
+  }
+  \NewInteramble{.}{\\}
 
-	\NewEntry{./vert trans}{
-		& f(x) {\color o {} +d} \quad && \textrm{Vertical translation up } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} +d}) \\
-		& f(x) {\color o {} -d} \quad && \textrm{Vertical translation down } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} -d})
-	}
-	\NewEntry{./horz trans}{
-		& f(x {\color o {} +c}) \quad && \textrm{Horizontal translation left } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} - c }, y) \\
-		& f(x {\color o {} -c}) \quad && \textrm{Horizontal translation right } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} + c }, y)
-	}
-	\NewEntry{./refl}{
-		&  {\color o -}f(x) \quad && \textrm{Reflection over } {\color o {} x-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto (x, {\color o {} -}y) \\
-		& f({\color o -}x) \quad && \textrm{Reflection over } {\color o {} y-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto ({\color o {} -}x, y)
-	}
-	\NewEntry{./vert scale}{
-		& {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |a| > 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
-		& {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |a| < 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y)
-	}
-	\NewEntry{./horz scale}{
-		& f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |b| > 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right) \\
-		& f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |b| < 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right)
-	}
+  \NewEntry{./vert trans}{
+    & f(x) {\color o {} +d} \quad && \textrm{Vertical translation up } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} +d}) \\
+    & f(x) {\color o {} -d} \quad && \textrm{Vertical translation down } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} -d})
+  }
+  \NewEntry{./horz trans}{
+    & f(x {\color o {} +c}) \quad && \textrm{Horizontal translation left } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} - c }, y) \\
+    & f(x {\color o {} -c}) \quad && \textrm{Horizontal translation right } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} + c }, y)
+  }
+  \NewEntry{./refl}{
+    &  {\color o -}f(x) \quad && \textrm{Reflection over } {\color o {} x-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto (x, {\color o {} -}y) \\
+    & f({\color o -}x) \quad && \textrm{Reflection over } {\color o {} y-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto ({\color o {} -}x, y)
+  }
+  \NewEntry{./vert scale}{
+    & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |a| > 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
+    & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |a| < 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y)
+  }
+  \NewEntry{./horz scale}{
+    & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |b| > 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right) \\
+    & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |b| < 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right)
+  }
 
-	\NewPostamble{.}{%
-			\end{alignat*}%
-		\end{spreadlines}%
-	}
+  \NewPostamble{.}{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
 \DeclareFactoid{log rules}{%
-	\begin{spreadlines}{1ex}
-		\begin{alignat*}{3}
-			&\textbf{Log Rule Name} \quad && \textbf{Property} \\
-			&\textrm{Product Rule} \quad && \log(x\cdot y) = \log(x) + \log(y) \\
-			&\textrm{Quotient Rule} \quad && \log(\frac{x}{y}) = \log(x) - \log(y) \\
-			&\textrm{Power Rule} \quad && \log(x^y) = y \log(x) \\
-			&\textrm{Base Change} \quad && \log_{b}(x) = \frac{\log_c(x)}{\log_c(b)}
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Log Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Product Rule} \quad && \log(x\cdot y) = \log(x) + \log(y) \\
+      &\textrm{Quotient Rule} \quad && \log(\frac{x}{y}) = \log(x) - \log(y) \\
+      &\textrm{Power Rule} \quad && \log(x^y) = y \log(x) \\
+      &\textrm{Base Change} \quad && \log_{b}(x) = \frac{\log_c(x)}{\log_c(b)}
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 \DeclareFactoid{sohcahtoa}{%
-	\textbf{Definitions of sin/cos/tan}
+  \textbf{Definitions of sin/cos/tan}
 
-	\begin{minipage}[b]{.4\linewidth}
-		\begin{align*}
-			\sin\th & = \frac{\text{Opposite}}{\text{Hypotenuse}} \\
-			\cos\th & = \frac{\text{Adjacent}}{\text{Hypotenuse}} \\
-			\tan\th & = \frac{\text{Opposite}}{\text{Adjacent}}
-		\end{align*}
-	\end{minipage}
-	\begin{tikzpicture}
-		\path coordinate (A) at (0, 0)
-					coordinate (B) at (0, 3)
-					coordinate (C) at (6.3, 0);
-		\draw [very thick] (A) -- node [above, sloped] {Opposite} (B)
-													 -- node [above, sloped] {Hypotenuse} (C)
-													 -- node [below, sloped] {Adjacent} cycle;
-		\path pic [draw, thick, angle radius=.5cm] {right angle=C--A--B}
-					pic [draw, thick, angle radius=1.8cm, angle eccentricity=1.3, pic text=$\theta$] {angle=B--C--A};
-	\end{tikzpicture}%
+  \begin{minipage}[b]{.4\linewidth}
+    \begin{align*}
+      \sin\th & = \frac{\text{Opposite}}{\text{Hypotenuse}} \\
+      \cos\th & = \frac{\text{Adjacent}}{\text{Hypotenuse}} \\
+      \tan\th & = \frac{\text{Opposite}}{\text{Adjacent}}
+    \end{align*}
+  \end{minipage}
+  \begin{tikzpicture}
+    \path coordinate (A) at (0, 0)
+          coordinate (B) at (0, 3)
+          coordinate (C) at (6.3, 0);
+    \draw [very thick] (A) -- node [above, sloped] {Opposite} (B)
+                           -- node [above, sloped] {Hypotenuse} (C)
+                           -- node [below, sloped] {Adjacent} cycle;
+    \path pic [draw, thick, angle radius=.5cm] {right angle=C--A--B}
+          pic [draw, thick, angle radius=1.8cm, angle eccentricity=1.3, pic text=$\theta$] {angle=B--C--A};
+  \end{tikzpicture}%
 }
 
 \DeclareFactoid{geom trig def}{%
-	\def\angle{52}
+  \def\angle{52}
 
-	\pgfmathsetmacro{\r}{1}
-	\pgfmathsetmacro{\s}{sin(\angle)}
-	\pgfmathsetmacro{\c}{cos(\angle)}
-	%colors
-	\definecolor{r}{HTML}{ff3030}
-	\definecolor{b}{HTML}{00bfff}
-	\definecolor{o}{HTML}{ff7e00}
-	\definecolor{g}{HTML}{50C878}
+  \pgfmathsetmacro{\r}{1}
+  \pgfmathsetmacro{\s}{sin(\angle)}
+  \pgfmathsetmacro{\c}{cos(\angle)}
+  %colors
+  \definecolor{r}{HTML}{ff3030}
+  \definecolor{b}{HTML}{00bfff}
+  \definecolor{o}{HTML}{ff7e00}
+  \definecolor{g}{HTML}{50C878}
 
-	\begin{tikzpicture}[scale=5,very thick]
+  \begin{tikzpicture}[scale=5,very thick]
 
-		% grey axis
-		\draw[gray!30] (0, 0) -- (0, 1/\s+.1);
-		\draw[gray!30] (0, 0) -- (1/\c+.1, 0);
+    % grey axis
+    \draw[gray!30] (0, 0) -- (0, 1/\s+.1);
+    \draw[gray!30] (0, 0) -- (1/\c+.1, 0);
 
-		% arc of the angle
-		\draw (1/5,0) node[sloped,anchor=south east] {$\th$} arc (0:\angle:1/5);
+    % arc of the angle
+    \draw (1/5,0) node[sloped,anchor=south east] {$\th$} arc (0:\angle:1/5);
 
-		% radius 1, cos and sin
-		\draw (0, 0) --node [sloped, above]{1} (\angle:1);
-		\draw (0, \s) -- node [below]{$\cos(\th)$} (\c,\s);
-		\draw (\c, \s)-- node [right]{$\sin(\th)$}(\c,0);
+    % radius 1, cos and sin
+    \draw (0, 0) --node [sloped, above]{1} (\angle:1);
+    \draw (0, \s) -- node [below]{$\cos(\th)$} (\c,\s);
+    \draw (\c, \s)-- node [right]{$\sin(\th)$}(\c,0);
 
-		% quarter circle:
-		\draw (1,0) arc(0:90:1);
+    % quarter circle:
+    \draw (1,0) arc(0:90:1);
 
-		% big triangle: sec(x), tan(x), csc(x), cot(x)
-		\draw [r] (0, 0) -- node [below] {$\sec(\th)$} (1/\c,0);
-		\draw [b] (1/\c, 0) -- node [sloped,above] {$\tan(\th)$} (\c,\s);
-		\draw [o] (0, 0) -- node [left=1mm] {$\csc(\th)$} (0,1/\s);
-		\draw [g] (0, 1/\s) -- node [sloped,above] {$\cot(\th)$} (\c,\s);
-	\end{tikzpicture}}
+    % big triangle: sec(x), tan(x), csc(x), cot(x)
+    \draw [r] (0, 0) -- node [below] {$\sec(\th)$} (1/\c,0);
+    \draw [b] (1/\c, 0) -- node [sloped,above] {$\tan(\th)$} (\c,\s);
+    \draw [o] (0, 0) -- node [left=1mm] {$\csc(\th)$} (0,1/\s);
+    \draw [g] (0, 1/\s) -- node [sloped,above] {$\cot(\th)$} (\c,\s);
+  \end{tikzpicture}}
 
 \DeclareFactoid{double angle}{%
-	\begin{align*}
-		\cos (2\th) &= \cos^2(\th) - \sin^2(\th) \\
-			&= 2\cos^2(\th) - 1 \\
-			&= 1 - 2\sin^2(\th) \\
-		\sin(2\th) &= 2\sin(\th)\cos(\th) \\
-		\tan(2\th) &= \frac{2\tan(\th)}{1-\tan^2(\th)}
-	\end{align*}%
+  \begin{align*}
+    \cos (2\th) &= \cos^2(\th) - \sin^2(\th) \\
+      &= 2\cos^2(\th) - 1 \\
+      &= 1 - 2\sin^2(\th) \\
+    \sin(2\th) &= 2\sin(\th)\cos(\th) \\
+    \tan(2\th) &= \frac{2\tan(\th)}{1-\tan^2(\th)}
+  \end{align*}%
 }
 
 \DeclareFactoid{half angle}{%
-	\begin{align*}
-		\sin(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{2}} \\
-		\cos(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1+\cos(\th)}{2}} \\
-		\tan(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{1+\cos(\th)}}
-	\end{align*}%
+  \begin{align*}
+    \sin(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{2}} \\
+    \cos(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1+\cos(\th)}{2}} \\
+    \tan(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{1+\cos(\th)}}
+  \end{align*}%
 }
 
 \DeclareFactoid{sum diff trig}{%
-	\begin{spreadlines}{1.5ex}
-		\begin{alignat*}{2}
-			\sin (\th \pm \vp) &= \sin(\th)\cos(\vp) \pm \cos(\th)\sin(\vp) \\
-			\cos (\th \pm \vp) &= \cos(\th)\cos(\vp) \mp \sin(\th)\sin(\vp) \\
-			\tan (\th \pm \vp) &= \frac{\tan(\th) \pm \tan(\vp)}{1 \mp \tan(\th)\tan(\vp)}
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{2}
+      \sin (\th \pm \vp) &= \sin(\th)\cos(\vp) \pm \cos(\th)\sin(\vp) \\
+      \cos (\th \pm \vp) &= \cos(\th)\cos(\vp) \mp \sin(\th)\sin(\vp) \\
+      \tan (\th \pm \vp) &= \frac{\tan(\th) \pm \tan(\vp)}{1 \mp \tan(\th)\tan(\vp)}
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 \DeclareFactoid{recip trig}{%
-	\begin{spreadlines}{1.5ex}
-		\begin{alignat*}{2}
-			\csc(x) & = \tfrac 1 {\sin(x)}, \quad & \tan(x) & = \tfrac {\sin(x)} {\cos(x)} \\
-			\sec(x) & = \tfrac 1 {\cos(x)}, \quad & \cot(x) & = \tfrac {\cos(x)} {\sin(x)}
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{2}
+      \csc(x) & = \tfrac 1 {\sin(x)}, \quad & \tan(x) & = \tfrac {\sin(x)} {\cos(x)} \\
+      \sec(x) & = \tfrac 1 {\cos(x)}, \quad & \cot(x) & = \tfrac {\cos(x)} {\sin(x)}
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 % trig reflect identities
 \DeclareFactoid{reflect trig}{%
-	\begin{spreadlines}{1.5ex}
-		\begin{alignat*}{3}
-			\sin(-x) &= -\sin(x), \quad & \sin(\tfrac\pi2 - x) &= \cos(x), \quad & \sin(\pi - x) &= \hphantom-\sin(x) \\
-			\cos(-x) &= \hphantom-\cos(x), \quad & \cos(\tfrac\pi2 - x) &= \sin(x), \quad & \cos(\pi - x) &= -\cos(x) \\
-			\tan(-x) &= -\tan(x), \quad & \tan(\tfrac\pi2 - x) &= \tfrac1{\tan(x)}, \quad & \tan(\pi - x) &= -\tan(x)
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{3}
+      \sin(-x) &= -\sin(x), \quad & \sin(\tfrac\pi2 - x) &= \cos(x), \quad & \sin(\pi - x) &= \hphantom-\sin(x) \\
+      \cos(-x) &= \hphantom-\cos(x), \quad & \cos(\tfrac\pi2 - x) &= \sin(x), \quad & \cos(\pi - x) &= -\cos(x) \\
+      \tan(-x) &= -\tan(x), \quad & \tan(\tfrac\pi2 - x) &= \tfrac1{\tan(x)}, \quad & \tan(\pi - x) &= -\tan(x)
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 % trig shift identities
 \DeclareFactoid{shift trig}{%
-	\begin{spreadlines}{1.5ex}
-		\begin{alignat*}{2}
-			\sin\left(\frac\pi2 + x\right) &=  \cos(x), \quad & \sin\left(\pi + x\right) &= -\sin(x) \\
-			\cos\left(\frac\pi2 + x\right) &= -\sin(x), \quad & \cos\left(\pi + x\right) &= -\cos(x) \\
-			\tan\left(\frac\pi2 + x\right) &= -\frac{1}{\tan(x)}, \quad & \tan\left(\pi + x\right) &=  \tan(x)
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1.5ex}
+    \begin{alignat*}{2}
+      \sin\left(\frac\pi2 + x\right) &=  \cos(x), \quad & \sin\left(\pi + x\right) &= -\sin(x) \\
+      \cos\left(\frac\pi2 + x\right) &= -\sin(x), \quad & \cos\left(\pi + x\right) &= -\cos(x) \\
+      \tan\left(\frac\pi2 + x\right) &= -\frac{1}{\tan(x)}, \quad & \tan\left(\pi + x\right) &=  \tan(x)
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 % all trig identities (shift and reflect) minimize in one table
 \DeclareFactoid{reflect shift trig}{
-	\tabskip=0pt
-	\setbox2=\hbox{\vrule height3.5ex depth3ex width0pt}
-	\halign{
-		\unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
-		\noalign{\hrule}
-		&&\th&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
-		\noalign{\hrule}
-		&&\sin(\th)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr
-		\noalign{\hrule}
-		&&\cos(\th)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr
-		\noalign{\hrule}
-		&&\tan(\th)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr
-		\noalign{\hrule}
-	}
+  \tabskip=0pt
+  \setbox2=\hbox{\vrule height3.5ex depth3ex width0pt}
+  \halign{
+    \unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
+    \noalign{\hrule}
+    &&\th&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
+    \noalign{\hrule}
+    &&\sin(\th)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr
+    \noalign{\hrule}
+    &&\cos(\th)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr
+    \noalign{\hrule}
+    &&\tan(\th)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr
+    \noalign{\hrule}
+  }
 }
 
 % sum-to-product formulas
 \DeclareFactoid{sum2prod}{%
-	\begin{spreadlines}{1.3ex}
-		\begin{alignat*}{3}
-			&\cos(x) + \cos(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\cos(\tfrac{x - y}2) \\
-			&\cos(x) - \cos(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\sin(\tfrac{y - x}2) \\
-			&\sin(x) + \sin(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\cos(\tfrac{x - y}2) \\
-			&\sin(x) - \sin(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\sin(\tfrac{x - y}2) \\
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1.3ex}
+    \begin{alignat*}{3}
+      &\cos(x) + \cos(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\cos(\tfrac{x - y}2) \\
+      &\cos(x) - \cos(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\sin(\tfrac{y - x}2) \\
+      &\sin(x) + \sin(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\cos(\tfrac{x - y}2) \\
+      &\sin(x) - \sin(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\sin(\tfrac{x - y}2) \\
+    \end{alignat*}
+  \end{spreadlines}
 }%
 
 % product-to-sum formulas
 \DeclareFactoid{prod2sum}{%
-	\begin{spreadlines}{1ex}
-		\begin{alignat*}{3}
-			&2\sin(x)\sin(y)\ &=\ & \cos(x-y)-\cos(x + y) \\
-			&2\sin(x)\cos(y)\ &=\ & \sin(x + y) + \sin(x - y) \\
-			&2\cos(x)\cos(y)\ &=\ & \cos(x + y) + \cos(x - y)
-		\end{alignat*}
-	\end{spreadlines}
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &2\sin(x)\sin(y)\ &=\ & \cos(x-y)-\cos(x + y) \\
+      &2\sin(x)\cos(y)\ &=\ & \sin(x + y) + \sin(x - y) \\
+      &2\cos(x)\cos(y)\ &=\ & \cos(x + y) + \cos(x - y)
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 % long list of trig identities
 \DeclareFactoid{rocket trig}{
-	\text{Defining relations:} \hspace{3cm} $\approx \mathcal{O}\omega \mathcal{O}\approx$
-	\begin{flalign*}
-		&\quad \csc(x) = \tfrac1{\sin(x)}\quad\tan(x) = \tfrac{\sin(x)}{\cos(x)} &\\
-		&\quad \sec(x) = \tfrac1{\cos(x)}\quad\cot(x) = \tfrac1{\tan(x)} = \tfrac{\cos(x)}{\sin(x)}&
-	\end{flalign*}
-	\text{Pythagoras:}
-	\begin{flalign*}
-		&\quad \sin^2(x) + \cos^2(x) = 1 &\\
-		&\quad 1 + \cot^2(x) = \csc^2(x) &\\
-		&\quad \tan^2(x) + 1 = \sec^2(x)&
-	\end{flalign*}
-	\text{Cofunction, Negative angle, and Supplement:}
-	\begin{flalign*}
-		&\quad \sin(x) = \cos(\tfrac\pi2-x)\quad\sin(-x) = -\sin(x) &\\
-		&\quad \cos(x) = \sin(\tfrac\pi2-x)\quad\cos(-x) = \cos(x) &\\
-		&\quad \tan(x) = \cot(\tfrac\pi2-x)\quad\tan(-x) = -\tan(x) &\\
-		&\quad \sin(\pi-x) = \sin(x) &\\
-		&\quad \cos(\pi-x) = -\cos(x) &\\
-		&\quad \tan(\pi-x) = -\tan(x) &
-	\end{flalign*}
-	\text{Periodicity: for all} $n\in\Z$
-	\begin{flalign*}
-		&\quad \sin(x + 2\pi n) = \sin(x) &\\
-		&\quad \cos(x + 2\pi n) = \cos(x) &\\
-		&\quad \tan(x + \pi n) = \tan(x) &
-	\end{flalign*}
-	\text{Addition:}
-	\begin{flalign*}
-		&\quad \sin(x\pm y) = \sin(x)\cos(y)\pm\cos(x)\sin(y) &\\
-		&\quad \cos(x\pm y) = \cos(x)\cos(y)\mp\sin(x)\sin(y) &\\
-		&\quad \tan(x\pm y) = \tfrac{\tan(x)\pm\tan(y)}{1\mp\tan(x)\tan(y)} &
-	\end{flalign*}
-	\text{Double angle:}
-	\begin{flalign*}
-		&\quad \sin(2x) = 2\sin(x)\cos(x) &\\
-		&\quad \cos(2x) = \cos^2(x)-\sin^2(x) \\
-		&\quad \cos(2x) = 2\cos^2(x)-1 = 1-2\sin^2(x) &\\
-		&\quad \tan(2x) = \tfrac{2\tan(x)}{1-\tan^2(x)} &
-	\end{flalign*}
-	\text{Sum--to--product and Product--to--sum:}
-	\begin{flalign*}
-		&\quad \cos(x) + \cos(y) = 2\cos(\tfrac{x + y}2)\cos(\tfrac{x-y}2) &\\
-		&\quad \cos(x)-\cos(y) = -2\sin(\tfrac{x + y}2)\sin(\tfrac{x-y}2) &\\
-		&\quad \sin(x)\pm\sin(y) = 2\sin(\tfrac{x\pm y}2)\cos(\tfrac{x\mp y}2) &\\
-		&\quad 2\sin(x)\sin(y) = \cos(x-y)-\cos(x + y) &\\
-		&\quad 2\sin(x)\cos(y) = \sin(x + y) + \sin(x - y) &\\
-		&\quad 2\cos(x)\cos(y) = \cos(x + y) + \cos(x - y) &
-	\end{flalign*}
+  \text{Defining relations:} \hspace{3cm} $\approx \mathcal{O}\omega \mathcal{O}\approx$
+  \begin{flalign*}
+    &\quad \csc(x) = \tfrac1{\sin(x)}\quad\tan(x) = \tfrac{\sin(x)}{\cos(x)} &\\
+    &\quad \sec(x) = \tfrac1{\cos(x)}\quad\cot(x) = \tfrac1{\tan(x)} = \tfrac{\cos(x)}{\sin(x)}&
+  \end{flalign*}
+  \text{Pythagoras:}
+  \begin{flalign*}
+    &\quad \sin^2(x) + \cos^2(x) = 1 &\\
+    &\quad 1 + \cot^2(x) = \csc^2(x) &\\
+    &\quad \tan^2(x) + 1 = \sec^2(x)&
+  \end{flalign*}
+  \text{Cofunction, Negative angle, and Supplement:}
+  \begin{flalign*}
+    &\quad \sin(x) = \cos(\tfrac\pi2-x)\quad\sin(-x) = -\sin(x) &\\
+    &\quad \cos(x) = \sin(\tfrac\pi2-x)\quad\cos(-x) = \cos(x) &\\
+    &\quad \tan(x) = \cot(\tfrac\pi2-x)\quad\tan(-x) = -\tan(x) &\\
+    &\quad \sin(\pi-x) = \sin(x) &\\
+    &\quad \cos(\pi-x) = -\cos(x) &\\
+    &\quad \tan(\pi-x) = -\tan(x) &
+  \end{flalign*}
+  \text{Periodicity: for all} $n\in\Z$
+  \begin{flalign*}
+    &\quad \sin(x + 2\pi n) = \sin(x) &\\
+    &\quad \cos(x + 2\pi n) = \cos(x) &\\
+    &\quad \tan(x + \pi n) = \tan(x) &
+  \end{flalign*}
+  \text{Addition:}
+  \begin{flalign*}
+    &\quad \sin(x\pm y) = \sin(x)\cos(y)\pm\cos(x)\sin(y) &\\
+    &\quad \cos(x\pm y) = \cos(x)\cos(y)\mp\sin(x)\sin(y) &\\
+    &\quad \tan(x\pm y) = \tfrac{\tan(x)\pm\tan(y)}{1\mp\tan(x)\tan(y)} &
+  \end{flalign*}
+  \text{Double angle:}
+  \begin{flalign*}
+    &\quad \sin(2x) = 2\sin(x)\cos(x) &\\
+    &\quad \cos(2x) = \cos^2(x)-\sin^2(x) \\
+    &\quad \cos(2x) = 2\cos^2(x)-1 = 1-2\sin^2(x) &\\
+    &\quad \tan(2x) = \tfrac{2\tan(x)}{1-\tan^2(x)} &
+  \end{flalign*}
+  \text{Sum--to--product and Product--to--sum:}
+  \begin{flalign*}
+    &\quad \cos(x) + \cos(y) = 2\cos(\tfrac{x + y}2)\cos(\tfrac{x-y}2) &\\
+    &\quad \cos(x)-\cos(y) = -2\sin(\tfrac{x + y}2)\sin(\tfrac{x-y}2) &\\
+    &\quad \sin(x)\pm\sin(y) = 2\sin(\tfrac{x\pm y}2)\cos(\tfrac{x\mp y}2) &\\
+    &\quad 2\sin(x)\sin(y) = \cos(x-y)-\cos(x + y) &\\
+    &\quad 2\sin(x)\cos(y) = \sin(x + y) + \sin(x - y) &\\
+    &\quad 2\cos(x)\cos(y) = \cos(x + y) + \cos(x - y) &
+  \end{flalign*}
 }
 
 \DeclareFactoid{unit circle}{%
-	\begin{tikzpicture}[scale=4.5, font=\small]
-		\definecolor{r}{HTML}{ff3030}
-		\definecolor{b}{HTML}{00bfff}
-		\definecolor{o}{HTML}{ff7e00}
-		\def\angles{
-			0/2\pi/1/0,
-			30/\frac\pi6/\frac{\sqrt3}2/\frac12,
-			45/\frac\pi4/\frac{\sqrt2}2/\frac{\sqrt2}2,
-			60/\frac\pi3/\frac12/\frac{\sqrt3}2,
-			90/\frac\pi2/0/1,
-			120/\frac{2\pi}3/\shortminus\frac12/\frac{\sqrt3}2,
-			135/\frac{3\pi}4/\shortminus\frac{\sqrt2}2/\frac{\sqrt2}2,
-			150/\frac{5\pi}6/\shortminus\frac{\sqrt3}2/\frac12,
-			180/\pi/\shortminus1/0,
-			210/\frac{7\pi}6/\shortminus\frac{\sqrt3}2/\shortminus\frac12,
-			225/\frac{5\pi}4/\shortminus\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
-			240/\frac{4\pi}3/\shortminus\frac12/\shortminus\frac{\sqrt3}2,
-			270/\frac{3\pi}2/0/\shortminus1,
-			300/\frac{5\pi}3/\frac12/\shortminus\frac{\sqrt3}2,
-			315/\frac{7\pi}4/\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
-			330/\frac{11\pi}6/\frac{\sqrt3}2/\shortminus\frac12
-		}
-		\begin{scope}[every node/.style={inner sep=1pt, outer sep=0pt}]
-			\foreach \a/\at/\x/\y in \angles {
-				\begin{pgfinterruptboundingbox}
-					\node (x) at (\a : 1.15) [anchor=\a-180] {\phantom{$\textstyle\left({\color b \x}, {\color o \y}\right)$}};
-					\clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
-					\node (x) at (\a : 0.85) [anchor=\a] {\phantom{$\textstyle\at$}};
-					\clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
-					\node (x) at (\a : 0.65) [anchor=\a, font=\footnotesize] {\phantom{$\textstyle\a^\circ$}};
-					\clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
-					\clip (\a : 1) circle [radius=.5pt] (-1.6, -1.6) -- (-1.6, 1.6) -- (1.6, 1.6) -- (1.6, -1.6) -- cycle;
-				\end{pgfinterruptboundingbox}
-			}
+  \begin{tikzpicture}[scale=4.5, font=\small]
+    \definecolor{r}{HTML}{ff3030}
+    \definecolor{b}{HTML}{00bfff}
+    \definecolor{o}{HTML}{ff7e00}
+    \def\angles{
+      0/2\pi/1/0,
+      30/\frac\pi6/\frac{\sqrt3}2/\frac12,
+      45/\frac\pi4/\frac{\sqrt2}2/\frac{\sqrt2}2,
+      60/\frac\pi3/\frac12/\frac{\sqrt3}2,
+      90/\frac\pi2/0/1,
+      120/\frac{2\pi}3/\shortminus\frac12/\frac{\sqrt3}2,
+      135/\frac{3\pi}4/\shortminus\frac{\sqrt2}2/\frac{\sqrt2}2,
+      150/\frac{5\pi}6/\shortminus\frac{\sqrt3}2/\frac12,
+      180/\pi/\shortminus1/0,
+      210/\frac{7\pi}6/\shortminus\frac{\sqrt3}2/\shortminus\frac12,
+      225/\frac{5\pi}4/\shortminus\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
+      240/\frac{4\pi}3/\shortminus\frac12/\shortminus\frac{\sqrt3}2,
+      270/\frac{3\pi}2/0/\shortminus1,
+      300/\frac{5\pi}3/\frac12/\shortminus\frac{\sqrt3}2,
+      315/\frac{7\pi}4/\frac{\sqrt2}2/\shortminus\frac{\sqrt2}2,
+      330/\frac{11\pi}6/\frac{\sqrt3}2/\shortminus\frac12
+    }
+    \begin{scope}[every node/.style={inner sep=1pt, outer sep=0pt}]
+      \foreach \a/\at/\x/\y in \angles {
+        \begin{pgfinterruptboundingbox}
+          \node (x) at (\a : 1.15) [anchor=\a-180] {\phantom{$\textstyle\left({\color b \x}, {\color o \y}\right)$}};
+          \clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
+          \node (x) at (\a : 0.85) [anchor=\a] {\phantom{$\textstyle\at$}};
+          \clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
+          \node (x) at (\a : 0.65) [anchor=\a, font=\footnotesize] {\phantom{$\textstyle\a^\circ$}};
+          \clip [rounded corners] (x.south west) rectangle (x.north east) (-1.6, -1.6) -- (1.6, -1.6) -- (1.6, 1.6) -- (-1.6, 1.6) -- cycle;
+          \clip (\a : 1) circle [radius=.5pt] (-1.6, -1.6) -- (-1.6, 1.6) -- (1.6, 1.6) -- (1.6, -1.6) -- cycle;
+        \end{pgfinterruptboundingbox}
+      }
 
-			\draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right=5pt] {$\textstyle\color b x$}
-			(0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above=5pt] {$\textstyle\color o y$};
-			\draw [very thick] (0, 0) circle [radius=1];
+      \draw [r, thick] (-1.5, 0) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (1.5, 0) node at (1.5, 0) [right=5pt] {$\textstyle\color b x$}
+      (0, -1.5) edge [-{Classical TikZ Rightarrow[length=5pt, width=6pt]}] (0, 1.5) node at (0, 1.5) [above=5pt] {$\textstyle\color o y$};
+      \draw [very thick] (0, 0) circle [radius=1];
 
-			\foreach \a/\at/\x/\y in \angles { \draw [opacity=.4] (0, 0) -- (\a : 1); }
-		\end{scope}
+      \foreach \a/\at/\x/\y in \angles { \draw [opacity=.4] (0, 0) -- (\a : 1); }
+    \end{scope}
 
-		\scoped [every node/.style={inner sep=1pt, outer sep=0pt}] {
-			\foreach \a/\at/\x/\y in \angles {
-				\node at (\a : 1.15) [anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
-				\node at (\a : 0.85) [anchor=\a, rounded corners] {$\textstyle\at$};
-				\node at (\a : 0.65) [anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
-				\draw [thick] (\a : 1) circle [radius=.5pt];
-			}
-		}
+    \scoped [every node/.style={inner sep=1pt, outer sep=0pt}] {
+      \foreach \a/\at/\x/\y in \angles {
+        \node at (\a : 1.15) [anchor=\a-180, rounded corners] {$\textstyle\left({\color b \x}, {\color o \y}\right)$};
+        \node at (\a : 0.85) [anchor=\a, rounded corners] {$\textstyle\at$};
+        \node at (\a : 0.65) [anchor=\a, rounded corners, font=\footnotesize] {$\textstyle\a^\circ$};
+        \draw [thick] (\a : 1) circle [radius=.5pt];
+      }
+    }
 
-		\node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
-		% \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
-	\end{tikzpicture}%
+    \node at (1, 1.5) [thick, draw=r, rounded corners=6pt] {$\textstyle\left({\color b \cos(\theta)}, {\color o \sin(\theta)}\right)$};
+    % \node at (0, 1.8) [font={\Huge\sffamily}] {Unit Circle};
+  \end{tikzpicture}%
 }
 
 \DeclareFactoid{demoivre}{$(e^{ix})^n = (\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)$}
 
 % First year university/college Calculus
 \DeclareFactoid{limit rules}{%
-	Suppose $\lim_{x \to a} f(x) = L$,\ $\lim_{x \to a} g(x) = M$, and $n>0$
-	\begin{spreadlines}{1ex}
-		\begin{alignat*}{3}
-			&\textbf{Rule Name} \quad && \textbf{Property} \\
-			&\textrm{Sum/Difference} \quad && \lim_{x \to a}  f(x) \pm g(x) = L \pm M \\
-			&\textrm{Constant Multiple} \quad && \lim_{x \to a} c f(x) = cL \\
-			&\textrm{Product} \quad &&  \lim_{x \to a} f(x) g(x) = L M \\
-			&\textrm{Quotient} \quad &&  \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M} \\
-			&\textrm{Power} \quad &&  \lim_{x \to a} \left(f(x)\right)^n= L^n\\
-			&\textrm{Root} \quad && \lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}, \ L \ge 0
-		\end{alignat*}
-	\end{spreadlines}
+  Suppose $\lim_{x \to a} f(x) = L$,\ $\lim_{x \to a} g(x) = M$, and $n>0$
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Sum/Difference} \quad && \lim_{x \to a}  f(x) \pm g(x) = L \pm M \\
+      &\textrm{Constant Multiple} \quad && \lim_{x \to a} c f(x) = cL \\
+      &\textrm{Product} \quad &&  \lim_{x \to a} f(x) g(x) = L M \\
+      &\textrm{Quotient} \quad &&  \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M} \\
+      &\textrm{Power} \quad &&  \lim_{x \to a} \left(f(x)\right)^n= L^n\\
+      &\textrm{Root} \quad && \lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}, \ L \ge 0
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 \DeclareFactoid{diff rules}{%
-	\begin{tabular}{lcc}
-		\textbf{Rule Name} & \textbf{Function} & \textbf{Derivative} \\ \hline
-		\rule{0pt}{4ex}Constant multiple & $ cf(x)$ & $cf'(x) $\\
-		\rule{0pt}{4ex}Power Rule & $ x^n$ & $n x^{n-1} $\\
-		\rule{0pt}{4ex}Sum Rule & $ f(x) + g(x)$ & $ f'(x) + g'(x) $\\
-		\rule{0pt}{4ex}Product Rule & $ f(x)\cdot g(x)$ & $ f'(x)\cdot g(x) + f(x) \cdot g'(x) $\\
-		\rule{0pt}{4ex}Quotient Rule & $ \frac{f(x)}{g(x)}$ & $\frac{f'(x)\cdot g(x) - f(x)\cdot g'(x)}{[g(x)]^2} $\\
-		\rule{0pt}{4ex}Chain Rule notation 1 & $f(g(x))$ & $ f'(g(x)) \cdot g'(x) $\\
-		\rule{0pt}{4ex}Chain Rule notation 2 & $(f\circ g)(x)$ & $(f'\circ g)(x) \cdot g'(x)$
-	\end{tabular}
+  \begin{tabular}{lcc}
+    \textbf{Rule Name} & \textbf{Function} & \textbf{Derivative} \\ \hline
+    \rule{0pt}{4ex}Constant multiple & $ cf(x)$ & $cf'(x) $\\
+    \rule{0pt}{4ex}Power Rule & $ x^n$ & $n x^{n-1} $\\
+    \rule{0pt}{4ex}Sum Rule & $ f(x) + g(x)$ & $ f'(x) + g'(x) $\\
+    \rule{0pt}{4ex}Product Rule & $ f(x)\cdot g(x)$ & $ f'(x)\cdot g(x) + f(x) \cdot g'(x) $\\
+    \rule{0pt}{4ex}Quotient Rule & $ \frac{f(x)}{g(x)}$ & $\frac{f'(x)\cdot g(x) - f(x)\cdot g'(x)}{[g(x)]^2} $\\
+    \rule{0pt}{4ex}Chain Rule notation 1 & $f(g(x))$ & $ f'(g(x)) \cdot g'(x) $\\
+    \rule{0pt}{4ex}Chain Rule notation 2 & $(f\circ g)(x)$ & $(f'\circ g)(x) \cdot g'(x)$
+  \end{tabular}
 }
 
 \DeclareFactoid{int rules}{%
-	Suppose $F'(x) = f(x)$ and $G'(x) = g(x)$ and $C$ an arbitrary constant.
-	\begin{spreadlines}{1ex}
-		\begin{alignat*}{3}
-			&\textbf{Rule Name} \quad && \textbf{Property} \\
-			&\textrm{Constant multiple} \quad && \int \alpha f(x)\, dx = \alpha F(x) + C \\
-			&\textrm{Sum Rule} \quad && \int f(x) + g(x)\, dx =  F(x) + G(x) + C \\
-			&\textrm{Int. by Parts (1)} \quad && \int_a^b f(x) g'(x)\, dx =  f(b)g(b) - f(a) g(a) + \int_a^b f'(x) g(x)\, dx \\
-			&\textrm{Int. by Parts (2)} \quad && \int u dv = uv - \int vdu \\
-			&\textrm{Substitution Rule} \quad && \int f(g(x)) g'(x)\, dx = \int f(u)\, du = F(u) + C = F(g(x)) + C
-		\end{alignat*}
-	\end{spreadlines}
+  Suppose $F'(x) = f(x)$ and $G'(x) = g(x)$ and $C$ an arbitrary constant.
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &\textbf{Rule Name} \quad && \textbf{Property} \\
+      &\textrm{Constant multiple} \quad && \int \alpha f(x)\, dx = \alpha F(x) + C \\
+      &\textrm{Sum Rule} \quad && \int f(x) + g(x)\, dx =  F(x) + G(x) + C \\
+      &\textrm{Int. by Parts (1)} \quad && \int_a^b f(x) g'(x)\, dx =  f(b)g(b) - f(a) g(a) + \int_a^b f'(x) g(x)\, dx \\
+      &\textrm{Int. by Parts (2)} \quad && \int u dv = uv - \int vdu \\
+      &\textrm{Substitution Rule} \quad && \int f(g(x)) g'(x)\, dx = \int f(u)\, du = F(u) + C = F(g(x)) + C
+    \end{alignat*}
+  \end{spreadlines}
 }
 
 \DeclareFactoid{FTC1}{%
-	Let $F(x)$ be the antiderivative of $f(x)$:
-	\[
-		\int_a^b f(x) \, dx = F(b) - F(a)
-	\]%
+  Let $F(x)$ be the antiderivative of $f(x)$:
+  \[
+    \int_a^b f(x) \, dx = F(b) - F(a)
+  \]%
 }
 
 \DeclareFactoid{FTC2}{%
-	\[
-		\frac{d}{dx}\int_{a(x)}^{b(x)}f(t)dt = f(b(x))\cdot b'(x) - f(a(x)) \cdot a'(x)
-	\]%
+  \[
+    \frac{d}{dx}\int_{a(x)}^{b(x)}f(t)dt = f(b(x))\cdot b'(x) - f(a(x)) \cdot a'(x)
+  \]%
 }
 
 \DeclareFactoid{integral area}{%
-	The area between two curves can be described:
-	\[
-		\int_a^b\int_{\text{Bottom}(x)}^{\text{Top}(x)}1dydx = \int_a^b[\text{Top}(x) - \text{Bottom}(x)]dx
-	\]
-	Or
-	\[
-		\int_c^d\int_{\text{Right}(y)}^{\text{Left}(y)}1dxdy = \int_c^d[\text{Left}(x) - \text{Right}(x)]dy
-	\]%
+  The area between two curves can be described:
+  \[
+    \int_a^b\int_{\text{Bottom}(x)}^{\text{Top}(x)}1dydx = \int_a^b[\text{Top}(x) - \text{Bottom}(x)]dx
+  \]
+  Or
+  \[
+    \int_c^d\int_{\text{Right}(y)}^{\text{Left}(y)}1dxdy = \int_c^d[\text{Left}(x) - \text{Right}(x)]dy
+  \]%
 }
 
 \makeatletter
 \DeclareFactoid{maclaurin}{%
-	\setbox0=\hbox{$\displaystyle\sum_{k = 0}^{k = 0}$}
-	\setbox0=\hbox{\vrule height\dimexpr\ht0+.5ex\relax depth\dimexpr\dp0+.5ex\relax width0pt}
-	\setbox2=\hbox{\vrule height2.5ex depth1ex width0pt}
-	\def\bigmathstrut{\unhcopy0}
-	\def\bigstrut{\unhcopy2}
-	\def\thickrule{\noalign{\hrule height.8pt}}
-	\def\thinrule{\noalign{\hrule}}
-	\def\verythinrule{\noalign{\hrule height.2pt}}
-	\def\tablerow#1#2#3#4#5#6#7#8#9{%
-		\@tablerow{%
-			\bigmathstrut&%
-			$\m@th\displaystyle #1$&%
-			$\m@th\displaystyle #2$&${}#3{}\m@th$&%
-			$\m@th\displaystyle #4$&${}#5{}\m@th$&%
-			$\m@th\displaystyle #6$&${}#7{}\m@th$&%
-			$\m@th\displaystyle #8$&${}#9\dotsb\m@th$&%
-		}%
-	}
-	\def\@tablerow#1#2{%
-		#1%
-		$\m@th\displaystyle #2$
-	}
-	\vbox{\tabskip=0pt \offinterlineskip\halign{%
-		#\tabskip=1em&\hfil#\hfil&\tabskip=0pt%
-			\hfil#\hfil&\hfil#\hfil&%
-			\hfil#\hfil&\hfil#\hfil&%
-			\hfil#\hfil&\hfil#\hfil&%
-			\hfil#\hfil&\hfil#\hfil\tabskip=2em&%
-			#\hfil\cr \thickrule
-		\bigstrut&Function&\omit Maclaurin series\hfil\hidewidth&&&&&&&&Sigma notation\cr \thinrule
-		\tablerow
-			{e^x}
-			1 + {\frac x {1!}} + {\frac {x^2} {2!}} + {\frac {x^3} {3!}} +
-			{\sum_{k = 0}^\infty \frac {x^k} {k!}}\cr \verythinrule
-		\tablerow
-			{\sin(x)}
-			{\frac x {1!}} - {\frac {x^3} {3!}} + {\frac {x^5} {5!}} - {\frac {x^7} {7!}} +
-			{\sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}\cr \verythinrule
-		\tablerow
-			{\cos(x)}
-			1 - {\frac {x^2} {2!}} + {\frac {x^4} {4!}} - {\frac {x^6} {6!}} +
-			{\sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}\cr \verythinrule
-		\tablerow
-			{\frac 1 {1 - x}}
-			1 + x + {x^2} + {x^3} +
-			{\sum_{k = 0}^\infty x^k},\quad\hfill $-1 < x < 1$\cr \verythinrule
-		\tablerow
-			{\ln(1 + x)}
-			{\frac x 1} - {\frac {x^2} 2} + {\frac {x^3} 3} - {\frac {x^4} 4} +
-			{\sum_{k = 1}^\infty (-1)^{k + 1} \frac {x^k} k},\quad\hfill $-1 < x \le 1$\cr \thickrule
-		}}
-	}
+  \setbox0=\hbox{$\displaystyle\sum_{k = 0}^{k = 0}$}
+  \setbox0=\hbox{\vrule height\dimexpr\ht0+.5ex\relax depth\dimexpr\dp0+.5ex\relax width0pt}
+  \setbox2=\hbox{\vrule height2.5ex depth1ex width0pt}
+  \def\bigmathstrut{\unhcopy0}
+  \def\bigstrut{\unhcopy2}
+  \def\thickrule{\noalign{\hrule height.8pt}}
+  \def\thinrule{\noalign{\hrule}}
+  \def\verythinrule{\noalign{\hrule height.2pt}}
+  \def\tablerow#1#2#3#4#5#6#7#8#9{%
+    \@tablerow{%
+      \bigmathstrut&%
+      $\m@th\displaystyle #1$&%
+      $\m@th\displaystyle #2$&${}#3{}\m@th$&%
+      $\m@th\displaystyle #4$&${}#5{}\m@th$&%
+      $\m@th\displaystyle #6$&${}#7{}\m@th$&%
+      $\m@th\displaystyle #8$&${}#9\dotsb\m@th$&%
+    }%
+  }
+  \def\@tablerow#1#2{%
+    #1%
+    $\m@th\displaystyle #2$
+  }
+  \vbox{\tabskip=0pt \offinterlineskip\halign{%
+    #\tabskip=1em&\hfil#\hfil&\tabskip=0pt%
+      \hfil#\hfil&\hfil#\hfil&%
+      \hfil#\hfil&\hfil#\hfil&%
+      \hfil#\hfil&\hfil#\hfil&%
+      \hfil#\hfil&\hfil#\hfil\tabskip=2em&%
+      #\hfil\cr \thickrule
+    \bigstrut&Function&\omit Maclaurin series\hfil\hidewidth&&&&&&&&Sigma notation\cr \thinrule
+    \tablerow
+      {e^x}
+      1 + {\frac x {1!}} + {\frac {x^2} {2!}} + {\frac {x^3} {3!}} +
+      {\sum_{k = 0}^\infty \frac {x^k} {k!}}\cr \verythinrule
+    \tablerow
+      {\sin(x)}
+      {\frac x {1!}} - {\frac {x^3} {3!}} + {\frac {x^5} {5!}} - {\frac {x^7} {7!}} +
+      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}\cr \verythinrule
+    \tablerow
+      {\cos(x)}
+      1 - {\frac {x^2} {2!}} + {\frac {x^4} {4!}} - {\frac {x^6} {6!}} +
+      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}\cr \verythinrule
+    \tablerow
+      {\frac 1 {1 - x}}
+      1 + x + {x^2} + {x^3} +
+      {\sum_{k = 0}^\infty x^k},\quad\hfill $-1 < x < 1$\cr \verythinrule
+    \tablerow
+      {\ln(1 + x)}
+      {\frac x 1} - {\frac {x^2} 2} + {\frac {x^3} 3} - {\frac {x^4} 4} +
+      {\sum_{k = 1}^\infty (-1)^{k + 1} \frac {x^k} k},\quad\hfill $-1 < x \le 1$\cr \thickrule
+    }}
+  }
 \makeatother
