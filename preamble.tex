@@ -1,4 +1,3 @@
-%
 \usepackage{expl3}
 \usepackage{xparse}
 
@@ -550,13 +549,13 @@
   {
     \__factoids_path_default_push:n {#1}
       \cs_set_protected:Npn \NewPreamble
-        { \__factoids_bundle_preamble_new:nn }
+        { \__factoids_bundle_preamble_new:nn { . } }
       \cs_set_protected:Npn \NewInteramble
-        { \__factoids_bundle_interamble_new:nn }
+        { \__factoids_bundle_interamble_new:nn { . } }
       \cs_set_protected:Npn \NewPostamble
-        { \__factoids_bundle_postamble_new:nn }
-      \cs_set_protected:Npn \NewEntry
-        { \__factoids_bundle_new:nn }
+        { \__factoids_bundle_postamble_new:nn { . } }
+      \cs_set_protected:Npn \NewEntry ##1
+        { \__factoids_bundle_new:nn { ./##1 } }
 
       #2
     \__factoids_path_default_pop:
