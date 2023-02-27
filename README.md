@@ -68,6 +68,94 @@ Here is a list of factoids:
 6. Reply `y` to the message the bot sends to you to confirm your choice and wait
 7. profit
 
+The new factoids system is complete enough that it can probably be used now. Legacy interfaces have been provided so that it is still fully compatible with the old system. Currently, the list of all available factoids is not reported upon error; this is still WIP.
+
+# A description of the new system
+
+The new system works through the idea of "paths" under which factoids can be filed, much like a filesystem. Each factoid lives under a particular directory with a unique name within that directory.
+
+## Factoid types
+
+There are two types of factoids that can be created.
+
+1. The first is a standard factoid which lives under a particular folder in the filesystem. It is associated with a unique name within the folder it lives in, and has a definition body which when the factoid is activated will be run by LaTeX.
+2. The second is a factoid "bundle". It is a folder of bundle "entries" which are each individually a factoid that can be invoked. But the factoid bundle can also be invoked, which will display the entire bundle at once.
+
+## The user interface
+
+### Path specification
+
+A path can be specified through a list of path components separated by the path separator `/`, where a path component can be any sequence of characters accepted by LaTeX (it would be best to keep this to characters with category code 10, 11, or 12). This can look like:
+
+- `trig/pythag`
+- `calc/diff/chain rule`
+- etc.
+
+A path can also optionally start with the component `.`, in which case `.` will be replaced by the current "default path prefix". This is empty to begin with, but can be set by the user using the following commands:
+
+- `\PushDefaultFactoidPath{<path>}`: Sets the current default path prefix to `<path>`. To set the new default path prefix relative to the current one, prefix the `<path>` with `./`. Must be matched by a following `\PopDefaultFactoidPath`.
+- `\PopDefaultFactoidPath`: Resets the default path prefix to what it was previously.
+
+The intended usage looks something like
+
+```latex
+\PushDefaultFactoidPath{<path>}
+  % do some stuff ...
+\PopDefaultFactoidPath
+```
+
+### Factoid creation
+
+Currently, the only type of factoid creation supported is creating new factoids which do not yet exist. Trying to create a factoid which already exists will result in an error.
+
+The available commands are:
+
+- `\NewFactoid{<path>}{<code>}`: Creates a new factoid located at `<path>` with code `<code>`.
+- `\NewFactoidBundle{<bundle path>}{<bundle specification>}`: Creates a new factoid bundle located at `<path>` according to the `<bundle specification>`.
+
+Within the bundle specification, the following commands are available:
+
+- `\NewPreamble{<code>}`: Defines the "preamble" for the bundle, which gets inserted before the whole bundle code.
+- `\NewInteramble{<code>}`: Defines the "interamble" for the bundle, which gets inserted between each bundle entry.
+- `\NewPostamble{<code>}`: Defines the "postamble" for the bundle, which gets inserted after the whole bundle code.
+- `\NewEntry{<relative entry path>}{<code>}`: Defines a bundle entry located at `<bundle path>/<relative entry path>` with code `<code>`.
+
+An example of creating a factoid bundle looks like
+
+```latex
+\NewFactoidBundle{trig/reflect}{
+  \NewPreamble{\begin{align*}}
+  \NewInteramble{\\}
+  \NewEntry{sin}
+    {\sin(-\theta) & = -\sin\theta}
+  \NewEntry{cos}
+    {\cos(-\theta) & =  \cos\theta}
+  \NewEntry{tan}
+    {\tan(-\theta) & = -\tan\theta}
+  \NewPostamble{\end{align*}}
+}
+```
+
+which creates an `align*` environment of the trig reflection identities.
+
+The entire bundle is accessed via the path `<bundle path>`. The individual entries of a bundle are accessed via the path `<bundle path>/<relative entry path>`.
+
+### Factoid invocation
+
+Factoids can be invoked by the following commands:
+
+- `\Factoid{<path>}`: invokes the factoid at path `<path>`.
+- `\FactoidFuzzy{<path>}`: tries to invoke a factoid at path `<path>`, and failing that, does a "fuzzy" search algorithm for factoids whose path has a suffix which matches the `<path>` provided. If a unique match is found, then that factoid will be invoked instead. But if multiple matches are found, then the invocation will fail (use a more specific suffix).
+- `\. <path> <newline>`: alias to `\FactoidFuzzy`. This is a convenience macro and must be done on its own line, as it will try to capture everything up until the end of the line as its argument.
+
+### Legacy interface
+
+The following commands have been defined for compatibility reasons.
+
+- `\DeclareFactoid{<path>}{<code>}`: alias to `\NewFactoid`.
+- `\factoid{<path>}`: alias to `\Factoid`.
+
+
 ### Preamble Contributions:
 1. Fork the repo
 2. Open the repo from your account. The URL will be something like
