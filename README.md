@@ -14,14 +14,14 @@ you get :
 
 Or with 
 
-`,tex \.double cos`
+`,tex \.double angle`
 
 you get : 
 <div align="center">
 <img src="https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png" alt="cosine double angle identities" height="200px"/>
 </div>
 
-<!-- ![cosine double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png) -->
+<!-- ![trig double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-angle.png) -->
 
 Here is a list of factoids:
 
