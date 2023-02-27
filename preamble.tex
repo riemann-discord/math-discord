@@ -1,3 +1,6 @@
+\usepackage{expl3}
+\usepackage{xparse}
+
 % Required to support mathematical unicode
 \usepackage[warnunknown, fasterrors, mathletters]{ucs}
 \usepackage[utf8x]{inputenc}
@@ -63,30 +66,520 @@
 \newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 \newcommand{\pdif}[3]{\frac{\partial^{#3}#1}{\partial#2^{#3}}}
 
-\makeatletter
-% stolen from source2e
-\bgroup
-\lccode`\~=`\ %
-\lccode`\}=`\ %
-\catcode`\ =11\relax%
-\lowercase{%
-\egroup%
-\protected\long\def\@errmessage#1{%
-\begingroup%
-\edef
-\@err@                                                                 %
-{{}}%
-\errhelp
-\@err@                                                                 %
-\let
-\@err@                                                                 %
-\@empty
-\def~{\errmessage{#1%
-\@err@                                                                 %
-}}%
-~%
-\endgroup%
-}}%
+\ExplSyntaxOn
+\char_set_catcode_letter:n { `\@ }
+
+%-------------------------------------------------------------------------------
+% factoids
+%-------------------------------------------------------------------------------
+
+\tl_const:Nn \c__factoids_path_separator_tl { / }
+\tl_const:Nn \c__factoids_path_default_tl   { . }
+
+\tl_new:N \l__factoids_tmpa_tl
+
+\seq_new:N   \l__factoids_path_default_seq
+\seq_clear:N \l__factoids_path_default_seq
+
+\seq_new:N \l__factoids_path_seq
+\tl_new:N  \l__factoids_path_tl
+\seq_new:N \l__factoids_path_builder_seq
+\tl_new:N  \l__factoids_path_suffix_seq
+\tl_new:N  \l__factoids_path_head_tl
+\tl_new:N  \l__factoids_path_last_tl
+
+\tl_new:N   \l__factoids_bundle_tl
+\bool_new:N \l__factoids_bundle_interamble_bool
+
+\seq_new:N \l__factoids_paths_search_seq
+
+%-------------------------------------------------------------------------------
+
+\cs_generate_variant:Nn \seq_set_split:Nnn { NVn, NVV }
+\cs_generate_variant:Nn \seq_use:Nn { NV }
+\cs_generate_variant:Nn \tl_concat:NNN { NNc }
+
+\cs_new:Npn \__factoids_path_format:N #1
+  { \seq_use:NV #1 \c__factoids_path_separator_tl }
+
+\cs_new:Npn \__factoids_path_cs:N #1
+  { ~>~ / \__factoids_path_format:N #1 / ~>~ }
+
+\cs_new_protected:Npn \__factoids_path_set_split:Nn #1#2
+  {
+    \seq_set_split:NVn #1 \c__factoids_path_separator_tl {#2}
+  }
+\cs_generate_variant:Nn \__factoids_path_set_split:Nn { NV }
+
+\cs_new_protected:Npn \__factoids_path_prepend_default:N #1
+  {
+    \seq_get_left:NN #1 \l__factoids_path_head_tl
+    \tl_if_eq:NNT \l__factoids_path_head_tl \c__factoids_path_default_tl
+      {
+        \seq_pop_left:NN #1 \l__factoids_tmpa_tl
+        \seq_concat:NNN #1 \l__factoids_path_default_seq #1
+      }
+  }
+
+%-------------------------------------------------------------------------------
+% default path
+%-------------------------------------------------------------------------------
+
+\cs_new_protected:Npn \__factoids_path_default_push:n #1
+  {
+    \group_begin:
+      \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+      \__factoids_path_prepend_default:N \l__factoids_path_seq
+      \seq_set_eq:NN \l__factoids_path_default_seq \l__factoids_path_seq
+  }
+
+\cs_new_protected:Npn \__factoids_path_default_pop:
+  {
+    \group_end:
+  }
+
+%-------------------------------------------------------------------------------
+% factoid creation
+%-------------------------------------------------------------------------------
+
+\cs_new_protected:Npn \__factoids_dir_new:
+  {
+    % quick path
+    \seq_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _dirs_seq }
+      { \prg_break: }
+
+    \seq_clear:N \l__factoids_path_builder_seq
+
+    % create dir if doesn't exist
+    \seq_if_exist:cF
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+      {
+        \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+        \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _entries_seq }
+        \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundles_seq }
+      }
+
+    \bool_while_do:nn { !\seq_if_empty_p:N \l__factoids_path_seq }
+      {
+        \seq_pop_left:NN \l__factoids_path_seq \l__factoids_path_head_tl
+        \seq_put_right:NV \l__factoids_path_builder_seq \l__factoids_path_head_tl
+        \seq_if_exist:cF
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+          {
+            % insert
+            \group_begin:
+              \seq_pop_right:NN \l__factoids_path_builder_seq \l__factoids_tmpa_tl
+              \seq_gput_right:cV
+                { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+                \l__factoids_path_head_tl
+            \group_end:
+
+            \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _dirs_seq }
+            \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _entries_seq }
+            \seq_new:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundles_seq }
+          }
+      }
+
+    % restore \l__factoids_path_seq
+    \seq_set_eq:NN \l__factoids_path_seq \l__factoids_path_builder_seq
+
+    \prg_break_point:
+  }
+
+\cs_new_protected:Npn \__factoids_dir_new:n #1
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
+    \__factoids_dir_new:
+  }
+
+% TODO: error handling if seq is empty
+% TODO: checking existence of entry
+% dir cs, entry cs, err msg 1, err msg 2, path, definition
+\cs_new_protected:Npn \__factoids_entry_new:nnnnnn #1#2#3#4#5#6
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#5}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
+
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+      {
+        \msg_error:nnxxxx { __factoids } { already-defined }
+          { #3 } { #4 }
+          { \__factoids_path_format:N \l__factoids_path_seq }
+          {
+            \token_to_meaning:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+          }
+        \cs_undefine:c
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+      }
+
+    \seq_pop_right:NN \l__factoids_path_seq \l__factoids_path_last_tl
+    \__factoids_dir_new:
+
+    \seq_gput_right:cV
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_seq }
+      \l__factoids_path_last_tl
+    \seq_put_right:NV \l__factoids_path_seq \l__factoids_path_last_tl
+
+    \tl_new:c   { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl }
+    \tl_gset:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#2_tl } {#6}
+  }
+
+\cs_new_protected:Npn \__factoids_entry_new:nn #1#2
+  {
+    \__factoids_entry_new:nnnnnn
+      { entries } { entry }
+      { Factoid } { factoid }
+      {#1} {#2}
+  }
+
+\cs_new_protected:Npn \__factoids_bundle_new:nn #1#2
+  {
+    \__factoids_entry_new:nnnnnn
+      { bundles } { bundle }
+      { Factoid~ bundle~ entry } { factoid~ bundle~ entry }
+      {#1} {#2}
+  }
+
+% TODO: error handling if seq is empty
+% TODO: checking existence of entry
+% entry cs, err msg 1, err msg 2, path, definition
+\cs_new_protected:Npn \__factoids_bundle_xamble_new:nnnnn #1#2#3#4#5
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#4}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
+
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+      {
+        \msg_error:nnxxxx { __factoids } { already-defined }
+          { #2 } { #3 }
+          { \__factoids_path_format:N \l__factoids_path_seq }
+          {
+            \token_to_meaning:c { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+          }
+        \cs_undefine:c
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+      }
+
+    \__factoids_dir_new:
+
+    \tl_new:c   { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl }
+    \tl_gset:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _#1_tl } {#5}
+  }
+
+\cs_new_protected:Npn \__factoids_bundle_preamble_new:nn #1#2
+  {
+    \__factoids_bundle_xamble_new:nnnnn
+      { bundle_preamble }
+      { Factoid~ bundle~ preamble } { factoid~ bundle~ preamble }
+      {#1} {#2}
+  }
+
+\cs_new_protected:Npn \__factoids_bundle_interamble_new:nn #1#2
+  {
+    \__factoids_bundle_xamble_new:nnnnn
+      { bundle_interamble }
+      { Factoid~ bundle~ interamble } { factoid~ bundle~ interamble }
+      {#1} {#2}
+  }
+
+\cs_new_protected:Npn \__factoids_bundle_postamble_new:nn #1#2
+  {
+    \__factoids_bundle_xamble_new:nnnnn
+      { bundle_postamble }
+      { Factoid~ bundle~ postamble } { factoid~ bundle~ postamble }
+      {#1} {#2}
+  }
+
+%-------------------------------------------------------------------------------
+% factoid invocation
+%-------------------------------------------------------------------------------
+
+% path, entry, bundle, dir/bundles, otherwise
+\cs_new_protected:Npn \__factoids_invoke_check_alternatives:nnnnn #1#2#3#4#5
+  {
+    % valid entry name
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N #1 _entry_tl }
+      { \prg_break:n {#2} }
+
+    % valid bundle name
+    \tl_if_exist:cT
+      { g__factoids_ \__factoids_path_cs:N #1 _bundle_tl }
+      { \prg_break:n {#3} }
+
+    % valid dir with bundles
+    \bool_lazy_and:nnT
+      {  \seq_if_exist_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq } }
+      { !\seq_if_empty_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq } }
+      { \prg_break:n {#4} }
+
+    % otherwise
+    #5
+
+    \prg_break_point:
+  }
+
+% path, entry, bundle, dir/bundles
+\cs_new_protected:Npn \__factoids_invoke_check_alternatives:nnnn #1#2#3#4
+  {
+    \__factoids_invoke_check_alternatives:nnnnn {#1} {#2} {#3} {#4} {}
+  }
+
+\cs_new_protected:Npn \__factoids_invoke:n #1
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+    \__factoids_path_prepend_default:N \l__factoids_path_seq
+
+    \__factoids_invoke_aux:Nn \l__factoids_path_seq
+      {
+        \msg_error:nnx { __factoids } { not-defined }
+          { \__factoids_path_format:N \l__factoids_path_seq }
+        % TODO: error reporting
+      }
+  }
+
+\cs_new_protected:Npn \__factoids_invoke_aux:Nn #1#2
+  {
+    \__factoids_invoke_check_alternatives:nnnnn { #1 }
+      {
+        \tl_use:c { g__factoids_ \__factoids_path_cs:N #1 _entry_tl }
+      }
+      {
+        % build bundle
+        \tl_clear:N \l__factoids_bundle_tl
+        \seq_set_eq:NN \l__factoids_path_builder_seq #1
+        \seq_pop_right:NN \l__factoids_path_builder_seq \l__factoids_tmpa_tl
+
+        % preamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_preamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_preamble_tl }
+          }
+        % body
+        \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+          { g__factoids_ \__factoids_path_cs:N #1 _bundle_tl }
+        % postamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_postamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_postamble_tl }
+          }
+
+        \tl_use:N \l__factoids_bundle_tl
+      }
+      {
+        % build bundle
+        \tl_clear:N \l__factoids_bundle_tl
+        \bool_set_false:N \l__factoids_bundle_interamble_bool
+
+        % preamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N #1 _bundle_preamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N #1 _bundle_preamble_tl }
+          }
+
+        % main body
+        \seq_map_inline:cn { g__factoids_ \__factoids_path_cs:N #1 _bundles_seq }
+          {
+            % interamble
+            \bool_if:nT
+              {
+                \l__factoids_bundle_interamble_bool
+                && \tl_if_exist_p:c { g__factoids_ \__factoids_path_cs:N #1 _bundle_interamble_tl }
+              }
+              {
+                \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+                  { g__factoids_ \__factoids_path_cs:N #1 _bundle_interamble_tl }
+              }
+            \bool_set_true:N \l__factoids_bundle_interamble_bool
+
+            \seq_set_eq:NN \l__factoids_path_builder_seq #1
+            \seq_put_right:Nn \l__factoids_path_builder_seq {##1}
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N \l__factoids_path_builder_seq _bundle_tl }
+          }
+
+        % postamble
+        \tl_if_exist:cT
+          { g__factoids_ \__factoids_path_cs:N #1 _bundle_postamble_tl }
+          {
+            \tl_concat:NNc \l__factoids_bundle_tl \l__factoids_bundle_tl
+              { g__factoids_ \__factoids_path_cs:N #1 _bundle_postamble_tl }
+          }
+
+        \tl_use:N \l__factoids_bundle_tl
+      }
+      {#2}
+
+    \tex_ignorespaces:D
+  }
+
+\cs_new_protected:Npn \__factoids_invoke_aux:N #1
+  {
+    \__factoids_invoke_aux:Nn #1 {}
+  }
+
+% does not prepend default path
+\cs_new_protected:Npn \__factoids_invoke_fuzzy:n #1
+  {
+    \__factoids_path_set_split:Nn \l__factoids_path_seq {#1}
+    \__factoids_invoke_aux:Nn \l__factoids_path_seq
+      { \__factoids_invoke_fuzzy_search: }
+  }
+
+\cs_new_protected:Npn \__factoids_invoke_fuzzy_search:
+  {
+    \seq_set_eq:NN \l__factoids_path_suffix_seq \l__factoids_path_seq
+    \seq_clear:N \l__factoids_path_seq
+    \seq_clear:N \l__factoids_paths_search_seq
+
+    \__factoids_invoke_fuzzy_search_rec:
+
+    \int_case:nnF { \seq_count:N \l__factoids_paths_search_seq }
+      {
+        { 0 }
+          {
+            % TODO: error reporting
+            % undefined
+            \msg_error:nnx { __factoids } { not-defined }
+              { \__factoids_path_format:N \l__factoids_path_suffix_seq }
+          }
+        { 1 }
+          {
+            \seq_pop_left:NN \l__factoids_paths_search_seq \l__factoids_path_tl
+            \__factoids_path_set_split:NV \l__factoids_path_seq \l__factoids_path_tl
+            \__factoids_invoke_aux:N \l__factoids_path_seq
+          }
+      }
+      {
+        % TODO: error reporting
+        % too many matches
+        \msg_error:nnxx { __factoids } { too-many-matches }
+          { \__factoids_path_format:N \l__factoids_path_suffix_seq }
+          {
+            '
+            \seq_use:Nnnn \l__factoids_paths_search_seq
+              { '~ and~ ' } { ',~ ' } { ',~ and~ ' }
+            '
+          }
+      }
+  }
+
+\cs_new_protected:Npn \__factoids_invoke_fuzzy_search_rec:
+  {
+    \seq_set_eq:NN \l__factoids_path_builder_seq \l__factoids_path_seq
+    \seq_concat:NNN \l__factoids_path_builder_seq \l__factoids_path_builder_seq \l__factoids_path_suffix_seq
+
+    \__factoids_invoke_check_alternatives:nnnn { \l__factoids_path_builder_seq }
+      {
+        \seq_put_right:Nx \l__factoids_paths_search_seq
+          { \__factoids_path_format:N \l__factoids_path_builder_seq }
+      }
+      {
+        \seq_put_right:Nx \l__factoids_paths_search_seq
+          { \__factoids_path_format:N \l__factoids_path_builder_seq }
+      }
+      {
+        \seq_put_right:Nx \l__factoids_paths_search_seq
+          { \__factoids_path_format:N \l__factoids_path_builder_seq }
+      }
+
+    \seq_map_inline:cn { g__factoids_ \__factoids_path_cs:N \l__factoids_path_seq _dirs_seq }
+      {
+        \seq_put_right:Nn \l__factoids_path_seq {##1}
+        \__factoids_invoke_fuzzy_search_rec:
+        \seq_pop_right:NN \l__factoids_path_seq \l__factoids_tmpa_tl
+      }
+  }
+
+%-------------------------------------------------------------------------------
+% error messages
+%-------------------------------------------------------------------------------
+
+\prop_gput:Nnn \g_msg_module_name_prop { __factoids } { factoids }
+\prop_gput:Nnn \g_msg_module_type_prop { __factoids } {}
+
+% \msg_new:nnn { __factoids } { empty-name }
+% 	{ Cannot~ define~ #1~ with~ an~ empty~ name. }
+
+\msg_new:nnnn { __factoids } { already-defined }
+  { #1~ '#3'~ already~ defined. }
+  {
+    I~ have~ been~ asked~ to~ create~ a~ new~ #2~ '#3'~
+    but~ this~ name~ has~ already~ been~ used~ elsewhere. \\
+    \\
+    The~ current~ meaning~ is: \\
+    \ \ #4 \\
+    \\
+    I~ am~ overwriting~ this~ definition.
+  }
+
+\msg_new:nnnn { __factoids } { not-defined }
+  { Factoid~ '#1'~ not~ defined. }
+  {
+    I~ have~ been~ asked~ to~ use~ a~ factoid~ '#1': \\
+    this~ has~ not~ been~ defined~ yet.
+  }
+
+\msg_new:nnnn { __factoids } { too-many-matches }
+  { Found~ multiple~ factoids~ named~ '#1'. }
+  {
+    I~ have~ been~ asked~ to~ use~ a~ factoid~ '#1'~
+    but~ I~ found~ more~ than~ one~ match. \\
+    The~ matches~ are: \\
+    \ \ #2.
+  }
+
+%-------------------------------------------------------------------------------
+% L2e interface
+%-------------------------------------------------------------------------------
+
+\cs_new_protected:Npn \NewFactoid
+  { \__factoids_entry_new:nn }
+\cs_new_protected:Npn \NewFactoidBundle #1#2
+  {
+    \__factoids_path_default_push:n {#1}
+      \cs_set_protected:Npn \NewPreamble
+        { \__factoids_bundle_preamble_new:nn { . } }
+      \cs_set_protected:Npn \NewInteramble
+        { \__factoids_bundle_interamble_new:nn { . } }
+      \cs_set_protected:Npn \NewPostamble
+        { \__factoids_bundle_postamble_new:nn { . } }
+      \cs_set_protected:Npn \NewEntry ##1
+        { \__factoids_bundle_new:nn { ./##1 } }
+
+      #2
+    \__factoids_path_default_pop:
+  }
+\cs_new_protected:Npn \Factoid
+  { \__factoids_invoke:n }
+\cs_new_protected:Npn \FactoidFuzzy
+  { \__factoids_invoke_fuzzy:n }
+\cs_new_protected:Npn \PushDefaultFactoidPath
+  { \__factoids_path_default_push:n }
+\cs_new_protected:Npn \PopDefaultFactoidPath
+  { \__factoids_path_default_pop: }
+
+% legacy
+\cs_new_protected:Npn \factoid
+  { \__factoids_invoke:n }
+\cs_new_protected:Npn \DeclareFactoid
+  { \__factoids_entry_new:nn }
+
+\ExplSyntaxOff
+
+%-------------------------------------------------------------------------------
+% L2e stuff
+%-------------------------------------------------------------------------------
 
 % getline
 \begingroup
@@ -120,53 +613,13 @@
   {\@@}%
 }%
 
+\protected\def\.{\xgetline\FactoidFuzzy}
+
 \ExplSyntaxOn
-% list of known factoids
-\seq_new:N \g_factoids_seq
 
-% error handling
-\cs_new_protected:Npn \factoids_error_aux:nn #1#2 {
-  \@errmessage {
-    #1^^J
-    List~of~known~factoids:^^J
-    \space\space
-    #2
-  }
-}
-\makeatother
-\cs_generate_variant:Nn \factoids_error_aux:nn { nx }
-\cs_new_protected:Npn \factoids_error:n #1 {
-  \factoids_error_aux:nx { #1 } {
-    \seq_if_empty:NF \g_factoids_seq { ` }
-    \seq_use:Nnnn \g_factoids_seq { `~and~` } { `,~` } { `,~and~` }
-    \seq_if_empty:NF \g_factoids_seq { ` }
-  }
-}
-\cs_generate_variant:Nn \factoids_error:n { x }
-
-% factoid creation
-\cs_new_protected:Npn \factoids_new:nn #1#2 {
-  \tl_new:c { g__factoids_factoid / #1 / _tl }
-  \tl_gset:cn { g__factoids_factoid / #1 / _tl } {#2}
-  \seq_gput_right:Nn \g_factoids_seq {#1}
-}
-
-% factoid usage
-\cs_new_protected:Npn \factoids_invoke:n #1 {
-  \tl_if_empty:nTF { #1 }
-    { \factoids_error:x { Usage:~\string\.<factoid~name> } }
-    {
-      \tl_if_exist:cTF { g__factoids_factoid / #1 / _tl }
-        { \tl_use:c { g__factoids_factoid / #1 / _tl } }
-        { \factoids_error:x { `#1`~is~not~a~known~factoid! } }
-    }
-}
-
-% user interface
-\cs_new_protected_nopar:Npn \DeclareFactoid { \factoids_new:nn }
-\cs_new_protected_nopar:Npn \factoid { \factoids_invoke:n }
-\cs_gset_protected_nopar:Npn \. { \xgetline \factoids_invoke:n }
+\char_set_catcode_other:n { `\@ }
 \ExplSyntaxOff
+
 
 % Common instructional requests
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
@@ -232,23 +685,40 @@
 
 % American High school Algebra 2 and Trigonometry
 
-\DeclareFactoid{transformation rules}{%
-  \definecolor{o}{HTML}{ff7e00}
-  \begin{spreadlines}{1ex}
-    \begin{alignat*}{5}
-      &\textbf{Notation} \quad && \textbf{Transformation Type} && \textbf{Coordinate Change} \\
-      & f(x) {\color o {} +d} \quad && \textrm{Vertical translation up } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} +d}) \\
-      & f(x) {\color o {} -d} \quad && \textrm{Vertical translation down } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} -d}) \\
-      & f(x {\color o {} +c}) \quad && \textrm{Horizontal translation left } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} - c }, y) \\
-      & f(x {\color o {} -c}) \quad && \textrm{Horizontal translation right } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} + c }, y) \\
-      &  {\color o -}f(x) \quad && \textrm{Reflection over } {\color o {} x-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto (x, {\color o {} -}y) \\
-      & f({\color o -}x) \quad && \textrm{Reflection over } {\color o {} y-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto ({\color o {} -}x, y) \\
-      & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |a| > 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
-      & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |a| < 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
-      & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |b| > 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right) \\
-      & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |b| < 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right)
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{transformation rules}{%
+  \NewPreamble{%
+    \definecolor{o}{HTML}{ff7e00}%
+    \begin{spreadlines}{1ex}%
+      \begin{alignat*}{5}%
+        &\textbf{Notation} \quad && \textbf{Transformation Type} && \textbf{Coordinate Change} \\
+  }
+  \NewInteramble{\\}
+
+  \NewEntry{vert trans}{
+    & f(x) {\color o {} +d} \quad && \textrm{Vertical translation up } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} +d}) \\
+    & f(x) {\color o {} -d} \quad && \textrm{Vertical translation down } {\color o {} d} \textrm{ units} \quad&& (x,y) \mapsto (x, y {\color o {} -d})
+  }
+  \NewEntry{horz trans}{
+    & f(x {\color o {} +c}) \quad && \textrm{Horizontal translation left } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} - c }, y) \\
+    & f(x {\color o {} -c}) \quad && \textrm{Horizontal translation right } {\color o {} c} \textrm{ units} \quad&& (x,y) \mapsto (x {\color o {} + c }, y)
+  }
+  \NewEntry{refl}{
+    &  {\color o -}f(x) \quad && \textrm{Reflection over } {\color o {} x-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto (x, {\color o {} -}y) \\
+    & f({\color o -}x) \quad && \textrm{Reflection over } {\color o {} y-} {\color o {} \textrm{axis}} \quad&& (x,y) \mapsto ({\color o {} -}x, y)
+  }
+  \NewEntry{vert scale}{
+    & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |a| > 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y) \\
+    & {\color o a}f(x) \quad && \textrm{Vertical } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |a| < 1} \quad&& (x,y) \mapsto (x, {\color o {} a}y)
+  }
+  \NewEntry{horz scale}{
+    & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{compression }} \textrm{for }  {\color o {} |b| > 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right) \\
+    & f({\color o b} x) \quad && \textrm{Horizontal } {\color o {} \textrm{stretch }} \textrm{for }  {\color o {} |b| < 1} \quad&& (x,y) \mapsto \left(\frac{x}{{\color o {} b}}, y\right)
+  }
+
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
 \DeclareFactoid{log rules}{%
