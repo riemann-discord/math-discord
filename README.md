@@ -25,39 +25,39 @@ you get :
 
 Here is a list of factoids:
 
-\.original,
-\.wrong reciprocal,
-\.wrong recip,
-\.wrong fraction cancel,
-\.wrong cancel,
-\.wrong square,
-\.freshman,
-\.cts,
-\.exp rules,
-\.log xp rule,
-\.point slope,
-\.transformation rules,
-\.log rules,
-\.sohcahtoa,
-\.geom trig def,
-\.double angle,
-\.half angle,
-\.sum diff trig,
-\.recip trig,
-\.reflect trig,
-\.shift trig,
-\.sum2prod,
-\.prod2sum,
-\.rocket trig,
-\.unit circle,
-\.demoivre,
-\.limit rules,
-\.diff rules,
-\.int rules,
-\.FTC1,
-\.FTC2,
-\.integral area,
-\.maclaurin
+`\.original,`
+`\.wrong reciprocal,`
+`\.wrong recip,`
+`\.wrong fraction cancel,`
+`\.wrong cancel,`
+`\.wrong square,`
+`\.freshman,`
+`\.cts,`
+`\.exp rules,`
+`\.log xp rule,`
+`\.point slope,`
+`\.transformation rules,`
+`\.log rules,`
+`\.sohcahtoa,`
+`\.geom trig def,`
+`\.double angle,`
+`\.half angle,`
+`\.sum diff trig,`
+`\.recip trig,`
+`\.reflect trig,`
+`\.shift trig,`
+`\.sum2prod,`
+`\.prod2sum,`
+`\.rocket trig,`
+`\.unit circle,`
+`\.demoivre,`
+`\.limit rules,`
+`\.diff rules,`
+`\.int rules,`
+`\.FTC1,`
+`\.FTC2,`
+`\.integral area,`
+`\.maclaurin`
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
