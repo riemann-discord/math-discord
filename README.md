@@ -18,7 +18,7 @@ Or with
 
 you get : 
 <div align="center">
-<img src="https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-cos.png" alt="cosine double angle identities" height="200px"/>
+<img src="https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-angle.png" alt="trig double angle identities" height="200px"/>
 </div>
 
 <!-- ![trig double angle identities](https://raw.githubusercontent.com/riemann-discord/math-discord/main/img/double-angle.png) -->
