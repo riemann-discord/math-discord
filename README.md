@@ -25,6 +25,13 @@ you get :
 
 Here is a list of factoids:
 
+`\.butterfly`'
+`\.algebra lesson`'
+`\.alg lesson`'
+`\.alg manipulation`'
+`\.alg manip`'
+`\.algebra manip`'
+`\.algebra lesson`'
 `\.original,`
 `\.wrong reciprocal,`
 `\.wrong recip,`
