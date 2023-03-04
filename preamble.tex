@@ -620,11 +620,88 @@
 \char_set_catcode_other:n { `\@ }
 \ExplSyntaxOff
 
+%%%%%%%%%%%%%%%%%%%%%% Begin Factoid Declaration %%%%%%%%%%%%%%%%%%%%%%
 
 % Common instructional requests
 \DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
 
+
 % American High school Algebra and Geometry
+\DeclareFactoid{algebra manipulation}{%
+  \definecolor{o}{HTML}{ff7e00}
+  \definecolor{b}{HTML}{00bfff}
+  \definecolor{g}{HTML}{50C878}
+
+  One of the basic principles of manipulating equations is applying the same operation to both sides of the equation. \\
+  Consider the following examples with each new example builds on what was introduced in the previous example(s).\\
+  { \bf{Ex1} }
+  There is both an $x$ and a constant on the left side of the equation.
+  $$x - 1= 3$$
+  to solve for $x$ you can add 1 to both sides of the equation to get
+  $$x - 1 +1= 3 + 1$$
+  this separates your $x$ term from the terms without $x$ and in this example already gives you the solution
+  $$x = 4$$
+  { \bf{Ex2} }
+  $x$ has a coefficient (something being multiplied to it)
+  you can solve for $x$ by dividing both sides by the coefficient,
+  in this case dividing both sides by ${\color o {3}}$
+  \begin{align*}
+    {\color o {3}} x &= 6 \\
+    \frac{{\color o {3}} x}{\color o {3}} &= \frac{6}{{\color o {3}} } \\
+    x &= 2
+  \end{align*}
+
+  { \bf{Ex3} }
+  now to increase the complexity by a little and combining the two above ideas \\
+  you have an $x$ term with a coefficient and a constant on the left side
+  $${\color o {2}}x  - 1= 3$$
+  adding 1 to both sides (applying the same idea as { \bf{Ex1} })
+  $${\color o {2}}x = 4$$
+  note that you now have something resembling what we started with in { \bf{Ex2} } \\
+  dividing both sides by ${\color o {2}}$
+  \begin{align*}
+    \frac{{\color o {2}}x}{{\color o {2}}} &= \frac{4}{{\color o {2}}} \\
+    x &= 2
+  \end{align*}
+
+  { \bf{Ex4} }
+  now to increase the complexity by even more \\
+  you now have constants and $x$ terms with coefficients on both sides of the equation
+  \begin{equation*}
+    { \color o 6 }x - 4 = 5 -{ \color b 3 }x
+  \end{equation*}
+  adding 4 to both sides
+  \begin{equation*}
+  { \color o 6 }x = 9 -  { \color b 3 }x
+  \end{equation*}
+  adding ${ \color b 3 }x$ to both sides
+  \begin{equation*}
+    { \color o 6 }x +  { \color b 3 }x = 9 -  { \color b 3 }x +  { \color b 3 }x
+  \end{equation*}
+  combining like terms
+  \begin{equation*}
+    { \color g 9 }x  = 9
+  \end{equation*}
+  dividing both sides by 9
+  \begin{align*}
+    \frac{{ \color g 9 }x}{{ \color g 9 }} &= \frac{9}{{ \color g 9 }}\\
+    x &= 1
+  \end{align*}
+  if you understand all of the above, you should have little difficulty solving linear equations of a single variable. \
+  different values once you have your equation makes little difference.
+}
+\DeclareFactoid{alg lesson}{\factoid{algebra manipulation}}
+\DeclareFactoid{alg manipulation}{\factoid{algebra manipulation}}
+\DeclareFactoid{alg manip}{\factoid{algebra manipulation}}
+\DeclareFactoid{algebra manip}{\factoid{algebra manipulation}}
+\DeclareFactoid{algebra lesson}{\factoid{algebra manipulation}}
+
+\DeclareFactoid{cross multiplication}{%
+  $\frac{a}{b} = \frac{c}{d} \ \Ra \ a d = c d$
+}
+\DeclareFactoid{cross mult}{\factoid{cross multiplication}}
+\DeclareFactoid{butterfly}{\factoid{cross multiplication}}
+
 \DeclareFactoid{wrong reciprocal}{%
   $\frac{1}{x+y} = (x + y)^{-1} $ does not equal $\frac{1}{x} + \frac{1}{y}$
 }
