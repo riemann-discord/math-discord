@@ -707,6 +707,11 @@
 }
 \DeclareFactoid{wrong recip}{\factoid{wrong reciprocal}}
 
+\DeclareFactoid{wrong square root}{%
+  $\sqrt{x + y}$ does not equal $\sqrt{x} + \sqrt{y}$
+}
+\DeclareFactoid{wrong root}{\factoid{wrong square root}}
+
 \DeclareFactoid{wrong fraction cancel}{%
   $\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
 }
@@ -737,6 +742,26 @@
   \end{align*}%
 }
 
+\DeclareFactoid{absolute value def}{%
+  $$\left | x \right |=
+  \begin{cases}
+    -x & \text{ if } x<0 \\ 
+    x & \text{ if } x\ge0 
+  \end{cases}$$
+}
+\DeclareFactoid{absolute value}{\factoid{absolute value def}}
+\DeclareFactoid{abs def}{\factoid{absolute value def}}
+\DeclareFactoid{abs value}{\factoid{absolute value def}}
+
+\DeclareFactoid{quadratic formula}{%
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{2}
+      &\textrm{The solutions to } ax^2 + bx + c = 0 \textrm{ are} \\
+      &x = \frac{-b + \sqrt{b^2 - 4ac}}{2a} \ \textrm{and} \ x = \frac{-b - \sqrt{b^2 - 4ac}}{2a}
+    \end{alignat*}
+  \end{spreadlines}
+}
+
 \DeclareFactoid{exp rules}{%
   \begin{spreadlines}{1ex}
     \begin{alignat*}{3}
@@ -759,6 +784,28 @@
     f(x) = m(x-a) + b
   \]%
 }
+
+\DeclareFactoid{law of sines}{%
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{2}
+      &\frac{\sin(A)}{a} = \frac{\sin(B)}{b} = \frac{\sin(C)}{c}&
+    \end{alignat*}
+  \end{spreadlines}
+}
+\DeclareFactoid{law of sine}{\factoid{law of sines}}
+\DeclareFactoid{sine law}{\factoid{law of sines}}
+
+\DeclareFactoid{law of cosines}{%
+  \begin{spreadlines}{1ex}
+    \begin{alignat*}{3}
+      &a^2 = b^2 + c^2 - 2bc \cos(A)\\
+      &b^2 = a^2 + c^2 - 2ab \cos(B)\\
+      &c^2 = a^2 + b^2 - 2bc \cos(C)\\
+    \end{alignat*}
+  \end{spreadlines}
+}
+\DeclareFactoid{law of cosine}{\factoid{law of cosines}}
+\DeclareFactoid{cosine law}{\factoid{law of cosines}}
 
 % American High school Algebra 2 and Trigonometry
 
