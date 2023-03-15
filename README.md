@@ -25,45 +25,60 @@ you get :
 
 Here is a list of factoids:
 
-`\.butterfly`
-`\.algebra lesson`
-`\.alg lesson`
-`\.alg manipulation`
-`\.alg manip`
-`\.algebra manip`
-`\.algebra lesson`
-`\.original,`
-`\.wrong reciprocal,`
-`\.wrong recip,`
-`\.wrong fraction cancel,`
-`\.wrong cancel,`
-`\.wrong square,`
-`\.freshman,`
-`\.cts,`
-`\.exp rules,`
-`\.log xp rule,`
-`\.point slope,`
-`\.transformation rules,`
-`\.log rules,`
-`\.sohcahtoa,`
-`\.geom trig def,`
-`\.double angle,`
-`\.half angle,`
-`\.sum diff trig,`
-`\.recip trig,`
-`\.reflect trig,`
-`\.shift trig,`
-`\.sum2prod,`
-`\.prod2sum,`
-`\.rocket trig,`
-`\.unit circle,`
-`\.demoivre,`
-`\.limit rules,`
-`\.diff rules,`
-`\.int rules,`
-`\.FTC1,`
-`\.FTC2,`
-`\.integral area,`
+`\.original`,
+`\.algebra manipulation`,
+`\.alg lesson`,
+`\.alg manipulation`,
+`\.alg manip`,
+`\.algebra manip`,
+`\.algebra lesson`,
+`\.cross multiplication`,
+`\.cross mult`,
+`\.butterfly`,
+`\.wrong reciprocal`,
+`\.wrong recip`,
+`\.wrong square root`,
+`\.wrong root`,
+`\.wrong fraction cancel`,
+`\.wrong cancel`,
+`\.wrong square`,
+`\.freshman`,
+`\.cts`,
+`\.absolute value def`,
+`\.absolute value`,
+`\.abs def`,
+`\.abs value`,
+`\.quadratic formula`,
+`\.exp rules`,
+`\.log xp rule`,
+`\.point slope`,
+`\.law of sines`,
+`\.law of sine`,
+`\.sine law`,
+`\.law of cosines`,
+`\.law of cosine`,
+`\.cosine law`,
+`\.log rules`,
+`\.sohcahtoa`,
+`\.geom trig def`,
+`\.double angle`,
+`\.half angle`,
+`\.sum diff trig`,
+`\.recip trig`,
+`\.reflect trig`,
+`\.shift trig`,
+`\.reflect shift trig`,
+`\.sum2prod`,
+`\.prod2sum`,
+`\.rocket trig`,
+`\.unit circle`,
+`\.demoivre`,
+`\.limit rules`,
+`\.diff rules`,
+`\.int rules`,
+`\.FTC1`,
+`\.FTC2`,
+`\.integral area`,
 `\.maclaurin`
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
