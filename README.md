@@ -58,6 +58,11 @@ Here is a list of factoids:
 `\.law of cosines`,
 `\.law of cosine`,
 `\.cosine law`,
+`\.vert trans`,
+`\.horz trans`,
+`\.refl`,
+`\.vert scale`,
+`\.horz scale`,
 `\.log rules`,
 `\.sohcahtoa`,
 `\.geom trig def`,
@@ -79,7 +84,10 @@ Here is a list of factoids:
 `\.FTC1`,
 `\.FTC2`,
 `\.integral area`,
-`\.maclaurin`
+`\.maclaurin`,
+`\.plane geom`,
+`\.2d geom`,
+`\.plane geometry`
 
 ### Use the preamble in [Math Discord](https://discord.gg/math):
 1. Download [preamble.tex](https://github.com/riemann-discord/math-discord/blob/main/preamble.tex) to your local machine
