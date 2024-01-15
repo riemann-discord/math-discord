@@ -1144,20 +1144,15 @@
 }
 \DeclareFactoid{calculate limit}{%
 \begin{tikzpicture}
-  \node (header) [font=\huge] {Calculating $\displaystyle\lim_{x \to a} f(x)$};
+  \node (header) [font=\Huge] {Calculating $\displaystyle\lim_{x \to a} f(x)$};
 
-  \node (A) [
-    below=3ex of header,
-    text width=16em,
-    align=center,
-    font=\sffamily]
-    {\textbf{A. Direct substitution} \\ Try to evaluate the function directly};
-  \node (fa) [below=1ex of A, font=\huge] {$f(a)$};
+  \node (A) [below=3ex of header, text width=16em, align=center, font=\sffamily] {\textbf{A. Direct substitution} \\ Try to evaluate the function directly};
+  \node (fa) [below=1ex of A, font=\Huge] {$f(a)$};
 
-  \node (B) [below left=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {{\Large ${f(a) = \smash{\tfrac b0}}$} \\[.7ex] when $\boldsymbol b$ is not zero \\[1ex] \textbf{B. Asymptote} \\ (probably)};
+  \node (B) [below left=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {{\LARGE ${f(a) = \smash{\tfrac b0}}$} \\[.7ex] when $\boldsymbol b$ is not zero \\[1ex] \textbf{B. Asymptote} \\ (probably)};
   \node (C) [below=3ex of fa, text width=12em, align=center, font=\sffamily] {{\LARGE ${f(a) = b}$} \\[.7ex] when $\boldsymbol b$ is a real number \\[1ex] \textbf{C. Limit found} \\ (probably)};
-  \node (D) [below right=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {{\Large ${f(a) = \smash{\tfrac 00}}$} \\[.7ex] \hphantom{when $\boldsymbol b$} \\[1ex] \textbf{D. Indeterminate form}};
-  \node (D') [below right=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {\phantom{\Large ${f(a) = \smash{\tfrac 00}}$} \\[.7ex] \hphantom{when $\boldsymbol b$} \\[1ex] \phantom{\textbf{D. Indeterminate form}} \\ \phantom{(probably)}};
+  \node (D) [below right=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {{\LARGE ${f(a) = \smash{\tfrac 00}}$} \\[.7ex] \hphantom{when $\boldsymbol b$} \\[1ex] \textbf{D. Indeterminate form}};
+  \node (D') [below right=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {\phantom{\LARGE ${f(a) = \smash{\tfrac 00}}$} \\[.7ex] \hphantom{when $\boldsymbol b$} \\[1ex] \phantom{\textbf{D. Indeterminate form}} \\ \phantom{(probably)}};
 
   \node (try) [below=3ex of C, font=\sffamily] {Try rewriting the limit as an equivalent form.};
 
