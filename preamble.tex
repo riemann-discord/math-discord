@@ -24,6 +24,7 @@
 \usepackage{physics}  % Lots of useful shortcuts and macros
 \usepackage{tikz-cd}  % For drawing commutative diagrams easily
 \usetikzlibrary{angles}
+\usetikzlibrary{positioning} % For relative position of tikz nodes
 \usepackage{color}  % Add some colour to life
 \usepackage{microtype}  % Minature font tweaks
 \usepackage{mathrsfs}  % For curly sets
@@ -1141,6 +1142,48 @@
     \end{alignat*}
   \end{spreadlines}
 }
+\DeclareFactoid{calculate limit}{%
+\begin{tikzpicture}
+  \node (header) [font=\huge] {Calculating $\displaystyle\lim_{x \to a} f(x)$};
+
+  \node (A) [
+    below=3ex of header,
+    text width=16em,
+    align=center,
+    font=\sffamily]
+    {\textbf{A. Direct substitution} \\ Try to evaluate the function directly};
+  \node (fa) [below=1ex of A, font=\huge] {$f(a)$};
+
+  \node (B) [below left=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {{\Large ${f(a) = \smash{\tfrac b0}}$} \\[.7ex] when $\boldsymbol b$ is not zero \\[1ex] \textbf{B. Asymptote} \\ (probably)};
+  \node (C) [below=3ex of fa, text width=12em, align=center, font=\sffamily] {{\LARGE ${f(a) = b}$} \\[.7ex] when $\boldsymbol b$ is a real number \\[1ex] \textbf{C. Limit found} \\ (probably)};
+  \node (D) [below right=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {{\Large ${f(a) = \smash{\tfrac 00}}$} \\[.7ex] \hphantom{when $\boldsymbol b$} \\[1ex] \textbf{D. Indeterminate form}};
+  \node (D') [below right=3ex and 4em of fa, text width=12em, align=center, font=\sffamily] {\phantom{\Large ${f(a) = \smash{\tfrac 00}}$} \\[.7ex] \hphantom{when $\boldsymbol b$} \\[1ex] \phantom{\textbf{D. Indeterminate form}} \\ \phantom{(probably)}};
+
+  \node (try) [below=3ex of C, font=\sffamily] {Try rewriting the limit as an equivalent form.};
+
+  \node (E) [below=10ex of B, font=\sffamily] {\textbf{E. Factoring}};
+  \node (F) [below=10ex of C, font=\sffamily] {\textbf{F. Conjugates}};
+  \node (G) [below=10ex of D', font=\sffamily] {\textbf{G. Trig identities}};
+
+  \node (try-new) [below=3.5ex of F, font=\sffamily] {Try evaluating the limit in its new form.};
+
+  \node (H) [below=3ex of try-new, font=\sffamily] {\textbf{H. Approximation}};
+  \node (H') [below=.1ex of H, text width=20em, align=center, font=\sffamily] {When all else fails, graphs and tables \\ can help approximate limits.};
+
+  \draw [ultra thick, ->] (fa.west) -| (B.north);
+  \draw [ultra thick, ->] (fa.south) -- (C.north);
+  \draw [ultra thick, ->] (fa.east) -| (D.north);
+  \draw [ultra thick, ->] (D.south) |- (C.south) -| (try.north);
+  \draw [ultra thick, ->] (try.west) -| (E.north);
+  \draw [ultra thick, ->] (try.south) -- (F.north);
+  \draw [ultra thick, ->] ([yshift=-.3ex] try.east) -| (G.north);
+  \draw [ultra thick] (E.south) -- (G.south);
+  \draw [ultra thick, ->] ([yshift=-.5ex] F.south) -- (try-new.north);
+  \draw [ultra thick, ->] (try-new.west) -- ([xshift=-18em] try-new.center) |- (A.west);
+  \draw [ultra thick, ->] ([yshift=.3ex] try.east) -- ([yshift=.1ex, xshift=18em] try.center) |- (H.east);
+\end{tikzpicture}
+}
+\DeclareFactoid{calc limit}{\factoid{calculate limit}}
 
 \DeclareFactoid{diff rules}{%
   \begin{tabular}{lcc}
