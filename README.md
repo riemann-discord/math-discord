@@ -198,6 +198,6 @@ The following commands have been defined for compatibility reasons.
 5. Click button that says "Make a Pull Request"
 6. profit
 
-Credit to
-@snow (夢雪#2250), Mehdi_Moulati#1210, Toby#2275, RokettoJanpu#6002
+Credit to Discord users
+`tearfox`, `rokettojanpu`
 for your contributions.
