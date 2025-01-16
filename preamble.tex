@@ -1,34 +1,35 @@
 \usepackage{expl3}
 \usepackage{xparse}
 
-% Required to support mathematical unicode
-\usepackage[warnunknown, fasterrors, mathletters]{ucs}
-\usepackage[utf8x]{inputenc}
-\usepackage[cm]{fullpage}
-\usepackage[english]{babel}
 % Always typeset math in display style
 \everymath{\displaystyle}
 
 % Standard mathematical typesetting packages
-\usepackage{amsfonts, amsthm, amsmath, amssymb}
+\usepackage[T1]{fontenc}
+\usepackage{amsthm, amsmath, amssymb}
 \DeclareMathSymbol{\shortminus}{\mathbin}{AMSa}{"39}
-\usepackage{mathtools}  % Extension to amsmath
-\usepackage[fontsize=14pt]{scrextend}
+\usepackage[fixamsmath]{mathtools}  % Extension to amsmath
+\usepackage[cal=cm, scr=rsfs, frak=euler, bb=ams]{mathalpha}
+\usepackage{lmodern}
 
 % Symbol and utility packages
-\usepackage{cancel, textcomp}
-\usepackage[mathscr]{euscript}
+\usepackage{cancel}
 \usepackage[nointegrals]{wasysym}
 
 % Extras
+\usepackage{mleftright}
+\mleftright
 \usepackage{physics}  % Lots of useful shortcuts and macros
-\usepackage{tikz-cd}  % For drawing commutative diagrams easily
+\usepackage{quiver}  % For drawing commutative diagrams easily
 \usetikzlibrary{angles}
 \usetikzlibrary{positioning} % For relative position of tikz nodes
-\usepackage{color}  % Add some colour to life
 \usepackage{microtype}  % Minature font tweaks
 \usepackage{mathrsfs}  % For curly sets
 \usepackage{polynom}
+
+\usepackage{hwemoji}  % Support Unicode emojis
+\DeclareUnicodeCharacter{FE0E}{}
+\DeclareUnicodeCharacter{FE0F}{}
 
 % Common shortcuts
 \def\mbb#1{\mathbb{#1}}
@@ -61,11 +62,9 @@
 \def\th{\theta}
 
 % Sometimes helpful macros
-\newcommand{\func}[3]{#1\colon#2\to#3}
-\newcommand{\vfunc}[5]{\func{#1}{#2}{#3},\quad#4\longmapsto#5}
-\newcommand{\floor}[1]{\left\lfloor#1\right\rfloor}
-\newcommand{\ceil}[1]{\left\lceil#1\right\rceil}
 \newcommand{\pdif}[3]{\frac{\partial^{#3}#1}{\partial#2^{#3}}}
+\DeclarePairedDelimiter\floor{\lfloor}{\rfloor}
+\DeclarePairedDelimiter\ceil{\lceil}{\rceil}
 
 \ExplSyntaxOn
 \char_set_catcode_letter:n { `\@ }
@@ -746,8 +745,8 @@
 \DeclareFactoid{absolute value def}{%
   $$\left | x \right |=
   \begin{cases}
-    -x & \text{ if } x<0 \\ 
-    x & \text{ if } x\ge0 
+    -x & \text{ if } x<0 \\
+    x & \text{ if } x\ge0
   \end{cases}$$
 }
 \DeclareFactoid{absolute value}{\factoid{absolute value def}}
@@ -1322,7 +1321,7 @@
   $C = 2\pi r$ &
   $P = 2b + 2h$ &
   \\
-  
+
   \hline
 
   % sector
@@ -1365,7 +1364,7 @@
   $A = h\left(\frac{a+b}{2}\right)$
   \\
   \hline
-  
+
   % ellipse
   \tikz [baseline={(ellipse.base)}] {
     %\useasboundingbox (-1, -1.2) rectangle (2.2, 1.2);
@@ -1404,12 +1403,12 @@
       ;
     \draw [dashed] (0,0) -- (0, -{cos(36)}) node [pos=0.5, right] {$a$};
   }
-  
+
   \\
   $A = \pi ab$ &
   $A = \frac12pq$ &
   $A = \frac12aP = \frac52as$
-  
+
 \end{tabular}
 }
 \DeclareFactoid{2d geom}{\factoid{plane geom}}
