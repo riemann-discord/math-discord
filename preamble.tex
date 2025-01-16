@@ -24,7 +24,6 @@
 \usetikzlibrary{angles}
 \usetikzlibrary{positioning} % For relative position of tikz nodes
 \usepackage{microtype}  % Minature font tweaks
-\usepackage{mathrsfs}  % For curly sets
 \usepackage{polynom}
 
 \usepackage{hwemoji}  % Support Unicode emojis
@@ -623,11 +622,11 @@
 %%%%%%%%%%%%%%%%%%%%%% Begin Factoid Declaration %%%%%%%%%%%%%%%%%%%%%%
 
 % Common instructional requests
-\DeclareFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
+\NewFactoid{original}{Please post original question, exactly as is. Screenshot or picture is best.}
 
 
 % American High school Algebra and Geometry
-\DeclareFactoid{algebra manipulation}{%
+\NewFactoid{algebra manipulation}{%
   \definecolor{o}{HTML}{ff7e00}
   \definecolor{b}{HTML}{00bfff}
   \definecolor{g}{HTML}{50C878}
@@ -690,39 +689,39 @@
   if you understand all of the above, you should have little difficulty solving linear equations of a single variable. \
   different values once you have your equation makes little difference.
 }
-\DeclareFactoid{alg lesson}{\factoid{algebra manipulation}}
-\DeclareFactoid{alg manipulation}{\factoid{algebra manipulation}}
-\DeclareFactoid{alg manip}{\factoid{algebra manipulation}}
-\DeclareFactoid{algebra manip}{\factoid{algebra manipulation}}
-\DeclareFactoid{algebra lesson}{\factoid{algebra manipulation}}
+\NewFactoid{alg lesson}{\Factoid{algebra manipulation}}
+\NewFactoid{alg manipulation}{\Factoid{algebra manipulation}}
+\NewFactoid{alg manip}{\Factoid{algebra manipulation}}
+\NewFactoid{algebra manip}{\Factoid{algebra manipulation}}
+\NewFactoid{algebra lesson}{\Factoid{algebra manipulation}}
 
-\DeclareFactoid{cross multiplication}{%
+\NewFactoid{cross multiplication}{%
   $\frac{a}{b} = \frac{c}{d} \ \Ra \ a d = b c$
 }
-\DeclareFactoid{cross mult}{\factoid{cross multiplication}}
-\DeclareFactoid{butterfly}{\factoid{cross multiplication}}
+\NewFactoid{cross mult}{\Factoid{cross multiplication}}
+\NewFactoid{butterfly}{\Factoid{cross multiplication}}
 
-\DeclareFactoid{wrong reciprocal}{%
+\NewFactoid{wrong reciprocal}{%
   $\frac{1}{x+y} = (x + y)^{-1} $ does not equal $\frac{1}{x} + \frac{1}{y}$
 }
-\DeclareFactoid{wrong recip}{\factoid{wrong reciprocal}}
+\NewFactoid{wrong recip}{\Factoid{wrong reciprocal}}
 
-\DeclareFactoid{wrong square root}{%
+\NewFactoid{wrong square root}{%
   $\sqrt{x + y}$ does not equal $\sqrt{x} + \sqrt{y}$
 }
-\DeclareFactoid{wrong root}{\factoid{wrong square root}}
+\NewFactoid{wrong root}{\Factoid{wrong square root}}
 
-\DeclareFactoid{wrong fraction cancel}{%
+\NewFactoid{wrong fraction cancel}{%
   $\frac{x}{x+y}$ cannot be simplified using $\frac{\cancel{x}}{\cancel{x}+y}$
 }
-\DeclareFactoid{wrong cancel}{\factoid{wrong fraction cancel}}
+\NewFactoid{wrong cancel}{\Factoid{wrong fraction cancel}}
 
-\DeclareFactoid{wrong square}{%
+\NewFactoid{wrong square}{%
   $(x + y)^2$ does not equal $x^2 + y^2$
 }
-\DeclareFactoid{freshman}{\factoid{wrong square}}
+\NewFactoid{freshman}{\Factoid{wrong square}}
 
-\DeclareFactoid{cts}{%
+\NewFactoid{cts}{%
   {\bfseries Completing the square}
 
   \medskip
@@ -742,18 +741,18 @@
   \end{align*}%
 }
 
-\DeclareFactoid{absolute value def}{%
+\NewFactoid{absolute value def}{%
   $$\left | x \right |=
   \begin{cases}
     -x & \text{ if } x<0 \\
     x & \text{ if } x\ge0
   \end{cases}$$
 }
-\DeclareFactoid{absolute value}{\factoid{absolute value def}}
-\DeclareFactoid{abs def}{\factoid{absolute value def}}
-\DeclareFactoid{abs value}{\factoid{absolute value def}}
+\NewFactoid{absolute value}{\Factoid{absolute value def}}
+\NewFactoid{abs def}{\Factoid{absolute value def}}
+\NewFactoid{abs value}{\Factoid{absolute value def}}
 
-\DeclareFactoid{quadratic formula}{%
+\NewFactoid{quadratic formula}{%
   \begin{spreadlines}{1ex}
     \begin{alignat*}{2}
       &\textrm{The solutions to } ax^2 + bx + c = 0 \textrm{ are} \\
@@ -762,50 +761,55 @@
   \end{spreadlines}
 }
 
-\DeclareFactoid{exp rules}{%
-  \begin{spreadlines}{1ex}
-    \begin{alignat*}{3}
-      &\textbf{Exponent Rule Name} \quad && \textbf{Property} \\
-      &\textrm{Product Rule} \quad && a^xa^y = a^{x+y} \\
-      &\textrm{Negative Exponent} \quad && a^{-x}=\tfrac{1}{a^x} \\
-      &\textrm{Quotient Rule} \quad && \frac{a^x}{a^y}=a^{x-y} \\
-      &\textrm{Power of Power} \quad && \left(a^x\right)^y=a^{xy} \\
-      &\textrm{Distributivity} \quad && (ab)^x=a^xb^x \\
-      &\textrm{Fractional Exponent} \quad && a^{\frac{x}{y}}=\sqrt[y]{a^x} \\
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{exp rules}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1ex}
+      \begin{alignat*}{3}
+        &\textbf{Exponent Rule Name} \quad && \textbf{Property} \\
+  }
+  \NewInteramble{\\}
+  \NewEntry{exp prod}{&\textrm{Product Rule} \quad && a^xa^y = a^{x+y}}
+  \NewEntry{exp neg}{&\textrm{Negative Exponent} \quad && a^{-x}=\tfrac{1}{a^x}}
+  \NewEntry{exp quotient}{&\textrm{Quotient Rule} \quad && \frac{a^x}{a^y}=a^{x-y}}
+  \NewEntry{power of power}{&\textrm{Power of Power} \quad && \left(a^x\right)^y=a^{xy}}
+  \NewEntry{exp distrib}{&\textrm{Distributivity} \quad && (ab)^x=a^xb^x}
+  \NewEntry{exp frac}{&\textrm{Fractional Exponent} \quad && a^{\frac{x}{y}}=\sqrt[y]{a^x}}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
-\DeclareFactoid{log xp rule}{\[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\]}
+\NewFactoid{log xp rule}{\[\log_{a^b}(c^d) \equiv \frac{d}{b}\log_a(c)\]}
 
-\DeclareFactoid{point slope}{%
+\NewFactoid{point slope}{%
   For linear equation $f(x)$ with slope $m$ that passes through $(a,b)$:
   \[
     f(x) = m(x-a) + b
   \]%
 }
 
-\DeclareFactoid{law of sines}{%
+\NewFactoid{law of sines}{%
   \begin{spreadlines}{1ex}
     \begin{alignat*}{2}
       &\frac{\sin(A)}{a} = \frac{\sin(B)}{b} = \frac{\sin(C)}{c}&
     \end{alignat*}
   \end{spreadlines}
 }
-\DeclareFactoid{law of sine}{\factoid{law of sines}}
-\DeclareFactoid{sine law}{\factoid{law of sines}}
+\NewFactoid{law of sine}{\Factoid{law of sines}}
+\NewFactoid{sine law}{\Factoid{law of sines}}
 
-\DeclareFactoid{law of cosines}{%
+\NewFactoid{law of cosines}{%
   \begin{spreadlines}{1ex}
     \begin{alignat*}{3}
       &a^2 = b^2 + c^2 - 2bc \cos(A)\\
-      &b^2 = a^2 + c^2 - 2ab \cos(B)\\
-      &c^2 = a^2 + b^2 - 2bc \cos(C)\\
+      &b^2 = c^2 + a^2 - 2ca \cos(B)\\
+      &c^2 = a^2 + b^2 - 2ab \cos(C)\\
     \end{alignat*}
   \end{spreadlines}
 }
-\DeclareFactoid{law of cosine}{\factoid{law of cosines}}
-\DeclareFactoid{cosine law}{\factoid{law of cosines}}
+\NewFactoid{law of cosine}{\Factoid{law of cosines}}
+\NewFactoid{cosine law}{\Factoid{law of cosines}}
 
 % American High school Algebra 2 and Trigonometry
 
@@ -845,19 +849,24 @@
   }
 }
 
-\DeclareFactoid{log rules}{%
-  \begin{spreadlines}{1ex}
-    \begin{alignat*}{3}
-      &\textbf{Log Rule Name} \quad && \textbf{Property} \\
-      &\textrm{Product Rule} \quad && \log(x\cdot y) = \log(x) + \log(y) \\
-      &\textrm{Quotient Rule} \quad && \log(\frac{x}{y}) = \log(x) - \log(y) \\
-      &\textrm{Power Rule} \quad && \log(x^y) = y \log(x) \\
-      &\textrm{Base Change} \quad && \log_{b}(x) = \frac{\log_c(x)}{\log_c(b)}
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{log rules}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1ex}
+      \begin{alignat*}{3}
+        &\textbf{Log Rule Name} \quad && \textbf{Property} \\
+  }
+  \NewInteramble{\\}
+  \NewEntry{log prod}{&\textrm{Product Rule} \quad && \log(x\cdot y) = \log(x) + \log(y)}
+  \NewEntry{log quotient}{&\textrm{Quotient Rule} \quad && \log(\frac{x}{y}) = \log(x) - \log(y)}
+  \NewEntry{log power}{&\textrm{Power Rule} \quad && \log(x^y) = y \log(x)}
+  \NewEntry{log base change}{&\textrm{Base Change} \quad && \log_{b}(x) = \frac{\log_c(x)}{\log_c(b)}}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
-\DeclareFactoid{sohcahtoa}{%
+\NewFactoid{sohcahtoa}{%
   \textbf{Definitions of sin/cos/tan}
 
   \begin{minipage}[b]{.4\linewidth}
@@ -879,7 +888,7 @@
   \end{tikzpicture}%
 }
 
-\DeclareFactoid{geom trig def}{%
+\NewFactoid{geom trig def}{%
   \def\angle{52}
 
   \pgfmathsetmacro{\r}{1}
@@ -915,35 +924,52 @@
     \draw [g] (0, 1/\s) -- node [sloped,above] {$\cot(\th)$} (\c,\s);
   \end{tikzpicture}}
 
-\DeclareFactoid{double angle}{%
-  \begin{align*}
+\NewFactoidBundle{double angle}{%
+  \NewPreamble{%
+    \begin{align*}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{cos}{
     \cos (2\th) &= \cos^2(\th) - \sin^2(\th) \\
       &= 2\cos^2(\th) - 1 \\
-      &= 1 - 2\sin^2(\th) \\
-    \sin(2\th) &= 2\sin(\th)\cos(\th) \\
-    \tan(2\th) &= \frac{2\tan(\th)}{1-\tan^2(\th)}
-  \end{align*}%
+      &= 1 - 2\sin^2(\th)
+  }
+  \NewEntry{sin}{\sin(2\th) &= 2\sin(\th)\cos(\th)}
+  \NewEntry{tan}{\tan(2\th) &= \frac{2\tan(\th)}{1-\tan^2(\th)}}
+  \NewPostamble{%
+    \end{align*}%
+  }
 }
 
-\DeclareFactoid{half angle}{%
-  \begin{align*}
-    \sin(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{2}} \\
-    \cos(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1+\cos(\th)}{2}} \\
-    \tan(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{1+\cos(\th)}}
-  \end{align*}%
+\NewFactoidBundle{half angle}{%
+  \NewPreamble{%
+    \begin{align*}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{sin}{\sin(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{2}}}
+  \NewEntry{cos}{\cos(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1+\cos(\th)}{2}}}
+  \NewEntry{tan}{\tan(\tfrac{\th}{2}) &= \pm\sqrt{\tfrac{1-\cos(\th)}{1+\cos(\th)}}}
+  \NewPostamble{%
+    \end{align*}%
+  }
 }
 
-\DeclareFactoid{sum diff trig}{%
-  \begin{spreadlines}{1.5ex}
-    \begin{alignat*}{2}
-      \sin (\th \pm \vp) &= \sin(\th)\cos(\vp) \pm \cos(\th)\sin(\vp) \\
-      \cos (\th \pm \vp) &= \cos(\th)\cos(\vp) \mp \sin(\th)\sin(\vp) \\
-      \tan (\th \pm \vp) &= \frac{\tan(\th) \pm \tan(\vp)}{1 \mp \tan(\th)\tan(\vp)}
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{sum diff trig}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1.5ex}%
+      \begin{alignat*}{2}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{sin}{\sin (\th \pm \vp) &= \sin(\th)\cos(\vp) \pm \cos(\th)\sin(\vp)}
+  \NewEntry{cos}{\cos (\th \pm \vp) &= \cos(\th)\cos(\vp) \mp \sin(\th)\sin(\vp)}
+  \NewEntry{tan}{\tan (\th \pm \vp) &= \frac{\tan(\th) \pm \tan(\vp)}{1 \mp \tan(\th)\tan(\vp)}}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
-\DeclareFactoid{recip trig}{%
+\NewFactoid{recip trig}{%
   \begin{spreadlines}{1.5ex}
     \begin{alignat*}{2}
       \csc(x) & = \tfrac 1 {\sin(x)}, \quad & \tan(x) & = \tfrac {\sin(x)} {\cos(x)} \\
@@ -953,70 +979,93 @@
 }
 
 % trig reflect identities
-\DeclareFactoid{reflect trig}{%
-  \begin{spreadlines}{1.5ex}
-    \begin{alignat*}{3}
-      \sin(-x) &= -\sin(x), \quad & \sin(\tfrac\pi2 - x) &= \cos(x), \quad & \sin(\pi - x) &= \hphantom-\sin(x) \\
-      \cos(-x) &= \hphantom-\cos(x), \quad & \cos(\tfrac\pi2 - x) &= \sin(x), \quad & \cos(\pi - x) &= -\cos(x) \\
-      \tan(-x) &= -\tan(x), \quad & \tan(\tfrac\pi2 - x) &= \tfrac1{\tan(x)}, \quad & \tan(\pi - x) &= -\tan(x)
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{reflect trig}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1.5ex}
+      \begin{alignat*}{3}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{sin}{\sin(-x) &= -\sin(x), \quad & \sin(\tfrac\pi2 - x) &= \cos(x), \quad & \sin(\pi - x) &= \hphantom-\sin(x)}
+  \NewEntry{cos}{\cos(-x) &= \hphantom-\cos(x), \quad & \cos(\tfrac\pi2 - x) &= \sin(x), \quad & \cos(\pi - x) &= -\cos(x)}
+  \NewEntry{tan}{\tan(-x) &= -\tan(x), \quad & \tan(\tfrac\pi2 - x) &= \tfrac1{\tan(x)}, \quad & \tan(\pi - x) &= -\tan(x)}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
 % trig shift identities
-\DeclareFactoid{shift trig}{%
-  \begin{spreadlines}{1.5ex}
-    \begin{alignat*}{2}
-      \sin\left(\frac\pi2 + x\right) &=  \cos(x), \quad & \sin\left(\pi + x\right) &= -\sin(x) \\
-      \cos\left(\frac\pi2 + x\right) &= -\sin(x), \quad & \cos\left(\pi + x\right) &= -\cos(x) \\
-      \tan\left(\frac\pi2 + x\right) &= -\frac{1}{\tan(x)}, \quad & \tan\left(\pi + x\right) &=  \tan(x)
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{shift trig}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1.5ex}
+      \begin{alignat*}{2}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{sin}{\sin\left(\frac\pi2 + x\right) &=  \cos(x), \quad & \sin\left(\pi + x\right) &= -\sin(x)}
+  \NewEntry{cos}{\cos\left(\frac\pi2 + x\right) &= -\sin(x), \quad & \cos\left(\pi + x\right) &= -\cos(x)}
+  \NewEntry{tan}{\tan\left(\frac\pi2 + x\right) &= -\frac{1}{\tan(x)}, \quad & \tan\left(\pi + x\right) &=  \tan(x)}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
 % all trig identities (shift and reflect) minimize in one table
-\DeclareFactoid{reflect shift trig}{
-  \tabskip=0pt
-  \setbox2=\hbox{\vrule height3.5ex depth3ex width0pt}
-  \halign{
-    \unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
-    \noalign{\hrule}
-    &&\th&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
-    \noalign{\hrule}
-    &&\sin(\th)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr
-    \noalign{\hrule}
-    &&\cos(\th)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr
-    \noalign{\hrule}
-    &&\tan(\th)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr
-    \noalign{\hrule}
+\NewFactoidBundle{reflect shift trig}{
+  \NewPreamble{%
+    \tabskip=0pt
+    \setbox2=\hbox{\vrule height3.5ex depth3ex width0pt}
+    \halign\bgroup
+      \unhcopy2\strut#&\vrule#\tabskip=1em&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&\vrule#&\hfil$#$\hfil&#\vrule\tabskip=0pt\cr
+      \noalign{\hrule}%
+      &&\th&&\frac{\pi}{2} - x&&\frac{\pi}{2} + x&&\pi - x&&\pi +x&\cr
+      \noalign{\hrule}%
+  }
+  \NewInteramble{\noalign{\hrule}}
+  \NewEntry{sin}{&&\sin(\th)&&\cos(x)&&\cos(x)&&\sin(x)&&-\sin(x)&\cr}
+  \NewEntry{cos}{&&\cos(\th)&&\sin(x)&&-\sin(x)&&-\cos(x)&&-\cos(x)&\cr}
+  \NewEntry{tan}{&&\tan(\th)&&\frac{1}{\tan(x)}&&\frac{-1}{\tan(x)}&&-\tan(x)&&\tan(x)&\cr}
+  \NewPostamble{%
+      \noalign{\hrule}%
+    \egroup
   }
 }
 
 % sum-to-product formulas
-\DeclareFactoid{sum2prod}{%
-  \begin{spreadlines}{1.3ex}
-    \begin{alignat*}{3}
-      &\cos(x) + \cos(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\cos(\tfrac{x - y}2) \\
-      &\cos(x) - \cos(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\sin(\tfrac{y - x}2) \\
-      &\sin(x) + \sin(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\cos(\tfrac{x - y}2) \\
-      &\sin(x) - \sin(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\sin(\tfrac{x - y}2) \\
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{sum2prod}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1.3ex}
+      \begin{alignat*}{3}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{cos + cos}{&\cos(x) + \cos(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\cos(\tfrac{x - y}2)}
+  \NewEntry{cos - cos}{&\cos(x) - \cos(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\sin(\tfrac{y - x}2)}
+  \NewEntry{sin + sin}{&\sin(x) + \sin(y)\ &=\ &\, 2\sin(\tfrac{x + y}2)\cos(\tfrac{x - y}2)}
+  \NewEntry{sin - sin}{&\sin(x) - \sin(y)\ &=\ &\, 2\cos(\tfrac{x + y}2)\sin(\tfrac{x - y}2)}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }%
 
 % product-to-sum formulas
-\DeclareFactoid{prod2sum}{%
-  \begin{spreadlines}{1ex}
-    \begin{alignat*}{3}
-      &2\sin(x)\sin(y)\ &=\ & \cos(x-y)-\cos(x + y) \\
-      &2\sin(x)\cos(y)\ &=\ & \sin(x + y) + \sin(x - y) \\
-      &2\cos(x)\cos(y)\ &=\ & \cos(x + y) + \cos(x - y)
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{prod2sum}{%
+  \NewPreamble{%
+    \begin{spreadlines}{1ex}
+      \begin{alignat*}{3}%
+  }
+  \NewInteramble{\\}
+  \NewEntry{sinsin}{&2\sin(x)\sin(y)\ &=\ & \cos(x-y)-\cos(x + y)}
+  \NewEntry{sincos}{&2\sin(x)\cos(y)\ &=\ & \sin(x + y) + \sin(x - y)}
+  \NewEntry{coscos}{&2\cos(x)\cos(y)\ &=\ & \cos(x + y) + \cos(x - y)}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
 % long list of trig identities
-\DeclareFactoid{rocket trig}{
+\NewFactoid{rocket trig}{
   \text{Defining relations:} \hspace{3cm} $\approx \mathcal{O}\omega \mathcal{O}\approx$
   \begin{flalign*}
     &\quad \csc(x) = \tfrac1{\sin(x)}\quad\tan(x) = \tfrac{\sin(x)}{\cos(x)} &\\
@@ -1067,7 +1116,7 @@
   \end{flalign*}
 }
 
-\DeclareFactoid{unit circle}{%
+\NewFactoid{unit circle}{%
   \begin{tikzpicture}[scale=4.5, font=\small]
     \definecolor{r}{HTML}{ff3030}
     \definecolor{b}{HTML}{00bfff}
@@ -1124,24 +1173,29 @@
   \end{tikzpicture}%
 }
 
-\DeclareFactoid{demoivre}{$(e^{ix})^n = (\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)$}
+\NewFactoid{demoivre}{$(e^{ix})^n = (\cos(x) + i\sin(x))^n = \cos(nx) + i\sin(nx)$}
 
 % First year university/college Calculus
-\DeclareFactoid{limit rules}{%
-  Suppose $\lim_{x \to a} f(x) = L$,\ $\lim_{x \to a} g(x) = M$, and $n>0$
-  \begin{spreadlines}{1ex}
-    \begin{alignat*}{3}
-      &\textbf{Rule Name} \quad && \textbf{Property} \\
-      &\textrm{Sum/Difference} \quad && \lim_{x \to a}  f(x) \pm g(x) = L \pm M \\
-      &\textrm{Constant Multiple} \quad && \lim_{x \to a} c f(x) = cL \\
-      &\textrm{Product} \quad &&  \lim_{x \to a} f(x) g(x) = L M \\
-      &\textrm{Quotient} \quad &&  \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M} \\
-      &\textrm{Power} \quad &&  \lim_{x \to a} \left(f(x)\right)^n= L^n\\
-      &\textrm{Root} \quad && \lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}, \ L \ge 0
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{limit rules}{%
+  \NewPreamble{%
+    Suppose $\lim_{x \to a} f(x) = L$,\ $\lim_{x \to a} g(x) = M$, and $n>0$
+    \begin{spreadlines}{1ex}
+      \begin{alignat*}{3}
+        &\textbf{Rule Name} \quad && \textbf{Property} \\
+  }
+  \NewInteramble{\\}
+  \NewEntry{limit sum}{&\textrm{Sum/Difference} \quad && \lim_{x \to a}  f(x) \pm g(x) = L \pm M}
+  \NewEntry{limit multiple}{&\textrm{Constant Multiple} \quad && \lim_{x \to a} c f(x) = cL}
+  \NewEntry{limit prod}{&\textrm{Product} \quad &&  \lim_{x \to a} f(x) g(x) = L M}
+  \NewEntry{limit quotient}{&\textrm{Quotient} \quad &&  \lim_{x \to a} \frac{f(x)}{g(x)} = \frac{L}{M}}
+  \NewEntry{limit power}{&\textrm{Power} \quad &&  \lim_{x \to a} \left(f(x)\right)^n= L^n}
+  \NewEntry{limit root}{&\textrm{Root} \quad && \lim_{x \to a} \sqrt[n]{f(x)} = \sqrt[n]{L}, \ L \ge 0}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
-\DeclareFactoid{calculate limit}{%
+\NewFactoid{calculate limit}{%
 \begin{tikzpicture}
   \node (header) [font=\Huge] {Calculating $\displaystyle\lim_{x \to a} f(x)$};
 
@@ -1177,49 +1231,63 @@
   \draw [ultra thick, ->] ([yshift=.3ex] try.east) -- ([yshift=.1ex, xshift=18em] try.center) |- (H.east);
 \end{tikzpicture}
 }
-\DeclareFactoid{calc limit}{\factoid{calculate limit}}
+\NewFactoid{calc limit}{\Factoid{calculate limit}}
 
-\DeclareFactoid{diff rules}{%
-  \begin{tabular}{lcc}
-    \textbf{Rule Name} & \textbf{Function} & \textbf{Derivative} \\ \hline
-    \rule{0pt}{4ex}Constant multiple & $ cf(x)$ & $cf'(x) $\\
-    \rule{0pt}{4ex}Power Rule & $ x^n$ & $n x^{n-1} $\\
-    \rule{0pt}{4ex}Sum Rule & $ f(x) + g(x)$ & $ f'(x) + g'(x) $\\
-    \rule{0pt}{4ex}Product Rule & $ f(x)\cdot g(x)$ & $ f'(x)\cdot g(x) + f(x) \cdot g'(x) $\\
-    \rule{0pt}{4ex}Quotient Rule & $ \frac{f(x)}{g(x)}$ & $\frac{f'(x)\cdot g(x) - f(x)\cdot g'(x)}{[g(x)]^2} $\\
-    \rule{0pt}{4ex}Chain Rule Lagrange & $f(g(x))$ & $ f'(g(x)) \cdot g'(x) $\\
+\NewFactoidBundle{diff rules}{%
+  \NewPreamble{%
+    \begin{tabular}{lcc}
+      \textbf{Rule Name} & \textbf{Function} & \textbf{Derivative} \\ \hline
+  }
+  \NewInteramble{\\}
+  \NewEntry{diff multiple}{\rule{0pt}{4ex}Constant multiple & $ cf(x)$ & $cf'(x) $}
+  \NewEntry{power rule}{\rule{0pt}{4ex}Power Rule & $ x^n$ & $n x^{n-1} $}
+  \NewEntry{diff sum}{\rule{0pt}{4ex}Sum Rule & $ f(x) + g(x)$ & $ f'(x) + g'(x) $}
+  \NewEntry{product rule}{\rule{0pt}{4ex}Product Rule & $ f(x)\cdot g(x)$ & $ f'(x)\cdot g(x) + f(x) \cdot g'(x) $}
+  \NewEntry{quotient rule}{\rule{0pt}{4ex}Quotient Rule & $ \frac{f(x)}{g(x)}$ & $\frac{f'(x)\cdot g(x) - f(x)\cdot g'(x)}{[g(x)]^2} $}
+  \NewEntry{chain rule}{%
+    \rule{0pt}{4ex}Chain Rule Lagrange & $f(g(x))$ & $ f'(g(x)) \cdot g'(x) $ \\
     \rule{0pt}{4ex}Chain Rule Leibniz & $z\hspace{-.2em} =\hspace{-.2em} f(y), y \hspace{-.2em}=\hspace{-.2em} g(x)$ & $\frac{dz}{dx} = \frac{dz}{dy} \cdot \frac{dy}{dx}$
-  \end{tabular}
+  }
+  \NewPostamble{%
+    \end{tabular}%
+  }
 }
 
-\DeclareFactoid{int rules}{%
-  Suppose $F'(x) = f(x)$ and $G'(x) = g(x)$ and $C$ an arbitrary constant.
-  \begin{spreadlines}{1ex}
-    \begin{alignat*}{3}
-      &\textbf{Rule Name} \quad && \textbf{Property} \\
-      &\textrm{Constant multiple} \quad && \int \alpha f(x)\, dx = \alpha F(x) + C \\
-      &\textrm{Sum Rule} \quad && \int f(x) + g(x)\, dx =  F(x) + G(x) + C \\
-      &\textrm{Int. by Parts (1)} \quad && \int_a^b f(x) g'(x)\, dx =  f(b)g(b) - f(a) g(a) + \int_a^b f'(x) g(x)\, dx \\
-      &\textrm{Int. by Parts (2)} \quad && \int u dv = uv - \int vdu \\
-      &\textrm{Substitution Rule} \quad && \int f(g(x)) g'(x)\, dx = \int f(u)\, du = F(u) + C = F(g(x)) + C
-    \end{alignat*}
-  \end{spreadlines}
+\NewFactoidBundle{int rules}{%
+  \NewPreamble{%
+    Suppose $F'(x) = f(x)$ and $G'(x) = g(x)$ and $C$ an arbitrary constant.
+    \begin{spreadlines}{1ex}
+      \begin{alignat*}{3}
+        &\textbf{Rule Name} \quad && \textbf{Property} \\
+  }
+  \NewInteramble{\\}
+  \NewEntry{int multiple}{&\textrm{Constant multiple} \quad && \int \alpha f(x)\, dx = \alpha F(x) + C}
+  \NewEntry{int sum}{&\textrm{Sum Rule} \quad && \int f(x) + g(x)\, dx =  F(x) + G(x) + C}
+  \NewEntry{ibp}{
+    &\textrm{Int. by Parts (1)} \quad && \int_a^b f(x) g'(x)\, dx =  f(b)g(b) - f(a) g(a) + \int_a^b f'(x) g(x)\, dx \\
+    &\textrm{Int. by Parts (2)} \quad && \int u dv = uv - \int vdu
+  }
+  \NewEntry{u-sub}{&\textrm{Substitution Rule} \quad && \int f(g(x)) g'(x)\, dx = \int f(u)\, du = F(u) + C = F(g(x)) + C}
+  \NewPostamble{%
+      \end{alignat*}%
+    \end{spreadlines}%
+  }
 }
 
-\DeclareFactoid{FTC1}{%
+\NewFactoid{FTC1}{%
   Let $F(x)$ be the antiderivative of $f(x)$:
   \[
     \int_a^b f(x) \, dx = F(b) - F(a)
   \]%
 }
 
-\DeclareFactoid{FTC2}{%
+\NewFactoid{FTC2}{%
   \[
     \frac{d}{dx}\int_{a(x)}^{b(x)}f(t)dt = f(b(x))\cdot b'(x) - f(a(x)) \cdot a'(x)
   \]%
 }
 
-\DeclareFactoid{integral area}{%
+\NewFactoid{integral area}{%
   The area between two curves can be described:
   \[
     \int_a^b\int_{\text{Bottom}(x)}^{\text{Top}(x)}1dydx = \int_a^b[\text{Top}(x) - \text{Bottom}(x)]dx
@@ -1231,63 +1299,68 @@
 }
 
 \makeatletter
-\DeclareFactoid{maclaurin}{%
-  \setbox0=\hbox{$\displaystyle\sum_{k = 0}^{k = 0}$}
-  \setbox0=\hbox{\vrule height\dimexpr\ht0+.5ex\relax depth\dimexpr\dp0+.5ex\relax width0pt}
-  \setbox2=\hbox{\vrule height2.5ex depth1ex width0pt}
-  \def\bigmathstrut{\unhcopy0}
-  \def\bigstrut{\unhcopy2}
-  \def\thickrule{\noalign{\hrule height.8pt}}
-  \def\thinrule{\noalign{\hrule}}
-  \def\verythinrule{\noalign{\hrule height.2pt}}
-  \def\tablerow#1#2#3#4#5#6#7#8#9{%
-    \@tablerow{%
-      \bigmathstrut&%
-      $\m@th\displaystyle #1$&%
-      $\m@th\displaystyle #2$&${}#3{}\m@th$&%
-      $\m@th\displaystyle #4$&${}#5{}\m@th$&%
-      $\m@th\displaystyle #6$&${}#7{}\m@th$&%
-      $\m@th\displaystyle #8$&${}#9\dotsb\m@th$&%
-    }%
+\NewFactoidBundle{maclaurin}{%
+  \NewPreamble{%
+    \setbox0=\hbox{$\displaystyle\sum_{k = 0}^{k = 0}$}
+    \setbox0=\hbox{\vrule height\dimexpr\ht0+.5ex\relax depth\dimexpr\dp0+.5ex\relax width0pt}
+    \setbox2=\hbox{\vrule height2.5ex depth1ex width0pt}
+    \def\bigmathstrut{\unhcopy0}
+    \def\bigstrut{\unhcopy2}
+    \def\thickrule{\noalign{\hrule height.8pt}}
+    \def\thinrule{\noalign{\hrule}}
+    \def\verythinrule{\noalign{\hrule height.2pt}}
+    \def\tablerow#1#2#3#4#5#6#7#8#9{%
+      \@tablerow{%
+        \bigmathstrut&%
+        $\m@th\displaystyle #1$&%
+        $\m@th\displaystyle #2$&${}#3{}\m@th$&%
+        $\m@th\displaystyle #4$&${}#5{}\m@th$&%
+        $\m@th\displaystyle #6$&${}#7{}\m@th$&%
+        $\m@th\displaystyle #8$&${}#9\dotsb\m@th$&%
+      }%
+    }
+    \def\@tablerow#1#2{%
+      #1%
+      $\m@th\displaystyle #2$
+    }
+    \vbox\bgroup\tabskip=0pt \offinterlineskip\halign\bgroup%
+      #\tabskip=1em&\hfil#\hfil&\tabskip=0pt%
+        \hfil#\hfil&\hfil#\hfil&%
+        \hfil#\hfil&\hfil#\hfil&%
+        \hfil#\hfil&\hfil#\hfil&%
+        \hfil#\hfil&\hfil#\hfil\tabskip=2em&%
+        #\hfil\cr \thickrule
+      \bigstrut&Function&\omit Maclaurin series\hfil\hidewidth&&&&&&&&Sigma notation\cr \thinrule
   }
-  \def\@tablerow#1#2{%
-    #1%
-    $\m@th\displaystyle #2$
-  }
-  \vbox{\tabskip=0pt \offinterlineskip\halign{%
-    #\tabskip=1em&\hfil#\hfil&\tabskip=0pt%
-      \hfil#\hfil&\hfil#\hfil&%
-      \hfil#\hfil&\hfil#\hfil&%
-      \hfil#\hfil&\hfil#\hfil&%
-      \hfil#\hfil&\hfil#\hfil\tabskip=2em&%
-      #\hfil\cr \thickrule
-    \bigstrut&Function&\omit Maclaurin series\hfil\hidewidth&&&&&&&&Sigma notation\cr \thinrule
-    \tablerow
+  \NewInteramble{\verythinrule}
+  \NewEntry{exp}{\tablerow
       {e^x}
       1 + {\frac x {1!}} + {\frac {x^2} {2!}} + {\frac {x^3} {3!}} +
-      {\sum_{k = 0}^\infty \frac {x^k} {k!}}\cr \verythinrule
-    \tablerow
+      {\sum_{k = 0}^\infty \frac {x^k} {k!}}\cr}
+  \NewEntry{sin}{\tablerow
       {\sin(x)}
       {\frac x {1!}} - {\frac {x^3} {3!}} + {\frac {x^5} {5!}} - {\frac {x^7} {7!}} +
-      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}\cr \verythinrule
-    \tablerow
+      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k + 1}} {(2k + 1)!}}\cr}
+  \NewEntry{cos}{\tablerow
       {\cos(x)}
       1 - {\frac {x^2} {2!}} + {\frac {x^4} {4!}} - {\frac {x^6} {6!}} +
-      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}\cr \verythinrule
-    \tablerow
+      {\sum_{k = 0}^\infty (-1)^k \frac {x^{2k}} {(2k)!}}\cr}
+  \NewEntry{geom series}{\tablerow
       {\frac 1 {1 - x}}
       1 + x + {x^2} + {x^3} +
-      {\sum_{k = 0}^\infty x^k},\quad\hfill $-1 < x < 1$\cr \verythinrule
-    \tablerow
+      {\sum_{k = 0}^\infty x^k},\quad\hfill $-1 < x < 1$\cr}
+  \NewEntry{log}{\tablerow
       {\ln(1 + x)}
       {\frac x 1} - {\frac {x^2} 2} + {\frac {x^3} 3} - {\frac {x^4} 4} +
-      {\sum_{k = 1}^\infty (-1)^{k + 1} \frac {x^k} k},\quad\hfill $-1 < x \le 1$\cr \thickrule
-    }}
+      {\sum_{k = 1}^\infty (-1)^{k + 1} \frac {x^k} k},\quad\hfill $-1 < x \le 1$\cr}
+  \NewPostamble{%
+      \thickrule
+    \egroup\egroup
   }
+}
 \makeatother
 
-\DeclareFactoid{plane geom}{%
-
+\NewFactoid{plane geom}{%
 \begin{tabular}{c|c|c}
   % circle
   \tikz [baseline={(d.base)}]{
@@ -1411,5 +1484,5 @@
 
 \end{tabular}
 }
-\DeclareFactoid{2d geom}{\factoid{plane geom}}
-\DeclareFactoid{plane geometry}{\factoid{plane geom}}
+\NewFactoid{2d geom}{\Factoid{plane geom}}
+\NewFactoid{plane geometry}{\Factoid{plane geom}}
