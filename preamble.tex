@@ -1516,7 +1516,7 @@
     \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
       \hfil\vphantom{$\frac\strut\strut$}#\hfil\cr
       \tikz [baseline={(pentagon.base)}] {
-        \useasboundingbox (-1, -1) rectangle (1, 1);
+        \useasboundingbox (-1, -1.15) rectangle (1, 1);
         \draw [fill=black] (0,0) circle (0.05) node(pentagon){};
         \draw
             (90 + 7*360/11 - 360/22 : {cos(360/22)})
@@ -1543,7 +1543,11 @@
             (90 + 2*360/11 : 1)
           -- (90 + 1*360/11 : 1) node [pos=0.5, anchor=-90+1.5*360/11] {$s$};
       }\cr
-      $A = \frac12aP = \frac n2as$\cr
+      $\vcenter{\halign{%
+        \hfil\strut$#$\hfil\cr
+        A = \frac12aP\cr
+        P = ns\cr
+      }}$\cr
     }}}%
   }
   \NewPostamble{%
