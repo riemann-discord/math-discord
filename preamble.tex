@@ -1360,129 +1360,200 @@
 }
 \makeatother
 
-\NewFactoid{plane geom}{%
-\begin{tabular}{c|c|c}
-  % circle
-  \tikz [baseline={(d.base)}]{
-      \draw circle (1);
-      \draw [dashed] (0, -1) -- node [left] (d) {$d$} (0, 1);
-      \draw [dashed] (0, 0) -- node [above] {$r$} (1, 0);
-  } &
-  % rectangle
-  \tikz [baseline={(r.base)}] {
-    \useasboundingbox (-1.2, -1.0) rectangle (1.2, 1.2);
-    \draw (-1, -0.618)
-      -- node [above] {$b$} (1, -0.618)
-      -- node [left] (r) {$h$} (1, 0.618)
-      -- (-1, 0.618)
-      -- cycle;
-  } &
-  % p-gram
-  \tikz [baseline={(p.base)}] {
-    \useasboundingbox (-1.2, -1.0) rectangle (1.2, 1.2);
-    \draw (-1, -0.88)
-      -- (0.5, -0.88) node [pos=0.4, above] {$b$}
-      -- (1, 0.88) node [midway] (p){}
-      -- (-0.5, 0.88)
-      -- cycle;
-    \draw[dashed] (0.2,-0.88) -- (0.2,0.88) node [pos=0.6, right]{$h$}
-  } \\
-  $A = \pi r^2$ &
-  $A = bh$ &
-  $A = bh$
-  \\
-  $C = 2\pi r$ &
-  $P = 2b + 2h$ &
-  \\
-
-  \hline
-
-  % sector
-  \tikz [baseline={(sector.base)}] {
-    \useasboundingbox (-1.2, -1.0) rectangle (1.2, 1.0);
-    \draw (0,0) node(sector){};
-    \draw (0,-1) -- (1.414, -1+1.414) node [midway, above] {$r$}
-      arc (45:135:2)
-      -- cycle;
-    \draw (0+1.414*0.1, -1+1.414*0.1) arc (45:135:0.2) node[midway, above] {$\theta$};
-  } &
-
-  % triangle
-  \tikz [baseline={(t.base)}] {
-    \useasboundingbox (-1.0, -1.8) rectangle (1.0, 1.0);
-    \draw (-1,-1) -- (1,-1) node [midway, below]{$b$} -- (0,1) -- cycle;
-    \draw[dashed] (0,-1) -- (0,1) node [pos=0.4, left]{$h$};
-    \draw (0,0) node(t){};
-  } &
-
-  % trapezoid
-  \tikz [baseline={(trap.base)}] {
-    \useasboundingbox (-1.2, -1.5) rectangle (1.2, 1.5);
-    \draw (0,0) node(trap){};
-    \draw (-1,-1)
-      -- (1,-1) node [midway, below]{$b$}
-      -- (0.5,1)
-      -- (-0.5,1) node [midway, above]{$a$}
-      -- cycle;
-    \draw[dashed] (0,-1) -- (0,1) node [midway, right]{$h$};
-  } \\
-
-  \begin{minipage}{0.2\textwidth}
-    \centering
-    $A = \frac12r^2\theta$ \\\vspace{0.5ex}
-    $P = 2r + r\theta$
-    \vspace{0.5ex}
-  \end{minipage}&
-  $A = \frac12bh$ &
-  $A = h\left(\frac{a+b}{2}\right)$
-  \\
-  \hline
-
-  % ellipse
-  \tikz [baseline={(ellipse.base)}] {
-    %\useasboundingbox (-1, -1.2) rectangle (2.2, 1.2);
-    \draw (0,0) node(ellipse){};
-    \draw (0,0) ellipse (1.5 and 1);
-    \draw [fill=black] circle (0.05);
-    \draw [dashed] (-1.5,0) -- (0,0) node [pos=0.5, below] {$a$};
-    \draw [dashed] (0,0) -- (0,1) node [pos=0.5, right] {$b$};
-    \draw [dotted] (0,0) -- (1.5,0);
-    \draw [dotted] (0,-1) -- (0,1);
-  } &
-
-  % kite
-  \tikz [baseline={(kite.base)}] {
-    \useasboundingbox (-1, -1.2) rectangle (2.2, 1.2);
-    \draw (0,0) node(kite){};
-    \draw (-0.7,0)
-      -- (0,-1)
-      -- (2,0)
-      -- (0,1)
-      -- cycle;
-    \draw [dashed] (-0.7,0) -- (2,0) node [pos=0.5, below] {$q$};
-    \draw [dashed] (0,-1) -- (0,1) node [pos=0.7, right] {$p$}
-  } &
-
-  % pentagon
-  \tikz [baseline={(pentagon.base)}] {
-    \useasboundingbox (-1, -1) rectangle (1, 1);
-    \draw [fill=black] (0,0) circle (0.05) node(pentagon){};
-    \draw (-{sin(36)}, -{cos(36)})
-      -- ({sin(36)}, -{cos(36)})% node [pos=0.5, below] {$s$}
-      -- ({cos(18)}, {sin(18)})
-      -- (0, 1)
-      -- ({-cos(18)}, {sin(18)})
-      -- cycle node [pos=0.5, left] {$s$}
-      ;
-    \draw [dashed] (0,0) -- (0, -{cos(36)}) node [pos=0.5, right] {$a$};
+\makeatletter
+\ExplSyntaxOn
+\let\int@zero@new@N\int_zero_new:N
+\let\int@compare@nNnTF\int_compare:nNnTF
+\let\int@mod@nn\int_mod:nn
+\let\int@incr@N\int_incr:N
+\let\tl@clear@new@N\tl_clear_new:N
+\let\tl@put@left@Nn\tl_put_left:Nn
+\let\tl@put@right@Nn\tl_put_right:Nn
+\let\tl@use@N\tl_use:N
+\ExplSyntaxOff
+\NewFactoidBundle{2d geom}{%
+  \NewPreamble{%
+    \int@zero@new@N\l@plane@geom@int
+    \tl@clear@new@N\l@plane@geom@tl
   }
-
-  \\
-  $A = \pi ab$ &
-  $A = \frac12pq$ &
-  $A = \frac12aP = \frac52as$
-
-\end{tabular}
+  \NewInteramble{%
+    \int@compare@nNnTF{\int@mod@nn{\l@plane@geom@int}{3}}={0}
+      {\tl@put@right@Nn\l@plane@geom@tl{\\\hline}}
+      {\tl@put@right@Nn\l@plane@geom@tl{&}}%
+  }
+  \NewEntry{circle}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\strut#\hfil\cr
+      \tikz [baseline={(d.base)}]{
+        \draw circle (1);
+        \draw [dashed] (0, -1) -- node [left] (d) {$d$} (0, 1);
+        \draw [dashed] (0, 0) -- node [above] {$r$} (1, 0);
+      }\cr
+      $A = \pi r^2$\cr
+      $C = 2\pi r$\cr
+    }}}%
+  }
+  \NewEntry{rectangle}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\strut#\hfil\cr
+      \tikz [baseline={(r.base)}] {
+        \useasboundingbox (-1.2, -1.0) rectangle (1.2, 1.2);
+        \draw (-1, -0.618)
+          -- node [above] {$b$} (1, -0.618)
+          -- node [left] (r) {$h$} (1, 0.618)
+          -- (-1, 0.618)
+          -- cycle;
+      }\cr
+      $A = bh$\cr
+      $P = 2b + 2h$\cr
+    }}}%
+  }
+  \NewEntry{parallelogram}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\strut#\hfil\cr
+      \tikz [baseline={(p.base)}] {
+        \useasboundingbox (-1.2, -1.0) rectangle (1.2, 1.2);
+        \draw (-1, -0.88)
+          -- (0.5, -0.88) node [pos=0.4, above] {$b$}
+          -- (1, 0.88) node [midway] (p){}
+          -- (-0.5, 0.88)
+          -- cycle;
+        \draw[dashed] (0.2,-0.88) -- (0.2,0.88) node [pos=0.6, right]{$h$}
+      }\cr
+      $A = bh$\cr
+      \cr
+    }}}%
+  }
+  \NewEntry{sector}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\strut#\hfil\cr
+      \tikz [baseline={(sector.base)}] {
+        \useasboundingbox (-1.5, -1.2) rectangle (1.5, 1.0);
+        \draw (0,-1.2) node(sector){};
+        \draw (0,-1) -- (1.414, -1+1.414) node [midway, above] {$r$}
+          arc (45:135:2)
+          -- cycle;
+        \draw (0+1.414*0.1, -1+1.414*0.1) arc (45:135:0.2) node[midway, above] {$\theta$};
+      }\cr
+      $\vcenter{\halign{%
+        \hfil\strut$#$\hfil\cr
+        A = \frac12r^2\theta\cr
+        P = 2r + r\theta\cr
+      }}$\cr
+    }}}%
+  }
+  \NewEntry{triangle}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\strut#\hfil\cr
+      \tikz [baseline={(t.base)}] {
+        \useasboundingbox (-1.0, -1.8) rectangle (1.0, 1.0);
+        \draw (-1,-1) -- (1,-1) node [midway, below]{$b$} -- (0,1) -- cycle;
+        \draw[dashed] (0,-1) -- (0,1) node [pos=0.4, left]{$h$};
+        \draw (0,0) node(t){};
+      }\cr
+      $A = \frac12bh$\cr
+    }}}%
+  }
+  \NewEntry{trapezoid}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\strut#\hfil\cr
+      \tikz [baseline={(trap.base)}] {
+        \useasboundingbox (-1.2, -1.5) rectangle (1.2, 1.5);
+        \draw (0,0) node(trap){};
+        \draw (-1,-1)
+          -- (1,-1) node [midway, below]{$b$}
+          -- (0.5,1)
+          -- (-0.5,1) node [midway, above]{$a$}
+          -- cycle;
+        \draw[dashed] (0,-1) -- (0,1) node [midway, right]{$h$};
+      }\cr
+      $A = h\left(\frac{a+b}2\right)$\cr
+    }}}%
+  }
+  \NewEntry{ellipse}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\vphantom{$\frac\strut\strut$}#\hfil\cr
+      \tikz [baseline={(ellipse.base)}] {
+        %\useasboundingbox (-1, -1.2) rectangle (2.2, 1.2);
+        \draw (0,0) node(ellipse){};
+        \draw (0,0) ellipse (1.5 and 1);
+        \draw [fill=black] circle (0.05);
+        \draw [dashed] (-1.5,0) -- (0,0) node [pos=0.5, below] {$a$};
+        \draw [dashed] (0,0) -- (0,1) node [pos=0.5, right] {$b$};
+        \draw [dotted] (0,0) -- (1.5,0);
+        \draw [dotted] (0,0) -- (0,-1);
+      }\cr
+      $A = \pi ab$\cr
+    }}}%
+  }
+  \NewEntry{kite}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\vphantom{$\frac\strut\strut$}#\hfil\cr
+      \tikz [baseline={(kite.base)}] {
+        \useasboundingbox (-1, -1.2) rectangle (2.2, 1.2);
+        \draw (0,0) node(kite){};
+        \draw (-0.7,0)
+          -- (0,-1)
+          -- (2,0)
+          -- (0,1)
+          -- cycle;
+        \draw [dashed] (-0.7,0) -- (2,0) node [pos=0.5, below] {$q$};
+        \draw [dashed] (0,-1) -- (0,1) node [pos=0.7, right] {$p$}
+      }\cr
+      $A = \frac12pq$\cr
+    }}}%
+  }
+  \NewEntry{polygon}{
+    \int@incr@N\l@plane@geom@int
+    \tl@put@right@Nn\l@plane@geom@tl{\vbox{\halign{%
+      \hfil\vphantom{$\frac\strut\strut$}#\hfil\cr
+      \tikz [baseline={(pentagon.base)}] {
+        \useasboundingbox (-1, -1) rectangle (1, 1);
+        \draw [fill=black] (0,0) circle (0.05) node(pentagon){};
+        \draw
+            (90 + 7*360/11 - 360/22 : {cos(360/22)})
+          -- (90 + 6*360/11 : 1)
+          -- (90 + 5*360/11 : 1)
+          -- (90 + 4*360/11 : 1)
+          -- (90 + 3*360/11 : 1)
+          -- (90 + 2*360/11 : 1)
+          -- (90 + 1*360/11 : 1)
+          -- (90 - 0*360/11 : 1)
+          -- (90 - 1*360/11 : 1)
+          -- (90 - 2*360/11 + 360/22 : {cos(360/22)});
+        \draw [dash pattern=on 1.2pt off 1.5pt]
+            (90 + 7*360/11 - 360/22 : {cos(360/22)})
+          -- (90 + 7*360/11 : 1)
+          -- (90 + 8*360/11 - 360/22 : {cos(360/22)})
+            (90 - 2*360/11 + 360/22 : {cos(360/22)})
+          -- (90 - 2*360/11 : 1)
+          -- (90 - 3*360/11 + 360/22 : {cos(360/22)});
+        \node at (90 - 3*360/11 : 0.95) [rotate=-3*360/11] {$\scriptstyle\cdots$};
+        \node at (90 - 3*360/11 : 1) [anchor=-90-3*360/11] {$n$};
+        \draw [dashed] (0, 0) -- (-90 : {cos(360/22)}) node [pos=0.5, right] {$a$};
+        \draw [ultra thick]
+            (90 + 2*360/11 : 1)
+          -- (90 + 1*360/11 : 1) node [pos=0.5, anchor=-90+1.5*360/11] {$s$};
+      }\cr
+      $A = \frac12aP = \frac n2as$\cr
+    }}}%
+  }
+  \NewPostamble{%
+    \tl@put@right@Nn\l@plane@geom@tl{\end{tabular}}%
+    \int@compare@nNnTF{\l@plane@geom@int}>{1}
+      {\tl@put@left@Nn\l@plane@geom@tl{\begin{tabular}{c|c|c}}}
+      {\tl@put@left@Nn\l@plane@geom@tl{\begin{tabular}{c}}}%
+    \tl@use@N\l@plane@geom@tl
+  }
 }
-\NewFactoid{2d geom}{\Factoid{plane geom}}
-\NewFactoid{plane geometry}{\Factoid{plane geom}}
+\makeatother
+\NewFactoid{plane geom}{\Factoid{2d geom}}
+\NewFactoid{plane geometry}{\Factoid{2d geom}}
