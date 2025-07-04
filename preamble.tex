@@ -1,6 +1,3 @@
-\usepackage{expl3}
-\usepackage{xparse}
-
 % Always typeset math in display style
 \everymath{\displaystyle}
 
@@ -615,6 +612,16 @@
 \protected\def\.{\xgetline\FactoidFuzzy}
 
 \ExplSyntaxOn
+
+%-------------------------------------------------------------------------------
+% automatic dot detection
+%-------------------------------------------------------------------------------
+
+\cs_new_protected:Npn \__factoids_optional_dot:w
+  {
+    \peek_remove_spaces:n { \peek_charcode_remove:NT . { \. } }
+  }
+\g@addto@macro \document \__factoids_optional_dot:w
 
 \char_set_catcode_other:n { `\@ }
 \ExplSyntaxOff
