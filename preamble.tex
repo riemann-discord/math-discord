@@ -1260,6 +1260,91 @@
   }
 }
 
+\NewFactoidBundle{diff std}{%
+    \NewPreamble{%
+      \begin{tabular}{lcc}
+        \textbf{Function} & \textbf{Derivative} \\ \hline
+    }
+    \NewInteramble{\\}
+    \NewEntry{diff constant}{$ c $ & $ 0 $}
+    \NewEntry{diff poly}{$ x^n $ & $ n x^{n-1} $}
+    \NewEntry{diff exp}{$ e^x $ & $ e^x $}
+    \NewEntry{diff aexp}{$ a^x $ & $ a^x \ln(a) $}
+    \NewEntry{diff ln}{$ \ln(x) $ & $ \frac{1}{x} $}
+    \NewEntry{diff loga}{$ \log_a(x) $ & $ \frac{1}{x \ln(a)} $}
+    \NewPostamble{%
+      \end{tabular}%
+    }
+}
+
+\NewFactoidBundle{diff trig}{%
+  \NewPreamble{%
+    \begin{tabular}{lcc}
+      \textbf{Function} & \textbf{Derivative} \\ \hline
+  }
+  \NewInteramble{\\}
+  \NewEntry{diff sin}{$ \sin(x) $ & $ \cos(x) $}
+  \NewEntry{diff cos}{$ \cos(x) $ & $ -\sin(x) $}
+  \NewEntry{diff tan}{$ \tan(x) $ & $ \sec^2(x) $}
+  \NewEntry{diff csc}{$ \csc(x) $ & $ -\csc(x)\cot(x) $}
+  \NewEntry{diff sec}{$ \sec(x) $ & $ \sec(x)\tan(x) $}
+  \NewEntry{diff cot}{$ \cot(x) $ & $ -\csc^2(x) $}
+  \NewPostamble{%
+    \end{tabular}%
+  }
+}
+
+\NewFactoidBundle{diff inv trig}{%
+  \NewPreamble{%
+    \begin{tabular}{lcc}
+      \textbf{Function} & \textbf{Derivative} \\ \hline
+  }
+  \NewInteramble{\\}
+  \NewEntry{diff arcsin}{$ \arcsin(x) $ & $ \frac{1}{\sqrt{1-x^2}} $}
+  \NewEntry{diff arccos}{$ \arccos(x) $ & $ -\frac{1}{\sqrt{1-x^2}} $}
+  \NewEntry{diff arctan}{$ \arctan(x) $ & $ \frac{1}{1+x^2} $}
+  \NewEntry{diff arccot}{$ \arccot(x) $ & $ -\frac{1}{1+x^2} $}
+  \NewEntry{diff arcsec}{$ \arcsec(x) $ & $ \frac{1}{|x|\sqrt{x^2-1}} $}
+  \NewEntry{diff arccsc}{$ \arccsc(x) $ & $ -\frac{1}{|x|\sqrt{x^2-1}} $}
+  \NewPostamble{%
+    \end{tabular}%
+  }
+}
+
+\NewFactoidBundle{diff trigh}{%
+    \NewPreamble{%
+      \begin{tabular}{lcc}
+        \textbf{Function} & \textbf{Derivative} \\ \hline
+    }
+    \NewInteramble{\\}
+    \NewEntry{diff sinh}{$ \sinh(x) $ & $ \cosh(x) $}
+    \NewEntry{diff cosh}{$ \cosh(x) $ & $ \sinh(x) $}
+    \NewEntry{diff tanh}{$ \tanh(x) $ & $ \sech^2(x) $}
+    \NewEntry{diff coth}{$ \coth(x) $ & $ -\csch^2(x) $}
+    \NewEntry{diff sech}{$ \sech(x) $ & $ -\sech(x)\tanh(x) $}
+    \NewEntry{diff csch}{$ \csch(x) $ & $ -\csch(x)\coth(x) $}
+    \NewPostamble{%
+      \end{tabular}%
+    }
+}
+
+\NewFactoidBundle{diff inv trigh}{%
+  \NewPreamble{%
+    \begin{tabular}{lcc}
+      \textbf{Function} & \textbf{Derivative} & \textbf{Restriction}\\ \hline
+  }
+  \NewInteramble{\\}
+  \NewEntry{diff arsinh}{$ \arsinh(x) $ & $ \frac{1}{\sqrt{x^2+1}} $ & $ \textrm{} $}
+  \NewEntry{diff arcosh}{$ \arcosh(x) $ & $ \frac{1}{\sqrt{x^2-1}} $ & $ x>1 $}
+  \NewEntry{diff artanh}{$ \artanh(x) $ & $ \frac{1}{1-x^2} $ & $ |x|<1 $}
+  \NewEntry{diff arcoth}{$ \arcoth(x) $ & $ \frac{1}{1-x^2} $ & $ |x|>1 $}
+  \NewEntry{diff arsech}{$ \arsech(x) $ & $ -\frac{1}{x\sqrt{1-x^2}} $ & $ 0<x<1 $}
+  \NewEntry{diff arcsch}{$ \arcsch(x) $ & $ -\frac{1}{\abs{x}\sqrt{1+x^2}} $ & $ x \ne 0 $}
+  \NewPostamble{%
+    \end{tabular}%
+  }
+}
+
 \NewFactoidBundle{int rules}{%
   \NewPreamble{%
     Suppose $F'(x) = f(x)$ and $G'(x) = g(x)$ and $C$ an arbitrary constant.
