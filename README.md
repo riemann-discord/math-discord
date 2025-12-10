@@ -80,6 +80,11 @@ Here is a list of factoids:
 `\.demoivre`,
 `\.limit rules`,
 `\.diff rules`,
+`\.diff std`.
+`\.diff trig`,
+`\.diff inv trig`,
+`\.diff trigh`,
+`\.diff inv trig h`,
 `\.int rules`,
 `\.FTC1`,
 `\.FTC2`,
